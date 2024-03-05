@@ -1,0 +1,74 @@
+<ion-menu side="end" contentId="main-content" menuId="menu-calendar">
+  <ion-content class="ion-padding">
+    <div class="col-12 text-center">
+      <h1 class="menu_heading mb-3">Recently Accessed Items</h1>
+      <div class="d-flex justify-content-center mb-3">
+        <ion-img src="assets/img/recent_access.png"></ion-img>
+      </div>
+      <p class="menu_body">No Recent Items</p>
+    </div>
+    <div class="col-12">
+      <h1 class="menu_heading mb-3 text-center">Recently Accessed Items</h1>
+      <div class="card mb-3">
+        <div class="col-12 p-2">
+          <div class="d-flex align-items-start justify-content-start">
+            <ion-img src="assets/img/document.png" alt=""></ion-img>
+            <ion-text class="content_p"
+              >Click here for
+              <strong>Password Security</strong> Content</ion-text
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card mb-3">
+        <div class="col-12 p-2">
+          <div class="d-flex align-items-start justify-content-start">
+            <ion-img src="assets/img/lock_bg.png" alt=""></ion-img>
+            <ion-text class="content_p"
+              >Click here for <strong>Password Security </strong>Quiz</ion-text
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-menu>
+
+<ion-header [translucent]="true" class="mb-2">
+  <ion-toolbar class="p-1">
+    <p class="header p-2">SK GURUKUL</p>
+    <ion-icon class="p-2" size="large" slot="end" name="logo-behance"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true" id="main-content">
+  <ion-button class="arrow_btn" slot="fixed" (click)="onArrow()">
+    <ion-img src="assets/img/sideArrow.png" alt=""></ion-img
+  ></ion-button>
+  <div>
+    <div
+      class="ion-padding mb-3 col-12 d-flex align-items-center justify-content-center"
+    >
+      <ion-datetime
+        presentation="date"
+        display-format="DD-MM-YYYY" (ionChange)="onChange($event)"
+      ></ion-datetime>
+    </div>
+    <hr class="calendar_hr" />
+    <div class="ion-padding">
+      <div class="mb-3">
+        <div
+          class="col-12 d-flex justify-content-between align-items-center sub mt-2"
+        >
+          <div class="icons_sub">
+            <ion-img src="assets/img/note.png" alt=""></ion-img>
+            <p class="header_sub">TO DO</p>
+          </div>
+          <p class="header_sub">
+            {{ selectedDate }}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>
+<app-footer></app-footer>

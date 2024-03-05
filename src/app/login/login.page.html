@@ -1,0 +1,123 @@
+<div class="main h-100">
+  <div class="header text-center">
+    <img class="logo" src="assets\img\Group 1.png" alt="logo" />
+  </div>
+
+  <div class="container h-100 p-0">
+    <div class="container_sub">
+      <div class="form" *ngIf="showUserForm === true">
+        <p class="heading" (click)="changeForm('otp')">Login Via User ID</p>
+        <div class="form_main">
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+            <div class="form-group">
+              <label for="username" class="form_label">
+                <span class="glyphicon glyphicon-user"></span>User ID</label
+              >
+              <div class="col-12 d-flex align-items-center">
+                <ion-img class="icon" src="assets/icon/user.svg" />
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="username"
+                  id="username"
+                  placeholder="Enter Username"
+                  name="username"
+                />
+              </div>
+              <hr class="hr" />
+            </div>
+            <div class="form-group">
+              <label class="form_label" for="password">
+                <span class="glyphicon glyphicon-user"></span>Password</label
+              >
+              <div class="col-12 d-flex align-items-center">
+                <ion-img class="icon" src="assets/icon/padlock.svg" />
+                <input
+                  type="password"
+                  class="form-control"
+                  id="password"
+                  formControlName="password"
+                  placeholder="Enter password"
+                  name="password"
+                />
+              </div>
+              <hr class="hr" />
+            </div>
+            <div
+              class="col-12 d-flex align-items-center justify-content-between"
+            >
+              <p class="fgt_pwd">Forgot Password ?</p>
+              <button
+                class="btn_login"
+                type="submit"
+                [disabled]="loginForm.invalid"
+              >
+                Sign In
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="form" *ngIf="showUserForm === false">
+        <p class="heading" (click)="changeForm('user')">Login Via OTP</p>
+        <div class="form_main">
+          <form [formGroup]="otpLoginForm" (ngSubmit)="onSubmit()" novalidate>
+            <div class="form-group">
+              <label for="phone" class="form_label">Mobile Number</label>
+
+              <div class="col-12 d-flex align-items-center">
+                <ion-img class="icon" src="assets/icon/phone.svg" />
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="phone"
+                  id="phone"
+                  placeholder="Enter phone"
+                  name="phone"
+                  maxlength="10"
+                />
+                <ion-icon
+                  *ngIf="g['phone']!.value.length === 10"
+                  color="success"
+                  name="checkmark-circle-sharp"
+                ></ion-icon>
+              </div>
+              <hr class="hr" />
+            </div>
+            <div class="form-group">
+              <label class="form_label" for="otp">OTP</label>
+              <div class="col-12 d-flex align-items-center">
+                <ion-img class="icon" src="assets/icon/padlock.svg" />
+                <input
+                  type="otp"
+                  class="form-control"
+                  id="otp"
+                  formControlName="otp"
+                  placeholder="Enter otp"
+                  name="otp"
+                />
+              </div>
+              <hr class="hr" />
+            </div>
+            <div
+              class="col-12 d-flex align-items-center justify-content-between"
+            >
+              <p class="fgt_pwd">Resent OTP?</p>
+              <button
+                class="btn_login"
+                type="submit"
+                [disabled]="loginForm.invalid"
+              >
+                Sign In
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div>
+      <ion-img class="footer_img" src="assets/img/footer_img.png"></ion-img>
+    </div>
+  </div>
+</div>

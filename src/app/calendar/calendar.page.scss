@@ -1,0 +1,135 @@
+.header {
+    margin: 0;
+    font-size: 16px;
+    font-family: "Inter", sans-serif;
+    font-weight: 600;
+  }
+  .card {
+    border-radius: 10px;
+    border: 1px solid #dcdcdc;
+    margin: 0;
+  }
+  .card_main {
+    display: flex;
+    justify-content: flex-start;
+    padding: 8px;
+  }
+  
+  .card_sub {
+    padding-left: 10px;
+  }
+  .card_title {
+    margin-top: 0;
+    font-family: "Inter", sans-serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: #000000;
+  }
+  .card_text {
+    background-color: #3553a1;
+    border-radius: 20px;
+    text-align: center;
+    width: 100px;
+    padding: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #fff;
+    font-family: "Inter", sans-serif;
+  }
+  
+  .card_body_sub {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .bar_main {
+    display: flex;
+    align-items: center;
+  }
+  .container {
+    padding: 0;
+    border: 1px solid #cecece;
+    border-radius: 10px;
+  }
+  .container p {
+    padding: 10px;
+    color: #000;
+    text-align: center;
+    font-family: "Inter", sans-serif;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+  }
+  .hr {
+    margin: 0;
+    height: 1px;
+    background: #cecece;
+  }
+  .main_two {
+    padding: 25px;
+  }
+  
+  .sub {
+    padding: 8px;
+    background-color: #3553a1;
+    border-radius: 5px;
+    color: white;
+  }
+  .header_sub {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: "Inter", sans-serif;
+    margin-left: 10px;
+  }
+  .icons_sub {
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+  }
+  .cap_icon {
+    background-color: #d9d9d91f;
+  }
+
+  .calendar_hr{
+    border: 0.5px solid #a8a8a8;
+  }
+  
+  
+  ion-button[slot="fixed"] {
+    top: 50%;
+    right: 0;
+  }
+  .arrow_btn {
+    --background: none;
+    --box-shadow: none;
+    --padding-bottom: none;
+    --padding-end: none;
+    --padding-start: none;
+    --padding-top: none;
+  }
+  // arrow menu css start
+  .menu_heading {
+    color: #000;
+    font-family: "Inter", sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+  }
+  .menu_body {
+    color: #000;
+    font-family: "Inter", sans-serif;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 300;
+  }
+  .content_p {
+    margin-left: 5px !important;
+    margin: 0;
+    color: #000;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 300;
+  }
+  // arrow menu css end

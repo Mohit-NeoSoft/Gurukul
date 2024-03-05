@@ -1,0 +1,29 @@
+<ion-header [translucent]="true" class="ion-no-border">
+  <ion-toolbar>
+    <ion-back-button
+      color="primary"
+      slot="start"
+      defaultHref=""
+    ></ion-back-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="col-12 inbox text-center">
+    <div class="d-flex align-items-center justify-content-center mb-5">
+      <ion-img src="assets/img/chat_grey.png"></ion-img>
+    </div>
+    <p class="inbox_p">No Messages were found</p>
+  </div>
+</ion-content>
+<ion-footer class="ion-padding footer">
+  <ion-toolbar class="chat_ft">
+    <div class="col-12 d-flex align-items-center justify-content-evenly">
+      <ion-input
+        class="col-10 msg p-1"
+        placeholder="Type a message"
+      ></ion-input>
+      <ion-img src="assets/img/send.png"></ion-img>
+    </div>
+  </ion-toolbar>
+</ion-footer>

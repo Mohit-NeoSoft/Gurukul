@@ -1,0 +1,78 @@
+<ion-header [translucent]="true">
+  <ion-toolbar class="p-1">
+    <ion-title class="title">Messages</ion-title>
+    <ion-icon
+      class="p-1"
+      slot="end"
+      size="large"
+      name="search-outline"
+    ></ion-icon>
+    <ion-icon
+      class="p-1"
+      slot="end"
+      size="large"
+      name="settings-outline"
+    ></ion-icon>
+    <ion-icon
+      class="p-1"
+      slot="end"
+      size="large"
+      name="logo-behance"
+    ></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="col-12 p-2">
+    <ion-accordion-group>
+      <ion-accordion class="acc_main_index" value="first" toggleIcon="">
+        <ion-item
+          lines="none"
+          class="acc_header_index"
+          slot="header"
+          (click)="toggleAccordion(1)"
+        >
+          <ion-icon
+            slot="start"
+            color="primary"
+            class="p-0 m-0"
+            [name]="isExpanded1 ? 'chevron-up' : 'chevron-forward'"
+            [style.transform]="isExpanded1 ? 'rotate(180deg)' : 'rotate(0deg)'"
+          ></ion-icon>
+          <ion-label class="acc_label">Instructors</ion-label>
+        </ion-item>
+        <div class="ion-padding col-12" slot="content">
+          <div class="d-flex align-items-center justify-content-start mb-3" (click)="onContact()">
+            <ion-img src="assets/img/user_green.png"></ion-img>
+            <h1 class="contact_name m-0 ms-2">ADITI MITTAL</h1>
+          </div>
+          <div class="d-flex align-items-center justify-content-start mb-3">
+            <ion-img src="assets/img/user_green.png"></ion-img>
+            <h1 class="contact_name m-0 ms-2">Ravi Patel</h1>
+          </div>
+        </div>
+      </ion-accordion>
+    </ion-accordion-group>
+    <ion-accordion-group>
+      <ion-accordion class="acc_main_index" value="first" toggleIcon="">
+        <ion-item
+          lines="none"
+          class="acc_header_index"
+          slot="header"
+          (click)="toggleAccordion(2)"
+        >
+          <ion-icon
+            slot="start"
+            color="primary"
+            class="p-0 m-0"
+            [name]="isExpanded2 ? 'chevron-up' : 'chevron-forward'"
+            [style.transform]="isExpanded2 ? 'rotate(180deg)' : 'rotate(0deg)'"
+          ></ion-icon>
+          <ion-label class="acc_label">Group (0)</ion-label>
+        </ion-item>
+        <div class="ion-padding col-12" slot="content"></div>
+      </ion-accordion>
+    </ion-accordion-group>
+  </div>
+</ion-content>
+<app-footer></app-footer>

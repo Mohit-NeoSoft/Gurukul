@@ -1,20 +1,247 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-menu side="end" contentId="main-content" menuId="menu">
+  <ion-content class="ion-padding">
+    <div class="col-12 text-center">
+      <h1 class="menu_heading mb-3">Recently Accessed Items</h1>
+      <div class="d-flex justify-content-center mb-3">
+        <ion-img src="assets/img/recent_access.png"></ion-img>
+      </div>
+      <p class="menu_body">No Recent Items</p>
+    </div>
+    <div class="col-12">
+      <h1 class="menu_heading mb-3 text-center">Recently Accessed Items</h1>
+      <div class="card mb-3">
+        <div class="col-12 p-2">
+          <div class="d-flex align-items-start justify-content-start">
+            <ion-img src="assets/img/document.png" alt=""></ion-img>
+            <ion-text class="content_p"
+              >Click here for
+              <strong>Password Security</strong> Content</ion-text
+            >
+          </div>
+        </div>
+      </div>
+      <div class="card mb-3">
+        <div class="col-12 p-2">
+          <div class="d-flex align-items-start justify-content-start">
+            <ion-img src="assets/img/lock_bg.png" alt=""></ion-img>
+            <ion-text class="content_p"
+              >Click here for <strong>Password Security </strong>Quiz</ion-text
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </ion-content>
+</ion-menu>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+<!-- Profile Menu Start -->
+<ion-menu side="end" contentId="main-content" menuId="menuProfile">
+  <ion-header>
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title class="profile_heading">User Account</ion-title>
+      <ion-icon
+        class="p-1"
+        slot="end"
+        size="large"
+        name="close-sharp"
+        (click)="onClose()"
+      ></ion-icon>
     </ion-toolbar>
   </ion-header>
+  <ion-content>
+    <div class="col-12 text-center ion-padding">
+      <h1 class="profle_title">SK GURUKUL</h1>
+      <div class="d-flex justify-content-center mb-3">
+        <a (click)="openCapacitorSite()" class="profile_link"
+          >https://uat-gurukul.skfin.in</a
+        >
+      </div>
+    </div>
+    <hr class="profile_hr" />
+    <div class="d-flex align-items-center justify-content-between ion-padding">
+      <div class="d-flex align-items-center">
+        <ion-img src="assets/img/user.png"></ion-img>
+        <p class="profile_name m-1">ADITI MITTAL</p>
+      </div>
+      <ion-icon
+        slot="end"
+        color="primary"
+        size="large"
+        name="chevron-forward-sharp"
+      ></ion-icon>
+    </div>
+    <hr class="profile_hr" />
+    <div class="d-flex align-items-center justify-content-between ion-padding">
+      <div class="d-flex align-items-center">
+        <ion-img src="assets/img/result.png"></ion-img>
+        <p class="profile_grades m-2">Grades</p>
+      </div>
+      <ion-icon (click)="onGrades()"
+        slot="end"
+        color="primary"
+        size="large"
+        name="chevron-forward-sharp"
+      ></ion-icon>
+    </div>
+    <div class="d-flex align-items-center justify-content-between ion-padding">
+      <div class="d-flex align-items-center">
+        <ion-img class="p-1" src="assets/img/trophy.svg"></ion-img>
+        <p class="profile_grades m-2">Badges</p>
+      </div>
+      <ion-icon (click)="onBadges()"
+        slot="end"
+        color="primary"
+        size="large"
+        name="chevron-forward-sharp"
+      ></ion-icon>
+    </div>
+    <hr class="profile_hr" />
+    <div class="d-flex align-items-center justify-content-between ion-padding">
+      <div class="d-flex align-items-center">
+        <ion-icon class="setting_icon p-1" name="settings-outline"></ion-icon>
+        <p class="profile_grades m-1">Prefrences</p>
+      </div>
+      <ion-icon (click)="onPreferences()"
+        slot="end"
+        color="primary"
+        size="large"
+        name="chevron-forward-sharp"
+      ></ion-icon>
+    </div>
+  </ion-content>
+  <ion-footer [translucent]="true" class="ion-padding">
+    <ion-toolbar>
+      <ion-button expand="block" color="danger" class="logout_btn"><ion-icon name="power-sharp"></ion-icon><span class="logout_span p-1">Logout</span></ion-button>
+    </ion-toolbar>
+  </ion-footer>
+</ion-menu>
+<!-- Profile Menu End -->
 
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+<ion-header [translucent]="true" class="mb-2">
+  <ion-toolbar class="p-1">
+    <p class="header p-2">SK GURUKUL</p>
+    <ion-icon
+      class="p-2"
+      size="large"
+      slot="end"
+      name="logo-behance"
+      (click)="onProfile()"
+    ></ion-icon>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true" id="main-content">
+  <ion-button class="arrow_btn" slot="fixed" (click)="onArrow()">
+    <ion-img src="assets/img/sideArrow.png" alt=""></ion-img
+  ></ion-button>
+  <div class="ion-padding">
+    <div class="anim_card mb-3">
+      <p class="col-12 anim_p"><span class="blinker">Announcement</span></p>
+      <ion-text class="anim_text"
+        >Lorem Ipsum doller site amet Ipsum doller site</ion-text
+      >
+    </div>
+    <div class="main_one" *ngFor="let progressBar of myCourses; let i = index">
+      <div class="card mb-3">
+        <div class="col-12 card_main">
+          <div (click)="onCardClick(progressBar)">
+            <ion-img
+              src="{{ progressBar.src }}"
+              class="img-fluid rounded-start"
+              alt=""
+            ></ion-img>
+          </div>
+          <div class="col-10 card_sub">
+            <div class="card_body p-0">
+              <div class="col-12 card_body_sub">
+                <h5 class="card_title" (click)="onCardClick(progressBar)">
+                  {{ progressBar.name }}
+                </h5>
+                <ion-img
+                  src="assets/icon/download.svg"
+                  alt=""
+                  (click)="onDownload()"
+                ></ion-img>
+              </div>
+              <p class="card_text" (click)="onCardClick(progressBar)">
+                {{ progressBar.type }}
+              </p>
+              <div class="col-12 bar_main">
+                <div class="progress_bar_container col-10">
+                  <div
+                    class="progress_bar"
+                    [style.width]="progressBar.value * 100 + '%'"
+                  ></div>
+                </div>
+                <div class="percentage_display col-2">
+                  {{ progressBar.value * 100 }}%
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="mb-3">
+      <div class="col-12 d-flex justify-content-between sub">
+        <div class="icons_sub">
+          <ion-icon class="cap_icon" name="school-sharp"></ion-icon>
+          <p class="header_sub">Recommended Courses</p>
+        </div>
+        <!-- <button class="popup_btn" (click)="presentPopover($event)"><ion-icon class="ellipsis" name="ellipsis-horizontal-sharp"></ion-icon></button>
+          <ion-popover #popover [isOpen]="isOpen" (didDismiss)="isOpen = false">
+            <ng-template>
+              <ion-content>
+                <ion-list class="p-0">
+                  <ion-item class="toggle" lines="none" *ngFor="let item of toggleValues">
+                    <ion-toggle [(ngModel)]="item.checked" (ionChange)="changeToggle(item)">{{item.name}}</ion-toggle>
+                  </ion-item>
+                </ion-list>
+              </ion-content>
+            </ng-template>
+          </ion-popover> -->
+      </div>
+    </div>
+    <div class="main_one" *ngFor="let progressBar of recCourses; let i = index">
+      <div class="card mb-3">
+        <div class="col-12 card_main">
+          <div (click)="onCardClick(progressBar)">
+            <ion-img
+              src="{{ progressBar.src }}"
+              class="img-fluid rounded-start"
+              alt=""
+            ></ion-img>
+          </div>
+          <div class="col-10 card_sub">
+            <div class="card_body p-0">
+              <div class="col-12 card_body_sub">
+                <h5 class="card_title" (click)="onCardClick(progressBar)">
+                  {{ progressBar.name }}
+                </h5>
+                <!-- <ion-img
+                  *ngIf="i > 2"
+                  src="assets/img/lock.png"
+                  alt=""
+                ></ion-img> -->
+              </div>
+              <p class="card_text" (click)="onCardClick(progressBar)">
+                {{ progressBar.type }}
+              </p>
+              <!-- <div class="col-12 bar_main">
+                  <div class="progress_bar_container col-10">
+                    <div
+                      class="progress_bar"
+                      [style.width]="progressBar.value * 100 + '%'"
+                    ></div>
+                  </div>
+                  <div class="percentage_display col-2">
+                    {{ progressBar.value * 100 }}%
+                  </div>
+                </div> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </ion-content>
+<app-footer></app-footer>
