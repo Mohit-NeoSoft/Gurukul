@@ -11,7 +11,7 @@
       <ion-img class="setting_icon p-1" src="assets/icon/chat.svg"></ion-img>
       <p class="pref_p m-2">Message</p>
     </div>
-    <ion-icon
+    <ion-icon (click)="onMessage()"
       slot="end"
       color="primary"
       size="large"
@@ -23,7 +23,7 @@
       <ion-img class="setting_icon p-1" src="assets/icon/bell.svg"></ion-img>
       <p class="pref_p m-1">Notification</p>
     </div>
-    <ion-icon
+    <ion-icon (click)="onNotification()"
       slot="end"
       color="primary"
       size="large"

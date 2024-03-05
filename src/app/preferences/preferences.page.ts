@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-preferences',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PreferencesPage implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
+  onMessage(){
+    this.router.navigate(['pref-messages'])
+  }
+
+  onNotification(){
+    this.router.navigate(['pref-notifications'])
+  }
 }

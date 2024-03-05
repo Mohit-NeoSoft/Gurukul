@@ -4,7 +4,7 @@ body {
 
 @font-face {
   font-family: "Inter";
-  src: url("assets/fonts/Inter/static/Inter-Regular.ttf") format("truetype");
+  src: url("../fonts/Inter/Inter-VariableFont_slnt\,wght.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -166,9 +166,6 @@ ion-item.acc_header_index.item.md.item-fill-none.ion-focusable.hydrated.item-lab
 
 ion-item.acc_header_index.item.ios.item-fill-none.ion-focusable.hydrated.item-label.item-lines-full.ion-activatable {
   border-bottom: 1px solid #dcdcdc;
-}
-.ion-accordion-toggle-icon {
-  color: #3553a1;
 }
 
 /* Course Index Accordion End */

@@ -5,8 +5,15 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <div class="col-12 card">
-
+<ion-content [fullscreen]="true" class="ion-padding">
+  <div class="card mb-3">
+    <div class="col-12 p-2">
+      <h1 class="general">General</h1>
+      <ion-list lines="none" class="p-0">
+        <ion-item class="toggle">
+          <ion-toggle color="primary" [(ngModel)]="toggleValue" (ionChange)="toggleChanged()">Use Enter to send</ion-toggle>
+        </ion-item>
+      </ion-list>
+    </div>
   </div>
 </ion-content>

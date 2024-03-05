@@ -90,6 +90,10 @@ const routes: Routes = [
   {
     path: 'pref-notifications',
     loadChildren: () => import('./pref-notifications/pref-notifications.module').then( m => m.PrefNotificationsPageModule)
+  },
+  {
+    path: 'forgot-pwd',
+    loadChildren: () => import('./forgot-pwd/forgot-pwd.module').then( m => m.ForgotPwdPageModule)
   }
 ];
 
