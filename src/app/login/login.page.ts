@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -16,7 +17,7 @@ export class LoginPage implements OnInit {
   showOtpForm: boolean = false;
   showUserForm: boolean = true;
 
-  constructor(private router: Router, private fb: FormBuilder) { }
+  constructor(private router: Router, private fb: FormBuilder,private http: HttpClient) { }
 
   ngOnInit() {
     this.createUserForm();
@@ -71,6 +72,7 @@ export class LoginPage implements OnInit {
     this.isLoggedIn = true;
     if (this.loginForm.valid) {
       console.log(this.loginForm.value);
+      
       this.router.navigate(['home'])
       return false;
     } else {

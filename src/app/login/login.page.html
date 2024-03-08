@@ -1,9 +1,10 @@
+<ion-content [fullscreen]="true">
 <div class="main h-100">
   <div class="header text-center">
     <img class="logo" src="assets\img\Group 1.png" alt="logo" />
   </div>
 
-  <div class="container h-100 p-0">
+  <div class="container p-0">
     <div class="container_sub">
       <div class="form" *ngIf="showUserForm === true">
         <p class="heading" (click)="changeForm('otp')">Login Via User ID</p>
@@ -46,14 +47,15 @@
             <div
               class="col-12 d-flex align-items-center justify-content-between"
             >
-              <p class="fgt_pwd">Forgot Password ?</p>
-              <button
-                class="btn_login"
+              <p class="fgt_pwd" routerLink="/forgot-pwd">Forgot Password ?</p>
+              <ion-button
+                color="success"
                 type="submit"
+                class="btn_login"
                 [disabled]="loginForm.invalid"
               >
-                Sign In
-              </button>
+                <span class="span_login">Sign In</span>
+              </ion-button>
             </div>
           </form>
         </div>
@@ -104,13 +106,14 @@
               class="col-12 d-flex align-items-center justify-content-between"
             >
               <p class="fgt_pwd">Resent OTP?</p>
-              <button
-                class="btn_login"
+              <ion-button
+                color="success"
                 type="submit"
-                [disabled]="loginForm.invalid"
+                class="btn_login"
+                [disabled]="otpLoginForm.invalid"
               >
-                Sign In
-              </button>
+                <span class="span_login">Sign In</span>
+              </ion-button>
             </div>
           </form>
         </div>
@@ -121,3 +124,4 @@
     </div>
   </div>
 </div>
+</ion-content>
