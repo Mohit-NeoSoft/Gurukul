@@ -189,7 +189,9 @@ export class HomePage {
   }
   onLogout(){
     this.tokenService.logOut();
-    this.router.navigate(['login']);
+    this.router.navigate(['login']).then(() => {
+      location.reload();
+    });
     this.presentToast('Logged Out successfully', 'success');
   }
 }

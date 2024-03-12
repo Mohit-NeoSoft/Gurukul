@@ -19,6 +19,14 @@ export class AppComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
+    PushNotifications.requestPermissions().then((result) => {
+      if (result.receive === 'granted') {
+       
+        PushNotifications.register();
+      } else {
+        
+      }
+    });
     console.log('Initializing Notifications');
     // PushNotifications.requestPermissions().then((result) => {
     //   if (result.receive === 'granted') {
