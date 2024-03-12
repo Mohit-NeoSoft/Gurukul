@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-cyber-security',
@@ -14,6 +14,8 @@ export class CyberSecurityPage implements OnInit {
   showDesktop: boolean = false;
   showLite: boolean = false;
   showInfo: boolean = false;
+  courseName: any;
+  data: any;
   myCourses = [
     {
       id: 1,
@@ -31,7 +33,14 @@ export class CyberSecurityPage implements OnInit {
   isExpanded4: boolean = false;
   isExpanded5: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router,private route: ActivatedRoute) {
+    this.route.queryParams.subscribe((params: any) => {
+      if (params && params.data) {
+        this.data = JSON.parse(params.data);
+        this.courseName = params.data.displayname;
+      }
+    });
+  }
 
   ngOnInit() {}
 

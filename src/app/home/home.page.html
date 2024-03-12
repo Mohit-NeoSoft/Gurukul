@@ -76,7 +76,8 @@
         <ion-img src="assets/img/result.png"></ion-img>
         <p class="profile_grades m-2">Grades</p>
       </div>
-      <ion-icon (click)="onGrades()"
+      <ion-icon
+        (click)="onGrades()"
         slot="end"
         color="primary"
         size="large"
@@ -88,7 +89,8 @@
         <ion-img class="p-1" src="assets/icon/trophy.svg"></ion-img>
         <p class="profile_grades m-2">Badges</p>
       </div>
-      <ion-icon (click)="onBadges()"
+      <ion-icon
+        (click)="onBadges()"
         slot="end"
         color="primary"
         size="large"
@@ -101,7 +103,8 @@
         <ion-icon class="setting_icon p-1" name="settings-outline"></ion-icon>
         <p class="profile_grades m-1">Prefrences</p>
       </div>
-      <ion-icon (click)="onPreferences()"
+      <ion-icon
+        (click)="onPreferences()"
         slot="end"
         color="primary"
         size="large"
@@ -111,7 +114,10 @@
   </ion-content>
   <ion-footer [translucent]="true" class="ion-padding">
     <ion-toolbar>
-      <ion-button expand="block" color="danger" class="logout_btn"><ion-icon name="power-sharp"></ion-icon><span class="logout_span p-1">Logout</span></ion-button>
+      <ion-button expand="block" color="danger" class="logout_btn" (click)="onLogout()"
+        ><ion-icon name="power-sharp"></ion-icon
+        ><span class="logout_span p-1">Logout</span></ion-button
+      >
     </ion-toolbar>
   </ion-footer>
 </ion-menu>
@@ -140,21 +146,17 @@
         >Lorem Ipsum doller site amet Ipsum doller site</ion-text
       >
     </div>
-    <div class="main_one" *ngFor="let progressBar of myCourses; let i = index">
+    <div class="main_one" *ngFor="let item of courseData; let i = index">
       <div class="card mb-3">
         <div class="col-12 card_main">
-          <div (click)="onCardClick(progressBar)">
-            <ion-img
-              src="{{ progressBar.src }}"
-              class="img-fluid rounded-start"
-              alt=""
-            ></ion-img>
+          <div (click)="onCardClick(item)">
+            <ion-img src="" class="img-fluid rounded-start" alt=""></ion-img>
           </div>
           <div class="col-10 card_sub">
             <div class="card_body p-0">
               <div class="col-12 card_body_sub">
-                <h5 class="card_title" (click)="onCardClick(progressBar)">
-                  {{ progressBar.name }}
+                <h5 class="card_title" (click)="onCardClick(item)">
+                  {{ item.displayname }}
                 </h5>
                 <ion-img
                   src="assets/icon/download.svg"
@@ -162,18 +164,18 @@
                   (click)="onDownload()"
                 ></ion-img>
               </div>
-              <p class="card_text" (click)="onCardClick(progressBar)">
-                {{ progressBar.type }}
+              <p class="card_text" (click)="onCardClick(item)">
+                <!-- {{ progressBar.type }} -->
               </p>
               <div class="col-12 bar_main">
                 <div class="progress_bar_container col-10">
-                  <div
+                  <!-- <div
                     class="progress_bar"
                     [style.width]="progressBar.value * 100 + '%'"
-                  ></div>
+                  ></div> -->
                 </div>
                 <div class="percentage_display col-2">
-                  {{ progressBar.value * 100 }}%
+                  <!-- {{ progressBar.value * 100 }}% -->
                 </div>
               </div>
             </div>

@@ -1,8 +1,10 @@
 import { Component, Input } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { Browser } from '@capacitor/browser';
 import { Network } from '@capacitor/network';
-import { AlertController, MenuController } from '@ionic/angular';
+import { AlertController, MenuController, ToastController } from '@ionic/angular';
+import { AuthService } from '../services/auth/auth.service';
+import { TokenService } from '../services/token/token.service';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +19,7 @@ export class HomePage {
   showFourth: boolean = false;
   selectedDate!: string;
   status: any;
-
+  courseData: any;
   myCourses = [
     {
       id: 1,
@@ -25,8 +27,6 @@ export class HomePage {
       type: 'Self Learning',
       src: 'assets/img/cyber.png',
       value: 0.5,
-      download: true,
-      myCourse: true,
     },
     {
       id: 2,
@@ -34,8 +34,7 @@ export class HomePage {
       type: 'Self Learning',
       src: 'assets/img/hire.png',
       value: 0.0,
-      download: true,
-      myCourse: true,
+      
     },
     {
       id: 3,
@@ -43,8 +42,7 @@ export class HomePage {
       type: 'Self Learning',
       src: 'assets/img/compliance.png',
       value: 0.11,
-      download: true,
-      myCourse: true,
+      
     },
   ];
   recCourses = [
@@ -54,8 +52,6 @@ export class HomePage {
       type: 'Self Learning',
       src: 'assets/img/newHire.png',
       value: 0,
-      download: false,
-      myCourse: false,
     },
     {
       id: 2,
@@ -63,15 +59,16 @@ export class HomePage {
       type: '2W & SME',
       src: 'assets/img/2w.png',
       value: 0,
-      download: false,
-      myCourse: false,
     },
   ];
 
   constructor(
     private alertController: AlertController,
     private router: Router,
-    private menuCtrl: MenuController
+    private menuCtrl: MenuController,
+    private authService: AuthService,
+    private toastCtrl:ToastController,
+    private tokenService: TokenService,
   ) {
     this.initializeNetworkListener();
   }
@@ -80,6 +77,14 @@ export class HomePage {
     Network.addListener('networkStatusChange', (status) => {
       console.log('Network status changed', status);
     });
+    this.authService.getCourses().subscribe({
+      next: data => {
+        console.log(data);
+        this.courseData = data;
+      },error: error => {
+        console.error('Login failed:', error);
+      }
+    })
   }
 
   async initializeNetworkListener() {
@@ -143,10 +148,15 @@ export class HomePage {
   }
 
   onCardClick(value: any) {
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        data: JSON.stringify(value)
+      }
+    };
     console.log(value);
-    if (value.id === 1) {
-      this.router.navigate(['cyber-security']);
-    }
+    // if (value.id === 1) {
+      this.router.navigate(['cyber-security'], navigationExtras);
+    // }
   }
 
   onProfile() {
@@ -165,5 +175,21 @@ export class HomePage {
   }
   onPreferences() {
     this.router.navigate(['preferences']);
+  }
+
+  async presentToast(message: any, color: any) {
+    let toast = await this.toastCtrl.create({
+      message: message,
+      duration: 1500,
+      position: 'top',
+      color: color,
+    });
+
+    toast.present();
+  }
+  onLogout(){
+    this.tokenService.logOut();
+    this.router.navigate(['login']);
+    this.presentToast('Logged Out successfully', 'success');
   }
 }
