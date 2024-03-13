@@ -5,6 +5,7 @@ import { Network } from '@capacitor/network';
 import { AlertController, MenuController, ToastController } from '@ionic/angular';
 import { AuthService } from '../services/auth/auth.service';
 import { TokenService } from '../services/token/token.service';
+import { PushNotifications } from '@capacitor/push-notifications';
 
 @Component({
   selector: 'app-home',
@@ -74,13 +75,21 @@ export class HomePage {
   }
 
   async ngOnInit() {
+    PushNotifications.requestPermissions().then((result) => {
+      if (result.receive === 'granted') {
+       
+        // PushNotifications.register();
+      } else {
+        
+      }
+    });
     Network.addListener('networkStatusChange', (status) => {
       console.log('Network status changed', status);
     });
     this.authService.getCourses().subscribe({
       next: data => {
-        console.log(data);
-        this.courseData = data;
+        console.log(data.courses);
+        this.courseData = data.courses;
       },error: error => {
         console.error('Login failed:', error);
       }
@@ -189,9 +198,11 @@ export class HomePage {
   }
   onLogout(){
     this.tokenService.logOut();
-    this.router.navigate(['login']).then(() => {
-      location.reload();
-    });
     this.presentToast('Logged Out successfully', 'success');
+    this.router.navigate(['login']).then(() => {
+      setTimeout(() => {
+        location.reload();
+      },1000)
+    }); 
   }
 }

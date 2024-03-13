@@ -25,7 +25,7 @@ export class LoginPage implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     private tokenService: TokenService,
-    private toastCtrl:ToastController
+    private toastCtrl: ToastController
   ) {}
 
   ngOnInit() {
@@ -88,13 +88,16 @@ export class LoginPage implements OnInit {
             next: (res) => {
               console.log(res.error);
               this.tokenService.saveToken(res.token);
+              if (res.error) {
+                this.presentToast(res.error, 'danger');
+              }
               if (res.token && res.token !== undefined) {
                 this.router.navigate(['home']);
               }
             },
             error: (error) => {
               // this.toastMsg = error;
-              this.presentToast(error,'danger')
+              this.presentToast(error, 'danger');
               console.error('Login failed:', error);
             },
           });

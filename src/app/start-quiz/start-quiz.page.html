@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title class="title">Start Attempt</ion-title>
-    <ion-icon
+    <ion-icon (click)="onClose()"
       class="p-2"
       slot="end"
       color="medium"
@@ -23,11 +23,11 @@
     </div>
     
     <div class="p-3 position-absolute w-100 bottom-0">
-      <ion-button
+      <ion-button (click)="onStart()"
         class="start_btn"
         expand="block"
         color="success"
-        ><span class="start_span" (click)="onStart()">Start Attempt</span></ion-button
+        ><span class="start_span">Start Attempt</span></ion-button
       >
     </div>
   </div>

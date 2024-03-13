@@ -84,7 +84,7 @@
         name="chevron-forward-sharp"
       ></ion-icon>
     </div>
-    <div class="d-flex align-items-center justify-content-between ion-padding">
+    <div class="d-flex align-items-center justify-content-between ion-padding pt-0">
       <div class="d-flex align-items-center">
         <ion-img class="p-1" src="assets/icon/trophy.svg"></ion-img>
         <p class="profile_grades m-2">Badges</p>
@@ -98,7 +98,7 @@
       ></ion-icon>
     </div>
     <hr class="profile_hr" />
-    <div class="d-flex align-items-center justify-content-between ion-padding">
+    <!-- <div class="d-flex align-items-center justify-content-between ion-padding">
       <div class="d-flex align-items-center">
         <ion-icon class="setting_icon p-1" name="settings-outline"></ion-icon>
         <p class="profile_grades m-1">Prefrences</p>
@@ -110,7 +110,7 @@
         size="large"
         name="chevron-forward-sharp"
       ></ion-icon>
-    </div>
+    </div> -->
   </ion-content>
   <ion-footer [translucent]="true" class="ion-padding">
     <ion-toolbar>
@@ -149,8 +149,8 @@
     <div class="main_one" *ngFor="let item of courseData; let i = index">
       <div class="card mb-3">
         <div class="col-12 card_main">
-          <div (click)="onCardClick(item)">
-            <ion-img src="" class="img-fluid rounded-start" alt=""></ion-img>
+          <div (click)="onCardClick(item)" *ngFor="let val of item.overviewfiles">
+            <ion-img [src]="val?.fileurl" class="img-fluid rounded-start" alt=""></ion-img>
           </div>
           <div class="col-10 card_sub">
             <div class="card_body p-0">
@@ -165,7 +165,7 @@
                 ></ion-img>
               </div>
               <p class="card_text" (click)="onCardClick(item)">
-                <!-- {{ progressBar.type }} -->
+                {{ item.categoryname }}
               </p>
               <div class="col-12 bar_main">
                 <div class="progress_bar_container col-10">

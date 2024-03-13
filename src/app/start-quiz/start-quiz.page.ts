@@ -16,4 +16,7 @@ export class StartQuizPage implements OnInit {
   onStart(){
     this.router.navigate(['quiz-content'])
   }
+  onClose(){
+    this.router.navigate(['index-quiz'])
+  }
 }

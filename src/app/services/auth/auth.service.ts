@@ -24,7 +24,7 @@ export class AuthService {
     console.log(params);
 
     return this.http.get(
-      'https://gurukul.skfin.in/login/token.php?service=moodle_mobile_app',
+      'https://uat-gurukul.skfin.in/login/token.php?service=moodle_mobile_app',
       { params },
     );
   }
@@ -34,7 +34,7 @@ export class AuthService {
     // console.log(params);
 
     return this.http.get(
-      'https://gurukul.skfin.in/webservice/rest/server.php?moodlewsrestformat=json&wsfunction=core_course_get_courses&wstoken=f8f425a03f114d2699492766bb5bf1fd',
+      'https://uat-gurukul.skfin.in/webservice/rest/server.php?moodlewsrestformat=json&wstoken=49d7377b1cffbbb4934972997a435bca&wsfunction=core_course_get_courses_by_field',
       // { params }
     );
   }

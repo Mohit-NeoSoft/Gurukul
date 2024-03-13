@@ -1,9 +1,16 @@
-.main {
-  background-color: #3553a1;
+.top {
+  background-color: #fff;
   background-image: url(../../assets/img/footer_img.png);
   background-position: center bottom;
   background-attachment: fixed;
   background-repeat: no-repeat;
+}
+.main {
+  background-color: #3553a1;
+  // background-image: url(../../assets/img/footer_img.png);
+  // background-position: center bottom;
+  // background-attachment: fixed;
+  // background-repeat: no-repeat;
 }
 .rectangle {
   border: 1px solid;
