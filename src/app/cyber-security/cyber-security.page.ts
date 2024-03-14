@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-cyber-security',
@@ -16,6 +17,7 @@ export class CyberSecurityPage implements OnInit {
   showInfo: boolean = false;
   courseName: any;
   data: any;
+  courseData: any;
   myCourses = [
     {
       id: 1,
@@ -33,11 +35,20 @@ export class CyberSecurityPage implements OnInit {
   isExpanded4: boolean = false;
   isExpanded5: boolean = false;
 
-  constructor(private router: Router,private route: ActivatedRoute) {
+  constructor(private router: Router,private route: ActivatedRoute,private authService: AuthService) {
     this.route.queryParams.subscribe((params: any) => {
       if (params && params.data) {
         this.data = JSON.parse(params.data);
-        this.courseName = params.data.displayname;
+        // this.courseName = params.data.displayname;
+        this.authService.getCourseContent(this.data.id).subscribe({
+          next: (data) => {
+            console.log(data[0]);
+            this.courseData = data;
+          },
+          error: (error) => {
+            console.error('Login failed:', error);
+          },
+        });
       }
     });
   }
@@ -108,5 +119,12 @@ export class CyberSecurityPage implements OnInit {
     if (value === 5) {
       this.isExpanded5 = !this.isExpanded5;
     }
+  }
+
+  extractImageUrl(summary: string): string {
+    const startIndex = summary.indexOf('src="') + 5;
+    const endIndex = summary.indexOf('"', startIndex);
+    const imageUrl = summary.substring(startIndex, endIndex);
+    return imageUrl.replace('/webservice', '');
   }
 }

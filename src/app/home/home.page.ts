@@ -2,10 +2,15 @@ import { Component, Input } from '@angular/core';
 import { NavigationExtras, Router } from '@angular/router';
 import { Browser } from '@capacitor/browser';
 import { Network } from '@capacitor/network';
-import { AlertController, MenuController, ToastController } from '@ionic/angular';
+import {
+  AlertController,
+  MenuController,
+  ToastController,
+} from '@ionic/angular';
 import { AuthService } from '../services/auth/auth.service';
 import { TokenService } from '../services/token/token.service';
 import { PushNotifications } from '@capacitor/push-notifications';
+import { Utility } from '../utility/utility';
 
 @Component({
   selector: 'app-home',
@@ -21,31 +26,31 @@ export class HomePage {
   selectedDate!: string;
   status: any;
   courseData: any;
-  myCourses = [
-    {
-      id: 1,
-      name: 'Cyber Security Awareness',
-      type: 'Self Learning',
-      src: 'assets/img/cyber.png',
-      value: 0.5,
-    },
-    {
-      id: 2,
-      name: 'New Hire Training',
-      type: 'Self Learning',
-      src: 'assets/img/hire.png',
-      value: 0.0,
-      
-    },
-    {
-      id: 3,
-      name: 'Compliance Training',
-      type: 'Self Learning',
-      src: 'assets/img/compliance.png',
-      value: 0.11,
-      
-    },
-  ];
+  // myCourses = [
+  //   {
+  //     id: 1,
+  //     name: 'Cyber Security Awareness',
+  //     type: 'Self Learning',
+  //     src: 'assets/img/cyber.png',
+  //     value: 0.5,
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'New Hire Training',
+  //     type: 'Self Learning',
+  //     src: 'assets/img/hire.png',
+  //     value: 0.0,
+
+  //   },
+  //   {
+  //     id: 3,
+  //     name: 'Compliance Training',
+  //     type: 'Self Learning',
+  //     src: 'assets/img/compliance.png',
+  //     value: 0.11,
+
+  //   },
+  // ];
   recCourses = [
     {
       id: 1,
@@ -68,8 +73,9 @@ export class HomePage {
     private router: Router,
     private menuCtrl: MenuController,
     private authService: AuthService,
-    private toastCtrl:ToastController,
+    private toastCtrl: ToastController,
     private tokenService: TokenService,
+    public utility: Utility
   ) {
     this.initializeNetworkListener();
   }
@@ -77,23 +83,22 @@ export class HomePage {
   async ngOnInit() {
     PushNotifications.requestPermissions().then((result) => {
       if (result.receive === 'granted') {
-       
         // PushNotifications.register();
       } else {
-        
       }
     });
     Network.addListener('networkStatusChange', (status) => {
       console.log('Network status changed', status);
     });
     this.authService.getCourses().subscribe({
-      next: data => {
+      next: (data) => {
         console.log(data.courses);
         this.courseData = data.courses;
-      },error: error => {
+      },
+      error: (error) => {
         console.error('Login failed:', error);
-      }
-    })
+      },
+    });
   }
 
   async initializeNetworkListener() {
@@ -159,13 +164,10 @@ export class HomePage {
   onCardClick(value: any) {
     let navigationExtras: NavigationExtras = {
       queryParams: {
-        data: JSON.stringify(value)
-      }
+        data: JSON.stringify(value),
+      },
     };
-    console.log(value);
-    // if (value.id === 1) {
-      this.router.navigate(['cyber-security'], navigationExtras);
-    // }
+    this.router.navigate(['cyber-security'], navigationExtras);
   }
 
   onProfile() {
@@ -196,13 +198,13 @@ export class HomePage {
 
     toast.present();
   }
-  onLogout(){
+  onLogout() {
     this.tokenService.logOut();
     this.presentToast('Logged Out successfully', 'success');
     this.router.navigate(['login']).then(() => {
       setTimeout(() => {
         location.reload();
-      },1000)
-    }); 
+      }, 1000);
+    });
   }
 }
