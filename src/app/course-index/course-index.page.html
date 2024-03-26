@@ -1,13 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar class="">
     <ion-title>Course Index</ion-title>
-    <ion-icon
-      class="p-1"
-      slot="end"
-      size="large"
-      (click)="onClose()"
-      name="close-sharp"
-    ></ion-icon>
+    <ion-icon class="p-1" slot="end" size="large" (click)="onClose()" name="close-sharp"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
@@ -17,67 +11,39 @@
       <h1 class="main_title">All Sections</h1>
     </div>
     <div class="content_head mb-3">
-      <ion-text class="content_title"
-        >Cyber Security is much more than a matter off...</ion-text
-      >
+      <div *ngFor="let item of courseData; let i = index">
+        <ion-text class="content_title" *ngIf="i==0">{{item.name}}</ion-text>
+      </div>
     </div>
-    <div class="col-12">
-      <ion-accordion-group>
-        <ion-accordion
-          class="acc_main_index"
-          value="first"
-          toggleIcon=""
-        >
-          <ion-item lines="none" class="acc_header_index" slot="header" (click)="toggleAccordion(1)"
-          >
-            <ion-icon
-              slot="start"
-              color="primary"
-              class="p-0 m-0"
-              [name]="isExpanded1 ? 'chevron-up' : 'chevron-forward'"
-              [style.transform]="isExpanded1 ? 'rotate(180deg)' : 'rotate(0deg)'"
-            ></ion-icon>
-            <ion-label class="acc_label">Password Security</ion-label>
+    <div class="col-12" *ngFor="let item of courseData; let i = index">
+      <ion-accordion-group *ngIf="i>=1">
+        <ion-accordion class="acc_main_index" value="first" toggleIcon="">
+          <ion-item lines="none" class="acc_header_index" slot="header" (click)="toggleAccordion(i)">
+            <ion-icon slot="start" color="primary" class="p-0 m-0"
+              [name]="isExpanded[i] ? 'chevron-up' : 'chevron-forward'"
+              [style.transform]="isExpanded[i] ? 'rotate(180deg)' : 'rotate(0deg)'"></ion-icon>
+            <ion-label class="acc_label">{{item.name}}</ion-label>
           </ion-item>
-          <div
-            class="ion-padding col-12 d-flex align-items-center justify-content-evenly"
-            slot="content"
-          >
+          <div class="ion-padding col-12 d-flex align-items-center justify-content-evenly pt-0" slot="content"
+            *ngFor="let val of item.modules">
             <ion-img src="assets/img/dot.png" alt=""></ion-img>
-            <div
-              class="col-10 d-flex align-items-center justify-content-between"
-            >
-              <p class="content_p">Click here for Password Security Content</p>
-              <ion-icon
-                class="acc_icon"
-                slot="end"
-                color="primary"
-                name="chevron-forward-sharp"
-              ></ion-icon>
+            <div class="col-10 d-flex align-items-center justify-content-between" (click)="onClick(val)">
+              <p class="content_p">{{val.name}}</p>
+              <ion-icon class="acc_icon" slot="end" color="primary" name="chevron-forward-sharp"></ion-icon>
             </div>
           </div>
-          <div
-            class="ion-padding col-12 d-flex align-items-center justify-content-evenly"
-            slot="content"
-          >
+          <!-- <div class="ion-padding col-12 d-flex align-items-center justify-content-evenly" slot="content">
             <ion-img src="assets/img/dot.png" alt=""></ion-img>
-            <div
-              class="col-10 d-flex align-items-center justify-content-between"
-            >
+            <div class="col-10 d-flex align-items-center justify-content-between">
               <p class="content_p">
                 Quiz on Password Security
               </p>
-              <ion-icon
-                class="acc_icon"
-                slot="end"
-                color="primary"
-                name="chevron-forward-sharp"
-              ></ion-icon>
+              <ion-icon class="acc_icon" slot="end" color="primary" name="chevron-forward-sharp"></ion-icon>
             </div>
-          </div>
+          </div> -->
         </ion-accordion>
       </ion-accordion-group>
-      <ion-accordion-group>
+      <!-- <ion-accordion-group>
         <ion-accordion
           class="acc_main_index"
           value="first"
@@ -203,7 +169,7 @@
             </div>
           </div>
         </ion-accordion>
-      </ion-accordion-group>
+      </ion-accordion-group> -->
     </div>
   </div>
 </ion-content>

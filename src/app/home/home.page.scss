@@ -35,6 +35,10 @@
   font-size: 12px;
   font-weight: 500;
 }
+.course_list{
+  overflow-y: scroll;
+  max-height: 400px;
+}
 @keyframes blinker {
   50% {
     opacity: 0;

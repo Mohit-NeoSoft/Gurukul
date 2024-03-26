@@ -96,7 +96,11 @@ const routes: Routes = [
   {
     path: 'forgot-pwd',
     loadChildren: () => import('./forgot-pwd/forgot-pwd.module').then( m => m.ForgotPwdPageModule)
-  }
+  },
+  {
+    path: 'attempt-summary',
+    loadChildren: () => import('./attempt-summary/attempt-summary.module').then( m => m.AttemptSummaryPageModule)
+  },
 ];
 
 @NgModule({

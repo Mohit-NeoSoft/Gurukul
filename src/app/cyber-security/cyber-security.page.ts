@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { AuthService } from '../services/auth/auth.service';
+import { Utility } from '../utility/utility';
 
 @Component({
   selector: 'app-cyber-security',
@@ -35,14 +36,13 @@ export class CyberSecurityPage implements OnInit {
   isExpanded4: boolean = false;
   isExpanded5: boolean = false;
 
-  constructor(private router: Router,private route: ActivatedRoute,private authService: AuthService) {
+  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService, public utility: Utility) {
     this.route.queryParams.subscribe((params: any) => {
       if (params && params.data) {
         this.data = JSON.parse(params.data);
         // this.courseName = params.data.displayname;
         this.authService.getCourseContent(this.data.id).subscribe({
           next: (data) => {
-            console.log(data[0]);
             this.courseData = data;
           },
           error: (error) => {
@@ -53,7 +53,7 @@ export class CyberSecurityPage implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   segmentChanged(ev: any) {
     this.segment = ev.detail.value;
@@ -97,7 +97,12 @@ export class CyberSecurityPage implements OnInit {
   }
 
   onIndex() {
-    this.router.navigate(['course-index']);
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        data: JSON.stringify(this.data),
+      },
+    };
+    this.router.navigate(['course-index'], navigationExtras);
   }
 
   onClick() {

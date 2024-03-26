@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
+import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-course-index',
@@ -7,40 +8,54 @@ import { Router } from '@angular/router';
   styleUrls: ['./course-index.page.scss'],
 })
 export class CourseIndexPage implements OnInit {
-  isExpanded1: boolean = false;
-  isExpanded2: boolean = false;
-  isExpanded3: boolean = false;
-  isExpanded4: boolean = false;
-
-  constructor(private router: Router) { }
+  isExpanded: boolean[] = [];
+  data: any;
+  courseData: any;
+  constructor(private router: Router,private route: ActivatedRoute,private authService: AuthService) { }
 
   ngOnInit() {
+    this.route.queryParams.subscribe((params: any) => {
+      if (params && params.data) {
+        this.data = JSON.parse(params.data);
+        this.authService.getCourseContent(this.data.id).subscribe({
+          next: (data) => {
+            this.courseData = data;
+          },
+          error: (error) => {
+            console.error('Login failed:', error);
+          },
+        });
+      }
+    });
   }
 
   onClose(){
-    this.router.navigate(['cyber-security']);
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        data: JSON.stringify(this.data),
+      },
+    };
+    this.router.navigate(['cyber-security'],navigationExtras);
   }
 
-  onClick(){
-    this.router.navigate(['index-activity'])
+  onClick(value: any){
+    console.log(value);
+    if(value.modname === 'quiz'){
+      let navigationExtras: NavigationExtras = {
+        queryParams: {
+          data: JSON.stringify(value.instance),
+        },
+      };
+      this.router.navigate(['index-quiz'],navigationExtras)
+    }
+    // this.router.navigate(['index-activity'])
   }
 
-  onQuiz(){
-    this.router.navigate(['index-quiz'])
-  }
+  // onQuiz(){
+  //   this.router.navigate(['index-quiz'])
+  // }
 
-  toggleAccordion(value: any) {
-    if (value === 1) {
-      this.isExpanded1 = !this.isExpanded1;
-    }
-    if (value === 2) {
-      this.isExpanded2 = !this.isExpanded2;
-    }
-    if (value === 3) {
-      this.isExpanded3 = !this.isExpanded3;
-    }
-    if (value === 4) {
-      this.isExpanded4 = !this.isExpanded4;
-    }
+  toggleAccordion(index: number) {
+    this.isExpanded[index] = !this.isExpanded[index];
   }
 }

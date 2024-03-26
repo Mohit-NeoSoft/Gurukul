@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { NavigationExtras, Router } from '@angular/router';
+import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { Browser } from '@capacitor/browser';
 import { Network } from '@capacitor/network';
 import {
@@ -26,6 +26,7 @@ export class HomePage {
   selectedDate!: string;
   status: any;
   courseData: any;
+  userId: any;
   // myCourses = [
   //   {
   //     id: 1,
@@ -75,9 +76,19 @@ export class HomePage {
     private authService: AuthService,
     private toastCtrl: ToastController,
     private tokenService: TokenService,
-    public utility: Utility
+    public utility: Utility,
+    private route: ActivatedRoute
   ) {
     this.initializeNetworkListener();
+    this.route.queryParams.subscribe((params: any) => {
+      console.log(params);
+
+      if (params && params.data) {
+        this.userId = JSON.parse(params.data);
+        console.log(this.userId);
+
+      }
+    });
   }
 
   async ngOnInit() {
@@ -90,10 +101,27 @@ export class HomePage {
     Network.addListener('networkStatusChange', (status) => {
       console.log('Network status changed', status);
     });
+    this.getCourses();
+    this.getUser();
+  }
+
+  getCourses(){
     this.authService.getCourses().subscribe({
       next: (data) => {
         console.log(data.courses);
         this.courseData = data.courses;
+      },
+      error: (error) => {
+        console.error('Login failed:', error);
+      },
+    });
+  }
+
+  getUser(){
+    this.authService.getUserInfo(this.userId).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.tokenService.saveUser(data)
       },
       error: (error) => {
         console.error('Login failed:', error);

@@ -1,10 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-back-button
-      color="primary"
-      slot="start"
-      defaultHref=""
-    ></ion-back-button>
+    <ion-back-button color="primary" slot="start" defaultHref=""></ion-back-button>
     <div class="d-flex align-items-center justify-content-end">
       <ion-img class="p-2" slot="end" src="assets/icon/download.svg"></ion-img>
       <!-- <ion-img
@@ -21,102 +17,46 @@
   <div class="position-relative h-100">
     <div class="col-12 position-absolute body_sub" *ngIf="segment === 'course'">
       <div class="d-flex justify-content-end mb-3">
-        <ion-img src="assets/icon/menu_btn.svg" alt=""></ion-img>
+        <ion-img src="assets/icon/menu_btn.svg" (click)="onIndex()" alt=""></ion-img>
       </div>
       <div>
         <div class="row" *ngIf="showMain">
-          <ion-button
-            expand="block"
-            class="btn_pwd"
-            color="primary"
-            (click)="onPwdSec()"
-            >Password Security&nbsp;<ion-img
-              src="assets/icon/ryt_arrow.svg"
-              alt=""
-            ></ion-img
-          ></ion-button>
+          <ion-button expand="block" class="btn_pwd" color="primary" (click)="onPwdSec()">Password
+            Security&nbsp;<ion-img src="assets/icon/ryt_arrow.svg" alt=""></ion-img></ion-button>
         </div>
         <div class="row" *ngIf="showPwdSec">
           <div class="col-6">
-            <ion-button
-              (click)="onCybSec()"
-              expand="block"
-              class="btn_btm"
-              color="primary"
-              ><ion-img src="assets/icon/lft_arrow.svg" alt=""></ion-img
-              >&nbsp;Cyber Security is ...</ion-button
-            >
+            <ion-button (click)="onCybSec()" expand="block" class="btn_btm" color="primary"><ion-img
+                src="assets/icon/lft_arrow.svg" alt=""></ion-img>&nbsp;Cyber Security is ...</ion-button>
           </div>
           <div class="col-6">
-            <ion-button
-              (click)="onDesktop()"
-              expand="block"
-              class="btn_btm"
-              color="primary"
-              >Module-1 Spot The ...&nbsp;<ion-img
-                src="assets/icon/ryt_arrow.svg"
-                alt=""
-              ></ion-img
-            ></ion-button>
+            <ion-button (click)="onDesktop()" expand="block" class="btn_btm" color="primary">Module-1 Spot The
+              ...&nbsp;<ion-img src="assets/icon/ryt_arrow.svg" alt=""></ion-img></ion-button>
           </div>
         </div>
         <div class="row" *ngIf="showDesktop">
           <div class="col-6">
-            <ion-button
-              (click)="onPwdSec()"
-              expand="block"
-              class="btn_btm"
-              color="primary"
-              ><ion-img src="assets/icon/lft_arrow.svg" alt=""></ion-img
-              >&nbsp;Password Security...</ion-button
-            >
+            <ion-button (click)="onPwdSec()" expand="block" class="btn_btm" color="primary"><ion-img
+                src="assets/icon/lft_arrow.svg" alt=""></ion-img>&nbsp;Password Security...</ion-button>
           </div>
           <div class="col-6">
-            <ion-button
-              (click)="onDesktopLite()"
-              expand="block"
-              class="btn_btm"
-              color="primary"
-              >Module-1 Spot The ...&nbsp;<ion-img
-                src="assets/icon/ryt_arrow.svg"
-                alt=""
-              ></ion-img
-            ></ion-button>
+            <ion-button (click)="onDesktopLite()" expand="block" class="btn_btm" color="primary">Module-1 Spot The
+              ...&nbsp;<ion-img src="assets/icon/ryt_arrow.svg" alt=""></ion-img></ion-button>
           </div>
         </div>
         <div class="row" *ngIf="showLite">
           <div class="col-6">
-            <ion-button
-              (click)="onDesktop()"
-              expand="block"
-              class="btn_btm"
-              color="primary"
-              ><ion-img src="assets/icon/lft_arrow.svg" alt=""></ion-img
-              >&nbsp;Module-1 Spot The ..</ion-button
-            >
+            <ion-button (click)="onDesktop()" expand="block" class="btn_btm" color="primary"><ion-img
+                src="assets/icon/lft_arrow.svg" alt=""></ion-img>&nbsp;Module-1 Spot The ..</ion-button>
           </div>
           <div class="col-6">
-            <ion-button
-              (click)="onInfo()"
-              expand="block"
-              class="btn_btm"
-              color="primary"
-              >Module-2 Informati...&nbsp;<ion-img
-                src="assets/icon/ryt_arrow.svg"
-                alt=""
-              ></ion-img
-            ></ion-button>
+            <ion-button (click)="onInfo()" expand="block" class="btn_btm" color="primary">Module-2
+              Informati...&nbsp;<ion-img src="assets/icon/ryt_arrow.svg" alt=""></ion-img></ion-button>
           </div>
         </div>
         <div class="row" *ngIf="showInfo">
-          <ion-button
-            (click)="onDesktopLite()"
-            expand="block"
-            class="btn_pwd"
-            color="primary"
-            ><ion-img src="assets/icon/lft_arrow.svg" alt=""></ion-img
-            >&nbsp;Module-1 Spot The Phis</ion-button
-          >
+          <ion-button (click)="onDesktopLite()" expand="block" class="btn_pwd" color="primary"><ion-img
+              src="assets/icon/lft_arrow.svg" alt=""></ion-img>&nbsp;Module-1 Spot The Phis</ion-button>
         </div>
       </div>
     </div>
@@ -124,10 +64,8 @@
       <div class="col-12 card_main">
         <div>
           <ion-img
-            [src]="data.overviewfiles[0].fileurl.replace('/webservice','')"
-            class="img-fluid rounded-start"
-            alt=""
-          ></ion-img>
+            [src]="(utility.getImageUrl(data.overviewfiles) ? utility.getImageUrl(data.overviewfiles) : 'assets/img/images.png')"
+            class="img-fluid rounded-start" alt=""></ion-img>
         </div>
         <div class="col-10 card_sub">
           <div class="card_body p-0">
@@ -136,22 +74,14 @@
             </div>
             <div class="col-12 bar_main">
               <div class="progress_bar_container col-10">
-                <div
-                  class="progress_bar"
-                  [style.width]="value * 100 + '%'"
-                ></div>
+                <div class="progress_bar" [style.width]="value * 100 + '%'"></div>
               </div>
               <div class="percentage_display col-2">{{value * 100}}%</div>
             </div>
           </div>
         </div>
       </div>
-      <ion-segment
-        class="segment"
-        [scrollable]="true"
-        (ionChange)="segmentChanged($event)"
-        value="course"
-      >
+      <ion-segment class="segment" [scrollable]="true" (ionChange)="segmentChanged($event)" value="course">
         <ion-segment-button color="primary" value="course">
           <ion-text class="segment_title">Course</ion-text>
         </ion-segment-button>
@@ -176,89 +106,70 @@
           </div>
         </div>
         <div *ngIf="showPwdSec">
-          <h1 class="body_title">Password Security</h1>
-          <div class="col-12">
-            <div class="card mb-3">
-              <div class="col-12 card_main">
-                <div>
-                  <ion-img
-                    src="assets/img/document.png"
-                    class="img-fluid rounded-start"
-                    alt=""
-                  ></ion-img>
-                </div>
-                <div class="col-10 card_sub">
-                  <div class="card_body p-0">
-                    <div class="col-12 card_body_sub">
-                      <ion-text class="content_p"
-                        >Click here for
-                        <strong>Password Security </strong>Content</ion-text
-                      >
+          <div *ngFor="let item of courseData; let i = index">
+            <h1 class="body_title" *ngIf="i==1">{{item.name}}</h1>
+            <div class="col-12" *ngIf="i==1">
+              <div class="card mb-3" *ngFor="let val of item.modules">
+                <div class="col-12 card_main">
+                  <div>
+                    <ion-img src={{val.modicon}} class="img-fluid rounded-start" alt=""></ion-img>
+                  </div>
+                  <div class="col-10 card_sub">
+                    <div class="card_body p-0">
+                      <div class="col-12 card_body_sub">
+                        <ion-text class="content_p">{{val.name}}</ion-text>
+                      </div>
+                      <p class="card_text">
+                        <ion-badge color="primary" class="col-2 card_badge">To do&nbsp;<ion-icon
+                            name="caret-down-sharp"></ion-icon></ion-badge>
+                      </p>
                     </div>
-                    <p class="card_text">
-                      <ion-badge color="primary" class="col-2 card_badge"
-                        >To do&nbsp;<ion-icon name="caret-down-sharp"></ion-icon
-                      ></ion-badge>
-                    </p>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="card mb-3">
-              <div class="col-12 card_main">
-                <div>
-                  <ion-img
-                    src="assets/img/lock_bg.png"
-                    class="img-fluid rounded-start"
-                    alt=""
-                  ></ion-img>
-                </div>
-                <div class="col-10 card_sub">
-                  <div class="card_body p-0">
-                    <div class="col-12 card_body_sub">
-                      <ion-text class="content_p"
-                        >Click here for
-                        <strong>Password Security </strong>Quiz</ion-text
-                      >
+              <!-- <div class="card mb-3">
+                <div class="col-12 card_main">
+                  <div>
+                    <ion-img src="assets/img/lock_bg.png" class="img-fluid rounded-start" alt=""></ion-img>
+                  </div>
+                  <div class="col-10 card_sub">
+                    <div class="card_body p-0">
+                      <div class="col-12 card_body_sub">
+                        <ion-text class="content_p">Click here for
+                          <strong>Password Security </strong>Quiz</ion-text>
+                      </div>
+                      <p class="card_text">
+                        <ion-badge color="primary" class="col-2 card_badge">Done&nbsp;<ion-icon
+                            name="caret-down-sharp"></ion-icon></ion-badge>
+                      </p>
                     </div>
-                    <p class="card_text">
-                      <ion-badge color="primary" class="col-2 card_badge"
-                        >Done&nbsp;<ion-icon name="caret-down-sharp"></ion-icon
-                      ></ion-badge>
-                    </p>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
         <div *ngIf="showDesktop">
-          <h1 class="body_title">
-            Module 1 : Spot the Phis (For Desktop/ laptop Users)
-          </h1>
-          <div class="col-12">
-            <div class="card mb-3">
-              <div class="col-12 card_main">
-                <div>
-                  <ion-img
-                    src="assets/img/document.png"
-                    class="img-fluid rounded-start"
-                    alt=""
-                  ></ion-img>
-                </div>
-                <div class="col-10 card_sub">
-                  <div class="card_body p-0">
-                    <div class="col-12 card_body_sub">
-                      <ion-text class="content_p"
-                        >Click here for
-                        <strong>Spot the Phis </strong>Training</ion-text
-                      >
+          <div *ngFor="let item of courseData; let i = index">
+            <h1 class="body_title" *ngIf="i==2">
+              {{item.name}}
+            </h1>
+            <div class="col-12" *ngIf="i==2">
+              <div class="card mb-3" *ngFor="let val of item.modules">
+                <div class="col-12 card_main">
+                  <div>
+                    <ion-img src={{val.modicon}} class="img-fluid rounded-start" alt=""></ion-img>
+                  </div>
+                  <div class="col-10 card_sub">
+                    <div class="card_body p-0">
+                      <div class="col-12 card_body_sub">
+                        <ion-text class="content_p">{{val.name}}</ion-text>
+                      </div>
+                      <p class="card_text">
+                        <ion-badge color="primary" class="col-2 card_badge">To do&nbsp;<ion-icon
+                            name="caret-down-sharp"></ion-icon></ion-badge>
+                      </p>
                     </div>
-                    <p class="card_text">
-                      <ion-badge color="primary" class="col-2 card_badge"
-                        >To do&nbsp;<ion-icon name="caret-down-sharp"></ion-icon
-                      ></ion-badge>
-                    </p>
                   </div>
                 </div>
               </div>
@@ -266,87 +177,69 @@
           </div>
         </div>
         <div *ngIf="showLite">
-          <h1 class="body_title">
-            Module 1 : Spot the Phis (Lite Version for Mobile Users)
-          </h1>
-          <div class="col-12">
-            <div class="card mb-3">
-              <div class="col-12 card_main">
-                <div>
-                  <ion-img
-                    src="assets/img/document.png"
-                    class="img-fluid rounded-start"
-                    alt=""
-                  ></ion-img>
-                </div>
-                <div class="col-10 card_sub">
-                  <div class="card_body p-0">
-                    <div class="col-12 card_body_sub">
-                      <ion-text class="content_p"
-                        >Click here to read
-                        <strong>Spot the Phis </strong>Content</ion-text
-                      >
+          <div *ngFor="let item of courseData; let i = index">
+            <h1 class="body_title" *ngIf="i==3">
+              {{item.name}}
+            </h1>
+            <div class="col-12" *ngIf="i==3">
+              <div class="card mb-3" *ngFor="let val of item.modules">
+                <div class="col-12 card_main">
+                  <div>
+                    <ion-img src={{val.modicon}} class="img-fluid rounded-start" alt=""></ion-img>
+                  </div>
+                  <div class="col-10 card_sub">
+                    <div class="card_body p-0">
+                      <div class="col-12 card_body_sub">
+                        <ion-text class="content_p">{{val.name}}</ion-text>
+                      </div>
+                      <p class="card_text">
+                        <ion-badge color="primary" class="col-2 card_badge">To do&nbsp;<ion-icon
+                            name="caret-down-sharp"></ion-icon></ion-badge>
+                      </p>
                     </div>
-                    <p class="card_text">
-                      <ion-badge color="primary" class="col-2 card_badge"
-                        >To do&nbsp;<ion-icon name="caret-down-sharp"></ion-icon
-                      ></ion-badge>
-                    </p>
                   </div>
                 </div>
               </div>
-            </div>
-            <div class="card mb-3">
-              <div class="col-12 card_main">
-                <div>
-                  <ion-img
-                    src="assets/img/quiz.png"
-                    class="img-fluid rounded-start"
-                    alt=""
-                  ></ion-img>
-                </div>
-                <div class="col-10 card_sub">
-                  <div class="card_body p-0">
-                    <div class="col-12 card_body_sub">
-                      <ion-text class="content_p"
-                        >Quiz on <strong>Spot the Phis </strong></ion-text
-                      >
+              <!-- <div class="card mb-3">
+                <div class="col-12 card_main">
+                  <div>
+                    <ion-img src="assets/img/quiz.png" class="img-fluid rounded-start" alt=""></ion-img>
+                  </div>
+                  <div class="col-10 card_sub">
+                    <div class="card_body p-0">
+                      <div class="col-12 card_body_sub">
+                        <ion-text class="content_p">Quiz on <strong>Spot the Phis </strong></ion-text>
+                      </div>
+                      <p class="card_text">
+                        <ion-badge color="primary" class="col-2 card_badge">Done&nbsp;<ion-icon
+                            name="caret-down-sharp"></ion-icon></ion-badge>
+                      </p>
                     </div>
-                    <p class="card_text">
-                      <ion-badge color="primary" class="col-2 card_badge"
-                        >Done&nbsp;<ion-icon name="caret-down-sharp"></ion-icon
-                      ></ion-badge>
-                    </p>
                   </div>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
         </div>
         <div *ngIf="showInfo">
-          <h1 class="body_title">Module 2 : Information Security</h1>
-          <div class="col-12">
-            <div class="card mb-3">
-              <div class="col-12 card_main">
-                <div>
-                  <ion-img
-                    src="assets/img/document.png"
-                    class="img-fluid rounded-start"
-                    alt=""
-                  ></ion-img>
-                </div>
-                <div class="col-10 card_sub">
-                  <div class="card_body p-0">
-                    <div class="col-12 card_body_sub">
-                      <ion-text class="content_p"
-                        >Information Security Awareness</ion-text
-                      >
+          <div *ngFor="let item of courseData; let i = index">
+            <h1 class="body_title" *ngIf="i==4">{{item.name}}</h1>
+            <div class="col-12" *ngIf="i==4">
+              <div class="card mb-3" *ngFor="let val of item.modules">
+                <div class="col-12 card_main">
+                  <div>
+                    <ion-img src={{val.modicon}} class="img-fluid rounded-start" alt=""></ion-img>
+                  </div>
+                  <div class="col-10 card_sub">
+                    <div class="card_body p-0">
+                      <div class="col-12 card_body_sub">
+                        <ion-text class="content_p">{{val.name}}</ion-text>
+                      </div>
+                      <p class="card_text">
+                        <ion-badge color="primary" class="col-2 card_badge">To do&nbsp;<ion-icon
+                            name="caret-down-sharp"></ion-icon></ion-badge>
+                      </p>
                     </div>
-                    <p class="card_text">
-                      <ion-badge color="primary" class="col-2 card_badge"
-                        >To do&nbsp;<ion-icon name="caret-down-sharp"></ion-icon
-                      ></ion-badge>
-                    </p>
                   </div>
                 </div>
               </div>
@@ -357,14 +250,8 @@
       <div class="col-12" *ngIf="segment === 'grades'">
         <div class="ion-padding">
           <div class="card_search mb-3 p-1">
-            <ion-input class="grade_search" type="text" placeholder="Search"
-              ><ion-icon
-                class="search_icon"
-                slot="end"
-                color="medium"
-                name="search-outline"
-              ></ion-icon
-            ></ion-input>
+            <ion-input class="grade_search" type="text" placeholder="Search"><ion-icon class="search_icon" slot="end"
+                color="medium" name="search-outline"></ion-icon></ion-input>
           </div>
           <div class="content text-center">
             <div class="d-flex align-items-center justify-content-center mb-3">
@@ -379,27 +266,12 @@
         <div class="grade_main">
           <div class="col-12">
             <ion-accordion-group>
-              <ion-accordion
-                class="acc_main_cyber"
-                value="cyber_first"
-                toggleIcon=""
-              >
-                <ion-item
-                  lines="none"
-                  class="acc_header_cyber"
-                  slot="header"
-                  (click)="toggleAccordion(1)"
-                >
-                  <ion-icon
-                    slot="start"
-                    color="primary"
-                    class="p-0 m-0"
+              <ion-accordion class="acc_main_cyber" value="cyber_first" toggleIcon="">
+                <ion-item lines="none" class="acc_header_cyber" slot="header" (click)="toggleAccordion(1)">
+                  <ion-icon slot="start" color="primary" class="p-0 m-0"
                     [name]="isExpanded1 ? 'chevron-up' : 'chevron-forward'"
-                    [style.transform]="isExpanded1 ? 'rotate(180deg)' : 'rotate(0deg)'"
-                  ></ion-icon>
-                  <ion-label class="col-10 acc_label"
-                    >Information Security Awareness</ion-label
-                  >
+                    [style.transform]="isExpanded1 ? 'rotate(180deg)' : 'rotate(0deg)'"></ion-icon>
+                  <ion-label class="col-10 acc_label">Information Security Awareness</ion-label>
                   <ion-label class="text-end acc_sub_label">-</ion-label>
                 </ion-item>
                 <div class="col-12 ion-padding" slot="content">
@@ -439,27 +311,12 @@
               </ion-accordion>
             </ion-accordion-group>
             <ion-accordion-group>
-              <ion-accordion
-                class="acc_main_cyber"
-                value="cyber_first"
-                toggleIcon=""
-              >
-                <ion-item
-                  lines="none"
-                  class="acc_header_cyber"
-                  slot="header"
-                  (click)="toggleAccordion(2)"
-                >
-                  <ion-icon
-                    slot="start"
-                    color="primary"
-                    class="p-0 m-0"
+              <ion-accordion class="acc_main_cyber" value="cyber_first" toggleIcon="">
+                <ion-item lines="none" class="acc_header_cyber" slot="header" (click)="toggleAccordion(2)">
+                  <ion-icon slot="start" color="primary" class="p-0 m-0"
                     [name]="isExpanded2 ? 'chevron-up' : 'chevron-forward'"
-                    [style.transform]="isExpanded2 ? 'rotate(180deg)' : 'rotate(0deg)'"
-                  ></ion-icon>
-                  <ion-label class="col-10 acc_label"
-                    >Spot the Phis Training</ion-label
-                  >
+                    [style.transform]="isExpanded2 ? 'rotate(180deg)' : 'rotate(0deg)'"></ion-icon>
+                  <ion-label class="col-10 acc_label">Spot the Phis Training</ion-label>
                   <ion-label class="text-end acc_sub_label">80%</ion-label>
                 </ion-item>
                 <div class="col-12 ion-padding" slot="content">
@@ -499,27 +356,12 @@
               </ion-accordion>
             </ion-accordion-group>
             <ion-accordion-group>
-              <ion-accordion
-                class="acc_main_cyber"
-                value="cyber_first"
-                toggleIcon=""
-              >
-                <ion-item
-                  lines="none"
-                  class="acc_header_cyber"
-                  slot="header"
-                  (click)="toggleAccordion(3)"
-                >
-                  <ion-icon
-                    slot="start"
-                    color="primary"
-                    class="p-0 m-0"
+              <ion-accordion class="acc_main_cyber" value="cyber_first" toggleIcon="">
+                <ion-item lines="none" class="acc_header_cyber" slot="header" (click)="toggleAccordion(3)">
+                  <ion-icon slot="start" color="primary" class="p-0 m-0"
                     [name]="isExpanded3 ? 'chevron-up' : 'chevron-forward'"
-                    [style.transform]="isExpanded3 ? 'rotate(180deg)' : 'rotate(0deg)'"
-                  ></ion-icon>
-                  <ion-label class="col-10 acc_label"
-                    >Quiz on Spot the Phis</ion-label
-                  >
+                    [style.transform]="isExpanded3 ? 'rotate(180deg)' : 'rotate(0deg)'"></ion-icon>
+                  <ion-label class="col-10 acc_label">Quiz on Spot the Phis</ion-label>
                   <ion-label class="text-end acc_sub_label">2.00</ion-label>
                 </ion-item>
                 <div class="col-12 ion-padding" slot="content">
@@ -559,27 +401,12 @@
               </ion-accordion>
             </ion-accordion-group>
             <ion-accordion-group class="mb-3">
-              <ion-accordion
-                class="acc_main_cyber"
-                value="cyber_first"
-                toggleIcon=""
-              >
-                <ion-item
-                  lines="none"
-                  class="acc_header_cyber"
-                  slot="header"
-                  (click)="toggleAccordion(4)"
-                >
-                  <ion-icon
-                    slot="start"
-                    color="primary"
-                    class="p-0 m-0"
+              <ion-accordion class="acc_main_cyber" value="cyber_first" toggleIcon="">
+                <ion-item lines="none" class="acc_header_cyber" slot="header" (click)="toggleAccordion(4)">
+                  <ion-icon slot="start" color="primary" class="p-0 m-0"
                     [name]="isExpanded4 ? 'chevron-up' : 'chevron-forward'"
-                    [style.transform]="isExpanded4 ? 'rotate(180deg)' : 'rotate(0deg)'"
-                  ></ion-icon>
-                  <ion-label class="col-10 acc_label"
-                    >Quiz on Password Security</ion-label
-                  >
+                    [style.transform]="isExpanded4 ? 'rotate(180deg)' : 'rotate(0deg)'"></ion-icon>
+                  <ion-label class="col-10 acc_label">Quiz on Password Security</ion-label>
                   <ion-label class="text-end acc_sub_label">9.00</ion-label>
                 </ion-item>
                 <div class="col-12 ion-padding" slot="content">
@@ -619,27 +446,12 @@
               </ion-accordion>
             </ion-accordion-group>
             <ion-accordion-group class="mb-3 acc_total">
-              <ion-accordion
-                class="acc_main_cyber"
-                value="cyber_first"
-                toggleIcon=""
-              >
-                <ion-item
-                  lines="none"
-                  class="acc_header_cyber acc_total"
-                  slot="header"
-                  (click)="toggleAccordion(5)"
-                >
-                  <ion-icon
-                    slot="start"
-                    color="light"
-                    class="p-0 m-0"
+              <ion-accordion class="acc_main_cyber" value="cyber_first" toggleIcon="">
+                <ion-item lines="none" class="acc_header_cyber acc_total" slot="header" (click)="toggleAccordion(5)">
+                  <ion-icon slot="start" color="light" class="p-0 m-0"
                     [name]="isExpanded5 ? 'chevron-up' : 'chevron-forward'"
-                    [style.transform]="isExpanded5 ? 'rotate(180deg)' : 'rotate(0deg)'"
-                  ></ion-icon>
-                  <ion-label class="col-10 acc_label_total"
-                    >Course Total</ion-label
-                  >
+                    [style.transform]="isExpanded5 ? 'rotate(180deg)' : 'rotate(0deg)'"></ion-icon>
+                  <ion-label class="col-10 acc_label_total">Course Total</ion-label>
                   <ion-label class="text-end acc_sub_label_total">-</ion-label>
                 </ion-item>
                 <div class="col-12 ion-padding" slot="content">
@@ -689,10 +501,7 @@
           <div *ngFor="let progressBar of myCourses; let i = index">
             <div class="col-12 bar_main">
               <div class="progress_bar_container col-8">
-                <div
-                  class="progress_bar"
-                  [style.width]="progressBar.value * 100 + '%'"
-                ></div>
+                <div class="progress_bar" [style.width]="progressBar.value * 100 + '%'"></div>
               </div>
               <div class="percentage_display col-2">
                 {{ progressBar.value * 100 }}%
@@ -707,12 +516,8 @@
               <p class="comm">CommunicationSC001</p>
               <div class="d-flex">
                 <ion-img src="assets/img/chip.png"></ion-img>
-                <ion-icon
-                  (click)="onClick()"
-                  style="font-size: 25px"
-                  color="primary"
-                  name="chevron-forward-sharp"
-                ></ion-icon>
+                <ion-icon (click)="onClick()" style="font-size: 25px" color="primary"
+                  name="chevron-forward-sharp"></ion-icon>
               </div>
             </div>
             <ion-list lines="none">
@@ -726,9 +531,7 @@
               </ion-item>
               <ion-item>
                 <ion-label class="label_left">Learning Plans :</ion-label>
-                <ion-label class="label_ryt"
-                  >No Learning plan in this competency</ion-label
-                >
+                <ion-label class="label_ryt">No Learning plan in this competency</ion-label>
               </ion-item>
             </ion-list>
           </div>
@@ -737,12 +540,8 @@
               <p class="comm">Body LanguageSB001</p>
               <div class="d-flex">
                 <ion-img src="assets/img/chip.png"></ion-img>
-                <ion-icon
-                  (click)="onClick()"
-                  style="font-size: 25px"
-                  color="primary"
-                  name="chevron-forward-sharp"
-                ></ion-icon>
+                <ion-icon (click)="onClick()" style="font-size: 25px" color="primary"
+                  name="chevron-forward-sharp"></ion-icon>
               </div>
             </div>
             <ion-list lines="none">
@@ -756,9 +555,7 @@
               </ion-item>
               <ion-item>
                 <ion-label class="label_left">Learning Plans :</ion-label>
-                <ion-label class="label_ryt"
-                  >No Learning plan in this competency</ion-label
-                >
+                <ion-label class="label_ryt">No Learning plan in this competency</ion-label>
               </ion-item>
             </ion-list>
           </div>
@@ -767,22 +564,3 @@
     </div>
   </div>
 </ion-content>
-<!-- <ion-footer class="footer">
-  <div class="col-12 footer_main">
-    <div>
-      <ion-img src="assets/icon/mortarboard.svg"></ion-img>
-    </div>
-    <div>
-      <ion-img src="assets/icon/course.svg"></ion-img>
-    </div>
-    <div>
-      <ion-img src="assets/icon/chat.svg"></ion-img>
-    </div>
-    <div>
-      <ion-img src="assets/icon/bell.svg"></ion-img>
-    </div>
-    <div>
-      <ion-img src="assets/icon/more.png"></ion-img>
-    </div>
-  </div>
-</ion-footer> -->

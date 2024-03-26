@@ -3,7 +3,7 @@
     <div class="main">
       <div class="h-100">
         <div class="header text-center">
-          <img class="logo" src="assets\img\group.png" alt="logo" />
+          <ion-img class="logo" src="assets\img\group.png" alt="logo" ></ion-img>
         </div>
 
         <div class="container p-0">
@@ -79,7 +79,7 @@
               <div class="form_main">
                 <form
                   [formGroup]="otpLoginForm"
-                  (ngSubmit)="onSubmit()"
+                  (ngSubmit)="onSubmitOtp()"
                   novalidate
                 >
                   <div class="form-group">
@@ -95,6 +95,7 @@
                         placeholder="Enter phone"
                         name="phone"
                         maxlength="10"
+                        (input)="onMaxPhone()"
                       />
                       <ion-icon
                         *ngIf="g['phone']!.value.length === 10"
@@ -122,7 +123,8 @@
                   <div
                     class="col-12 d-flex align-items-center justify-content-between"
                   >
-                    <p class="fgt_pwd">Resent OTP?</p>
+                    <p class="fgt_pwd" (click)="resendOtp()" *ngIf="!isVisible">Resent OTP?</p>
+                    <p class="fgt_pwd" [ngStyle]="{'color': timerColor}" *ngIf="isVisible">00:{{remainingTime}}</p>
                     <ion-button
                       color="success"
                       type="submit"

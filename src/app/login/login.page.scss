@@ -7,37 +7,39 @@
 }
 .main {
   background-color: #3553a1;
-  // background-image: url(../../assets/img/footer_img.png);
-  // background-position: center bottom;
-  // background-attachment: fixed;
-  // background-repeat: no-repeat;
 }
+
 .rectangle {
   border: 1px solid;
 }
+
 .header {
-  padding: 60px;
+  padding: 4vw;
 }
+
 .container {
-  border-radius: 50px 50px 0 0;
+  border-radius: 5vw 5vw 0 0; 
   background-color: #fff;
 }
+
 .container_sub {
-  padding: 35px;
+  padding: 3vw;
 }
+
 .form {
-  border-radius: 10px;
+  border-radius: 2vw;
   background-color: #fff;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow: 0 2vw 4vw 0 rgba(0, 0, 0, 0.2), 0 3vw 10vw 0 rgba(0, 0, 0, 0.19);
 }
+
 .heading {
   background-color: #3553a1;
   color: white;
-  border-radius: 10px 10px 0 0;
-  padding: 5px;
+  border-radius: 1vw;
+  padding: 1vw 2vw;
   font-family: "Inter", sans-serif;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 3vw;
   text-align: center;
 }
 
@@ -45,49 +47,71 @@
   font-family: "Inter", sans-serif;
   color: #3553a1;
   font-weight: 900;
-  margin-top: 15px;
-  font-size: 12px;
+  margin-top: 2vw;
+  font-size: 3vw;
 }
 
 .form_main {
-  padding: 10px;
+  padding: 1vw;
 }
+
 .form_label {
   font-family: "Inter", sans-serif;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 3vw;
   color: #000000;
 }
+
 .form-control {
   border: none;
   font-family: "Inter", sans-serif;
   font-weight: 400;
-  font-size: 12px;
+  font-size: 3vw;
   color: #9b9b9b;
 }
+
 .hr {
-  border: 1px solid #d9d9d9;
-  margin: 0px;
-  height: 0px;
+  border: 0.2vw solid #d9d9d9;
+  margin: 0; 
+  height: 0;
 }
+
 .icon {
-  height: 15px;
-  width: 15px;
+  height: 3vw;
+  width: 3vw;
 }
+
 input:focus {
   box-shadow: none;
 }
+
 .btn_login {
-  --border-radius: 5px;
+  --border-radius: 1vw;
 }
+
 .span_login {
   color: #fff;
   font-family: "Inter", sans-serif;
   font-weight: 700;
-  font-size: 12px;
+  font-size: 3vw;
   text-transform: capitalize;
 }
+
 .footer_img {
   width: 100%;
   height: auto;
+}
+
+@media screen and (max-width: 768px) {
+  .header {
+    padding: 8vw;
+  }
+
+  .container_sub {
+    padding: 6vw;
+  }
+
+  .form_main {
+    padding: 4vw;
+  }
 }

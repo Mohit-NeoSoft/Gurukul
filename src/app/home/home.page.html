@@ -152,8 +152,10 @@
         >Lorem Ipsum doller site amet Ipsum doller site</ion-text
       >
     </div>
+    <ion-list lines="none" class="course_list">
     <div class="main_one" *ngFor="let item of courseData; let i = index">
-      <div class="card mb-3">
+     
+      <div class="card mb-2">
         <div class="col-12 card_main">
           <div (click)="onCardClick(item)">
             <ion-img
@@ -192,8 +194,11 @@
           </div>
         </div>
       </div>
+   
     </div>
-    <div class="mb-3">
+  </ion-list>
+
+    <div class="mb-1 mt-2">
       <div class="col-12 d-flex justify-content-between sub">
         <div class="icons_sub">
           <ion-icon class="cap_icon" name="school-sharp"></ion-icon>
@@ -213,8 +218,9 @@
           </ion-popover> -->
       </div>
     </div>
+    <ion-list lines="none" class="course_list">
     <div class="main_one" *ngFor="let progressBar of recCourses; let i = index">
-      <div class="card mb-3">
+      <div class="card mb-2">
         <div class="col-12 card_main">
           <div (click)="onCardClick(progressBar)">
             <ion-img
@@ -254,6 +260,7 @@
         </div>
       </div>
     </div>
+  </ion-list>
   </div>
 </ion-content>
 <app-footer></app-footer>
