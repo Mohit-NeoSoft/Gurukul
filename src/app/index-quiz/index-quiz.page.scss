@@ -168,3 +168,20 @@
   font-weight: 400;
   text-transform: capitalize;
 }
+@media only screen and (max-width: 600px) {
+  .content_p {
+    font-size: 20px;
+  }
+}
+
+@media only screen and (min-width: 601px) and (max-width: 992px) {
+  .content_p {
+    font-size: 22px;
+  }
+}
+
+@media only screen and (min-width: 993px) {
+  .content_p {
+    font-size: 25px;
+  }
+}

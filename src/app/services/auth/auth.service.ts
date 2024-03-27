@@ -31,6 +31,16 @@ export class AuthService {
     );
   }
 
+  validateEmail(email: any): Observable<any> {
+    let params = new HttpParams().set('values[0]', email);
+    console.log(params);
+
+    return this.http.get(AUTH_API +
+      'webservice/rest/server.php?moodlewsrestformat=json&wstoken=49d7377b1cffbbb4934972997a435bca&wsfunction=core_user_get_users_by_field&field=email',
+      { params }
+    );
+  }
+
   sendOtp(phone: string) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
@@ -69,8 +79,7 @@ export class AuthService {
     let params = new HttpParams().set('email', email);
     console.log(params);
 
-    return this.http.get(AUTH_API +
-      'webservice/rest/server.php?moodlewsrestformat=json&wsfunction=core_auth_request_password_reset&wstoken=0d1df9b1758999248b6ca0cadd1d117d',
+    return this.http.get('https://gurukul.skfin.in/webservice/rest/server.php?moodlewsrestformat=json&wsfunction=core_auth_request_password_reset&wstoken=8f1f644e5ed7d8d8fd587dba8856e2d2',
       { params }
     );
   }
@@ -85,16 +94,16 @@ export class AuthService {
     );
   }
 
-  getCourses(): Observable<any> {
-    // let params = new HttpParams().set('wstoken', token);
-    // console.log(params);
+  getCourses(id: any): Observable<any> {
+    let params = new HttpParams().set('userid', id);
+    console.log(params);
 
     return this.http.get(AUTH_API +
-      'webservice/rest/server.php?moodlewsrestformat=json&wstoken=49d7377b1cffbbb4934972997a435bca&wsfunction=core_course_get_courses_by_field',
-      // { params }
+      'webservice/rest/server.php?moodlewsrestformat=json&wsfunction=core_enrol_get_users_courses&wstoken=49d7377b1cffbbb4934972997a435bca',
+      { params }
     );
   }
-
+  
   getCourseContent(id: any): Observable<any> {
     let params = new HttpParams().set('courseid', id);
     console.log(params);

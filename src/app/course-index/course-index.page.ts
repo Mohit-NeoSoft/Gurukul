@@ -22,7 +22,7 @@ export class CourseIndexPage implements OnInit {
             this.courseData = data;
           },
           error: (error) => {
-            console.error('Login failed:', error);
+            console.error(error);
           },
         });
       }
@@ -48,12 +48,15 @@ export class CourseIndexPage implements OnInit {
       };
       this.router.navigate(['index-quiz'],navigationExtras)
     }
-    // this.router.navigate(['index-activity'])
+    if(value.modname === 'page'){
+      let navigationExtras: NavigationExtras = {
+        queryParams: {
+          data: JSON.stringify(value),
+        },
+      };
+      this.router.navigate(['index-activity'],navigationExtras)
+    }
   }
-
-  // onQuiz(){
-  //   this.router.navigate(['index-quiz'])
-  // }
 
   toggleAccordion(index: number) {
     this.isExpanded[index] = !this.isExpanded[index];

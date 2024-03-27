@@ -71,14 +71,14 @@
 }
 
 .hr {
-  border: 0.2vw solid #d9d9d9;
-  margin: 0; 
-  height: 0;
+  border: 0.2vw solid #d9d9d9; /* Adjust border using vw units */
+  margin: 0; /* Adjust margin */
+  height: 0; /* Adjust height */
 }
 
 .icon {
-  height: 3vw;
-  width: 3vw;
+  height: 3vw; /* Adjust height using vw units */
+  width: 3vw; /* Adjust width using vw units */
 }
 
 input:focus {
@@ -101,6 +101,8 @@ input:focus {
   width: 100%;
   height: auto;
 }
+
+/* Media queries for responsiveness */
 
 @media screen and (max-width: 768px) {
   .header {

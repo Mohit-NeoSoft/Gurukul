@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { AuthService } from '../services/auth/auth.service';
 import { Utility } from '../utility/utility';
+import { TokenService } from '../services/token/token.service';
 
 @Component({
   selector: 'app-cyber-security',
@@ -18,6 +19,7 @@ export class CyberSecurityPage implements OnInit {
   showInfo: boolean = false;
   courseName: any;
   data: any;
+  token: any
   courseData: any;
   myCourses = [
     {
@@ -36,7 +38,8 @@ export class CyberSecurityPage implements OnInit {
   isExpanded4: boolean = false;
   isExpanded5: boolean = false;
 
-  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService, public utility: Utility) {
+  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService, 
+    public utility: Utility,private tokenService: TokenService) {
     this.route.queryParams.subscribe((params: any) => {
       if (params && params.data) {
         this.data = JSON.parse(params.data);
@@ -53,7 +56,9 @@ export class CyberSecurityPage implements OnInit {
     });
   }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    this.token = this.tokenService.getToken();
+  }
 
   segmentChanged(ev: any) {
     this.segment = ev.detail.value;
@@ -105,9 +110,30 @@ export class CyberSecurityPage implements OnInit {
     this.router.navigate(['course-index'], navigationExtras);
   }
 
-  onClick() {
+  onComm() {
     this.router.navigate(['communication']);
   }
+
+  onClick(value: any){
+    console.log(value);
+    if(value.modname === 'quiz'){
+      let navigationExtras: NavigationExtras = {
+        queryParams: {
+          data: JSON.stringify(value.instance),
+        },
+      };
+      this.router.navigate(['index-quiz'],navigationExtras)
+    }
+    if(value.modname === 'page'){
+      let navigationExtras: NavigationExtras = {
+        queryParams: {
+          data: JSON.stringify(value),
+        },
+      };
+      this.router.navigate(['index-activity'],navigationExtras)
+    }
+  }
+
   toggleAccordion(value: any) {
     if (value === 1) {
       this.isExpanded1 = !this.isExpanded1;
@@ -127,9 +153,9 @@ export class CyberSecurityPage implements OnInit {
   }
 
   extractImageUrl(summary: string): string {
-    const startIndex = summary.indexOf('src="') + 5;
-    const endIndex = summary.indexOf('"', startIndex);
-    const imageUrl = summary.substring(startIndex, endIndex);
-    return imageUrl.replace('/webservice', '');
+    const regex = /<img[^>]+src="([^">]+?\.(?:png|jpg|jpeg|gif|jfif))[^">]*"/;
+    const matches = summary.match(regex);
+    const imageUrl = matches ? matches[1] : ''; // Provide a default value if matches is null
+    return imageUrl;
   }
 }

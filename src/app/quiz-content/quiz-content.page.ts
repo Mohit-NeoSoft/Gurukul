@@ -77,9 +77,14 @@ export class QuizContentPage implements OnInit {
   }
 
   extractValues() {
-    const questions = document.querySelectorAll<HTMLDivElement>('.que.multichoice.deferredfeedback.notyetanswered');
+    const questions = document.querySelectorAll<HTMLDivElement>('.que');
+    console.log(questions);
+    
     questions.forEach((question, index) => {
-      const questionNumber = index + 1;
+      console.log(question);
+      console.log(index);
+      
+      const questionNumber = index;
       const selectedRadio = question.querySelector<HTMLInputElement>('input[type="radio"]:checked');
       const selectedCheckbox = question.querySelector<HTMLInputElement>('input[type="checkbox"]:checked');
   
@@ -133,9 +138,7 @@ export class QuizContentPage implements OnInit {
   }
 
   onNext() {
-    // this.showNext = true;
-   this.extractValues();
-
+   this.extractValues();    
    let navigationExtras: NavigationExtras = {
     queryParams: {
       id: this.attemptId,

@@ -59,9 +59,9 @@
     </div>
     <hr class="profile_hr" />
     <div class="d-flex align-items-center justify-content-between ion-padding">
-      <div class="d-flex align-items-center">
-        <ion-img src="assets/img/user.png"></ion-img>
-        <p class="profile_name m-1">ADITI MITTAL</p>
+      <div class="d-flex align-items-center" *ngFor="let item of userData; let i = index">
+        <ion-img [src]="item.profileimageurlsmall" class="img-fluid rounded-start" alt=""></ion-img>
+        <p class="profile_name m-1">{{item.fullname}}</p>
       </div>
       <ion-icon
         slot="end"
@@ -181,13 +181,13 @@
               </p>
               <div class="col-12 bar_main">
                 <div class="progress_bar_container col-10">
-                  <!-- <div
+                  <div
                     class="progress_bar"
-                    [style.width]="progressBar.value * 100 + '%'"
-                  ></div> -->
+                    [style.width]="item.progress + '%'"
+                  ></div>
                 </div>
                 <div class="percentage_display col-2">
-                  <!-- {{ progressBar.value * 100 }}% -->
+                  {{ item.progress | number:'1.0-2' }}%
                 </div>
               </div>
             </div>
@@ -222,7 +222,7 @@
     <div class="main_one" *ngFor="let progressBar of recCourses; let i = index">
       <div class="card mb-2">
         <div class="col-12 card_main">
-          <div (click)="onCardClick(progressBar)">
+          <div>
             <ion-img
               src="{{ progressBar.src }}"
               class="img-fluid rounded-start"
@@ -232,7 +232,7 @@
           <div class="col-10 card_sub">
             <div class="card_body p-0">
               <div class="col-12 card_body_sub">
-                <h5 class="card_title" (click)="onCardClick(progressBar)">
+                <h5 class="card_title">
                   {{ progressBar.name }}
                 </h5>
                 <!-- <ion-img
@@ -241,7 +241,7 @@
                   alt=""
                 ></ion-img> -->
               </div>
-              <p class="card_text" (click)="onCardClick(progressBar)">
+              <p class="card_text">
                 {{ progressBar.type }}
               </p>
               <!-- <div class="col-12 bar_main">

@@ -6,17 +6,58 @@
   font-size: 20px;
   font-weight: 500;
 }
+
 .main_p {
   color: #565656;
   font-family: "Inter", sans-serif;
   font-size: 25px;
   font-weight: 500;
 }
+
 .main {
   margin-top: 50%;
 }
+
 .image {
   display: inline-block;
   width: 50%;
   height: 50%;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 576px) {
+  .title {
+    font-size: 18px;
+  }
+
+  .main_p {
+    font-size: 20px;
+  }
+
+  .main {
+    margin-top: 30%;
+  }
+
+  .image {
+    width: 80%;
+    height: auto;
+  }
+}
+
+@media screen and (min-width: 577px) and (max-width: 768px) {
+  .title {
+    font-size: 22px;
+  }
+
+  .main_p {
+    font-size: 22px;
+  }
+
+  .main {
+    margin-top: 40%;
+  }
+
+  .image {
+    width: 70%;
+  }
 }

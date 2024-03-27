@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { AuthService } from '../services/auth/auth.service';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-index-quiz',
@@ -15,7 +16,7 @@ export class IndexQuizPage implements OnInit {
   quizData: any;
   errorMsg: any;
 
-  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService) {
+  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService, private toastCtrl: ToastController) {
     this.route.queryParams.subscribe((params: any) => {
       console.log(params);
 
@@ -30,7 +31,7 @@ export class IndexQuizPage implements OnInit {
               // this.getAttemptSummary();
               console.log(this.attemptId);
             } else {
-              this.errorMsg = this.data.errorcode
+              this.errorMsg = this.data.message
               console.log(this.errorMsg);
 
             }
@@ -44,10 +45,10 @@ export class IndexQuizPage implements OnInit {
   }
 
   ngOnInit() {
-    
+
   }
 
-  getAttemptSummary(){
+  getAttemptSummary() {
     this.authService.getAttemptSummary(this.attemptId).subscribe({
       next: (res) => {
         this.quizData = res
@@ -65,14 +66,28 @@ export class IndexQuizPage implements OnInit {
   }
 
   onStart() {
-    if(this.attemptId !== '' && this.attemptId !== undefined){
-    let navigationExtras: NavigationExtras = {
-      queryParams: {
-        data: JSON.stringify(this.attemptId),
-      },
-    };
-    this.router.navigate(['start-quiz'], navigationExtras);
+    if (this.errorMsg) {
+      this.presentToast(this.errorMsg, 'danger');
+    }
+    if (this.attemptId !== '' && this.attemptId !== undefined) {
+      let navigationExtras: NavigationExtras = {
+        queryParams: {
+          data: JSON.stringify(this.attemptId),
+        },
+      };
+      this.router.navigate(['start-quiz'], navigationExtras);
+    }
   }
+
+  async presentToast(message: any, color: any) {
+    let toast = await this.toastCtrl.create({
+      message: message,
+      duration: 1500,
+      position: 'top',
+      color: color,
+    });
+
+    toast.present();
   }
 
 }

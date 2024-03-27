@@ -16,7 +16,7 @@ export class LoginPage implements OnInit {
   otpLoginForm!: FormGroup;
   isLoggedIn: boolean = false;
   showPassword: boolean = false;
-  passwordToggleIcon = 'eye';
+  passwordToggleIcon = 'eye-outline';
   showOtpForm: boolean = false;
   showUserForm: boolean = true;
   toastMsg: any;
@@ -63,10 +63,10 @@ export class LoginPage implements OnInit {
 
   toggle() {
     this.showPassword = !this.showPassword;
-    if (this.passwordToggleIcon === 'eye') {
-      this.passwordToggleIcon = 'eye-off';
+    if (this.passwordToggleIcon === 'eye-outline') {
+      this.passwordToggleIcon = 'eye-off-outline';
     } else {
-      this.passwordToggleIcon = 'eye';
+      this.passwordToggleIcon = 'eye-outline';
     }
   }
 

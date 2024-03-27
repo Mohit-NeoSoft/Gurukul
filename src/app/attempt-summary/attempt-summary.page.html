@@ -87,14 +87,16 @@
             </ion-label>
           </ion-item> -->
         </ion-list>
-        <p class="deadline">
+        <!-- <p class="deadline">
           This attempt must be submitted by Monday, 19 February 2024, 10:12 AM
-        </p>
+        </p> -->
       </div>
-    </div>
-    <div class="ion-padding position-absolute bottom-0 w-100">
-      <ion-button class="btn_nxt" color="success" expand="block" (click)="onSubmit()"><span class="span_nxt">Submit all
-          and Finish</span></ion-button>
     </div>
   </div>
 </ion-content>
+<ion-footer [translucent]="true">
+  <ion-toolbar class="p-1">
+    <ion-button class="btn_nxt" color="success" expand="block" (click)="onSubmit()"><span class="span_nxt">Submit all
+        and Finish</span></ion-button>
+  </ion-toolbar>
+</ion-footer>

@@ -203,3 +203,41 @@
   color: #fff;
     margin: 0;
 }
+/* Responsive adjustments */
+@media screen and (max-width: 576px) {
+  .card_title {
+    font-size: 18px;
+  }
+
+  .body_title {
+    font-size: 18px;
+  }
+
+  .percentage_display {
+    font-size: 14px;
+  }
+
+  .body_main,
+  .body_sub {
+    padding: 8px;
+  }
+}
+
+@media screen and (min-width: 577px) and (max-width: 768px) {
+  .card_title {
+    font-size: 19px;
+  }
+
+  .body_title {
+    font-size: 19px;
+  }
+
+  .percentage_display {
+    font-size: 14px;
+  }
+
+  .body_main,
+  .body_sub {
+    padding: 10px;
+  }
+}

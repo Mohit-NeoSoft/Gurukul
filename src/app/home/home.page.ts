@@ -27,6 +27,8 @@ export class HomePage {
   status: any;
   courseData: any;
   userId: any;
+  id: any;
+  userData: any;
   // myCourses = [
   //   {
   //     id: 1,
@@ -101,27 +103,21 @@ export class HomePage {
     Network.addListener('networkStatusChange', (status) => {
       console.log('Network status changed', status);
     });
-    this.getCourses();
     this.getUser();
-  }
-
-  getCourses(){
-    this.authService.getCourses().subscribe({
-      next: (data) => {
-        console.log(data.courses);
-        this.courseData = data.courses;
-      },
-      error: (error) => {
-        console.error('Login failed:', error);
-      },
-    });
   }
 
   getUser(){
     this.authService.getUserInfo(this.userId).subscribe({
       next: (data) => {
         console.log(data);
-        this.tokenService.saveUser(data)
+        this.userData = data
+
+        for(let i=0;i<data.length;i++){
+          this.id = this.userData[i].id
+        }
+        console.log(this.id);
+        this.getCourses();
+        this.tokenService.saveUser(this.userData);
       },
       error: (error) => {
         console.error('Login failed:', error);
@@ -129,6 +125,19 @@ export class HomePage {
     });
   }
 
+  getCourses(){
+    console.log(this.id);
+    
+    this.authService.getCourses(this.id).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.courseData = data;
+      },
+      error: (error) => {
+        console.error('Login failed:', error);
+      },
+    });
+  }
   async initializeNetworkListener() {
     // Add a listener for network status changes
     Network.addListener('networkStatusChange', (status) => {
