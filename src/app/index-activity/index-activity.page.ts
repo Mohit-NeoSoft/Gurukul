@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MenuController } from '@ionic/angular';
 import { AuthService } from '../services/auth/auth.service';
 import { TokenService } from '../services/token/token.service';
+import { Utility } from '../utility/utility';
 
 @Component({
   selector: 'app-index-activity',
@@ -17,11 +18,11 @@ export class IndexActivityPage implements OnInit {
   data: any;
   token: any;
 
-  constructor(private menuCtrl: MenuController,private route: ActivatedRoute,private tokenService: TokenService) {
+  constructor(private menuCtrl: MenuController, private route: ActivatedRoute, private tokenService: TokenService, public utility: Utility) {
     this.route.queryParams.subscribe((params: any) => {
       if (params && params.data) {
         this.data = JSON.parse(params.data);
-        console.log(this.data); 
+        console.log(this.data);
       }
     });
   }
@@ -34,7 +35,7 @@ export class IndexActivityPage implements OnInit {
     this.menuCtrl.open('endMenu');
   }
 
-  onClose(){
+  onClose() {
     this.menuCtrl.close('endMenu');
   }
 
@@ -43,12 +44,12 @@ export class IndexActivityPage implements OnInit {
     this.isOpen = true;
   }
 
-  onPrevious(){
+  onPrevious() {
     this.showPrevious = true;
     this.showNext = false;
   }
 
-  onNext(){
+  onNext() {
     this.showNext = true;
     this.showPrevious = false;
   }

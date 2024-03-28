@@ -21,6 +21,7 @@ export class CyberSecurityPage implements OnInit {
   data: any;
   token: any
   courseData: any;
+  gradesData: any;
   myCourses = [
     {
       id: 1,
@@ -32,11 +33,7 @@ export class CyberSecurityPage implements OnInit {
       myCourse: true,
     },
   ];
-  isExpanded1: boolean = false;
-  isExpanded2: boolean = false;
-  isExpanded3: boolean = false;
-  isExpanded4: boolean = false;
-  isExpanded5: boolean = false;
+  isExpanded: string = '';
 
   constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService, 
     public utility: Utility,private tokenService: TokenService) {
@@ -62,6 +59,26 @@ export class CyberSecurityPage implements OnInit {
 
   segmentChanged(ev: any) {
     this.segment = ev.detail.value;
+    const user = this.tokenService.getUser();
+    console.log(user[0].id);
+    
+    console.log(this.segment);
+    if(this.segment === 'grades'){
+      console.log(this.data.id);
+      
+      this.authService.getUserGrades(user[0].id,this.data.id).subscribe({
+        next: (res) => {
+          console.log(res);
+          this.gradesData = res.usergrades
+          console.log(this.gradesData);
+          
+        },
+        error: (error) => {
+          console.error('Login failed:', error);
+        },
+      });
+    }
+    
   }
 
   onPwdSec() {
@@ -134,22 +151,10 @@ export class CyberSecurityPage implements OnInit {
     }
   }
 
-  toggleAccordion(value: any) {
-    if (value === 1) {
-      this.isExpanded1 = !this.isExpanded1;
-    }
-    if (value === 2) {
-      this.isExpanded2 = !this.isExpanded2;
-    }
-    if (value === 3) {
-      this.isExpanded3 = !this.isExpanded3;
-    }
-    if (value === 4) {
-      this.isExpanded4 = !this.isExpanded4;
-    }
-    if (value === 5) {
-      this.isExpanded5 = !this.isExpanded5;
-    }
+  toggleAccordion(i: number, j: number) {
+    const accordionIndex = 'cyber_' + i + '_' + j;
+    // If the clicked accordion is already expanded, collapse it
+    this.isExpanded = this.isExpanded === accordionIndex ? '' : accordionIndex;
   }
 
   extractImageUrl(summary: string): string {

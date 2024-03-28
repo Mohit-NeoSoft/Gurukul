@@ -36,7 +36,7 @@ export class AuthService {
     console.log(params);
 
     return this.http.get(AUTH_API +
-      'webservice/rest/server.php?moodlewsrestformat=json&wstoken=49d7377b1cffbbb4934972997a435bca&wsfunction=core_user_get_users_by_field&field=email',
+      'webservice/rest/server.php?moodlewsrestformat=json&wstoken=47527b5daf6f0ee9090811eba184894a&wsfunction=core_user_get_users_by_field&field=email',
       { params }
     );
   }
@@ -89,7 +89,7 @@ export class AuthService {
     console.log(params);
 
     return this.http.get(AUTH_API +
-      'webservice/rest/server.php?moodlewsrestformat=json&wstoken=49d7377b1cffbbb4934972997a435bca&wsfunction=core_user_get_users_by_field&field=username',
+      'webservice/rest/server.php?moodlewsrestformat=json&wstoken=47527b5daf6f0ee9090811eba184894a&wsfunction=core_user_get_users_by_field&field=username',
       { params }
     );
   }
@@ -99,7 +99,7 @@ export class AuthService {
     console.log(params);
 
     return this.http.get(AUTH_API +
-      'webservice/rest/server.php?moodlewsrestformat=json&wsfunction=core_enrol_get_users_courses&wstoken=49d7377b1cffbbb4934972997a435bca',
+      'webservice/rest/server.php?moodlewsrestformat=json&wsfunction=core_enrol_get_users_courses&wstoken=47527b5daf6f0ee9090811eba184894a',
       { params }
     );
   }
@@ -109,7 +109,19 @@ export class AuthService {
     console.log(params);
 
     return this.http.get(AUTH_API +
-      'webservice/rest/server.php?moodlewsrestformat=json&wsfunction=core_course_get_contents&wstoken=49d7377b1cffbbb4934972997a435bca',
+      'webservice/rest/server.php?moodlewsrestformat=json&wsfunction=core_course_get_contents&wstoken=47527b5daf6f0ee9090811eba184894a',
+      { params }
+    );
+  }
+
+  getUserGrades(userId: any, courseId: any): Observable<any> {
+    let params = new HttpParams()
+    .set('userid', userId)
+    .set('courseid', courseId);
+  console.log(params);
+
+    return this.http.get(AUTH_API +
+      'webservice/rest/server.php?moodlewsrestformat=json&wsfunction=gradereport_user_get_grade_items&wstoken=47527b5daf6f0ee9090811eba184894a',
       { params }
     );
   }
@@ -119,7 +131,7 @@ export class AuthService {
     console.log(params);
 
     return this.http.get(AUTH_API +
-      'webservice/rest/server.php?moodlewsrestformat=json&wsfunction=mod_quiz_start_attempt&wstoken=49d7377b1cffbbb4934972997a435bca',
+      'webservice/rest/server.php?moodlewsrestformat=json&wsfunction=mod_quiz_start_attempt&wstoken=47527b5daf6f0ee9090811eba184894a',
       { params }
     );
   }
@@ -129,7 +141,7 @@ export class AuthService {
     console.log(params);
 
     return this.http.get(AUTH_API +
-      'webservice/rest/server.php?moodlewsrestformat=json&wsfunction=mod_quiz_get_attempt_summary&wstoken=49d7377b1cffbbb4934972997a435bca',
+      'webservice/rest/server.php?moodlewsrestformat=json&wsfunction=mod_quiz_get_attempt_summary&wstoken=47527b5daf6f0ee9090811eba184894a',
       { params }
     );
   }
@@ -139,7 +151,7 @@ export class AuthService {
     console.log(params);
 
     return this.http.get(AUTH_API +
-      'webservice/rest/server.php?moodlewsrestformat=json&wsfunction=message_popup_get_popup_notifications&wstoken=49d7377b1cffbbb4934972997a435bca',
+      'webservice/rest/server.php?moodlewsrestformat=json&wsfunction=message_popup_get_popup_notifications&wstoken=47527b5daf6f0ee9090811eba184894a',
       { params }
     );
   }
@@ -149,7 +161,7 @@ export class AuthService {
     console.log(params);
 
     return this.http.get(AUTH_API +
-      'webservice/rest/server.php?moodlewsrestformat=json&wsfunction=gradereport_overview_get_course_grades&wstoken=49d7377b1cffbbb4934972997a435bca',
+      'webservice/rest/server.php?moodlewsrestformat=json&wsfunction=gradereport_overview_get_course_grades&wstoken=47527b5daf6f0ee9090811eba184894a',
       { params }
     );
   }
@@ -159,7 +171,7 @@ export class AuthService {
     console.log(params);
 
     return this.http.get(AUTH_API +
-      'webservice/rest/server.php?moodlewsrestformat=json&wsfunction=core_badges_get_user_badges&wstoken=49d7377b1cffbbb4934972997a435bca',
+      'webservice/rest/server.php?moodlewsrestformat=json&wsfunction=core_badges_get_user_badges&wstoken=47527b5daf6f0ee9090811eba184894a',
       { params }
     );
   }

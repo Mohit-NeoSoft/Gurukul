@@ -74,9 +74,9 @@
             </div>
             <div class="col-12 bar_main">
               <div class="progress_bar_container col-10">
-                <div class="progress_bar" [style.width]="value * 100 + '%'"></div>
+                <div class="progress_bar" [style.width]="data.progress + '%'"></div>
               </div>
-              <div class="percentage_display col-2">{{value * 100}}%</div>
+              <div class="percentage_display col-2">{{ data.progress | number:'1.0-2' }}%</div>
             </div>
           </div>
         </div>
@@ -101,7 +101,7 @@
             <h1 class="body_title" *ngIf="i<1">
               {{item.name}}
             </h1>
-            <ion-img *ngIf="i<1" [src]="extractImageUrl(item.summary) + '?token=' + token"></ion-img>
+            <ion-img *ngIf="i<1" [src]="extractImageUrl(item.summary) + '?token=' + utility.getToken()"></ion-img>
             <!-- <ion-img src="assets/img/cyber_img.png"></ion-img> -->
           </div>
         </div>
@@ -253,7 +253,7 @@
             <ion-input class="grade_search" type="text" placeholder="Search"><ion-icon class="search_icon" slot="end"
                 color="medium" name="search-outline"></ion-icon></ion-input>
           </div>
-          <div class="content text-center">
+          <div class="content text-center" *ngIf="gradesData.length === 0">
             <div class="d-flex align-items-center justify-content-center mb-3">
               <ion-img src="assets/img/marking.png"></ion-img>
             </div>
@@ -261,17 +261,17 @@
           </div>
         </div>
         <div class="col-12 grade_header p-3">
-          <ion-title class="grade_title">Cyber Security Awareness</ion-title>
+          <ion-title class="grade_title">{{data.displayname}}</ion-title>
         </div>
         <div class="grade_main">
-          <div class="col-12">
-            <ion-accordion-group>
-              <ion-accordion class="acc_main_cyber" value="cyber_first" toggleIcon="">
-                <ion-item lines="none" class="acc_header_cyber" slot="header" (click)="toggleAccordion(1)">
+          <div class="col-12" *ngFor="let val of gradesData; let i = index">
+            <ion-accordion-group *ngFor="let item of val.gradeitems; let j = index">
+              <ion-accordion class="acc_main_cyber" [value]="'cyber_' + i + '_' + j" toggleIcon="">
+                <ion-item lines="none" class="acc_header_cyber" slot="header" (click)="toggleAccordion(i, j)">
                   <ion-icon slot="start" color="primary" class="p-0 m-0"
-                    [name]="isExpanded1 ? 'chevron-up' : 'chevron-forward'"
-                    [style.transform]="isExpanded1 ? 'rotate(180deg)' : 'rotate(0deg)'"></ion-icon>
-                  <ion-label class="col-10 acc_label">Information Security Awareness</ion-label>
+                    [name]="isExpanded === 'cyber_' + i + '_' + j ? 'chevron-up' : 'chevron-forward'"
+                    [style.transform]="isExpanded === 'cyber_' + i + '_' + j ? 'rotate(180deg)' : 'rotate(0deg)'"></ion-icon>
+                  <ion-label class="col-10 acc_label">{{item.itemname}}</ion-label>
                   <ion-label class="text-end acc_sub_label">-</ion-label>
                 </ion-item>
                 <div class="col-12 ion-padding" slot="content">
@@ -285,55 +285,10 @@
                   </div>
                   <div class="row">
                     <div class="col-6 text-center">
-                      <p class="row_val">-</p>
+                      <p class="row_val">{{item.weightformatted}}</p>
                     </div>
                     <div class="col-6 text-center">
-                      <p class="row_val">9.00</p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-6 text-center">
-                      <p class="row_head m-0">Range</p>
-                    </div>
-                    <div class="col-6 text-center">
-                      <p class="row_head m-0">Percentage</p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-6 text-center">
-                      <p class="row_val">0-10</p>
-                    </div>
-                    <div class="col-6 text-center">
-                      <p class="row_val">90%</p>
-                    </div>
-                  </div>
-                </div>
-              </ion-accordion>
-            </ion-accordion-group>
-            <ion-accordion-group>
-              <ion-accordion class="acc_main_cyber" value="cyber_first" toggleIcon="">
-                <ion-item lines="none" class="acc_header_cyber" slot="header" (click)="toggleAccordion(2)">
-                  <ion-icon slot="start" color="primary" class="p-0 m-0"
-                    [name]="isExpanded2 ? 'chevron-up' : 'chevron-forward'"
-                    [style.transform]="isExpanded2 ? 'rotate(180deg)' : 'rotate(0deg)'"></ion-icon>
-                  <ion-label class="col-10 acc_label">Spot the Phis Training</ion-label>
-                  <ion-label class="text-end acc_sub_label">80%</ion-label>
-                </ion-item>
-                <div class="col-12 ion-padding" slot="content">
-                  <div class="row">
-                    <div class="col-6 text-center">
-                      <p class="row_head m-0">Weight</p>
-                    </div>
-                    <div class="col-6 text-center">
-                      <p class="row_head m-0">Grade</p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-6 text-center">
-                      <p class="row_val">-</p>
-                    </div>
-                    <div class="col-6 text-center">
-                      <p class="row_val">9.00</p>
+                      <p class="row_val">{{item.gradeformatted}}</p>
                     </div>
                   </div>
                   <div class="row">
@@ -346,145 +301,10 @@
                   </div>
                   <div class="row">
                     <div class="col-6 text-center">
-                      <p class="row_val">0-10</p>
+                      <p class="row_val">{{item.rangeformatted}}</p>
                     </div>
                     <div class="col-6 text-center">
-                      <p class="row_val">90%</p>
-                    </div>
-                  </div>
-                </div>
-              </ion-accordion>
-            </ion-accordion-group>
-            <ion-accordion-group>
-              <ion-accordion class="acc_main_cyber" value="cyber_first" toggleIcon="">
-                <ion-item lines="none" class="acc_header_cyber" slot="header" (click)="toggleAccordion(3)">
-                  <ion-icon slot="start" color="primary" class="p-0 m-0"
-                    [name]="isExpanded3 ? 'chevron-up' : 'chevron-forward'"
-                    [style.transform]="isExpanded3 ? 'rotate(180deg)' : 'rotate(0deg)'"></ion-icon>
-                  <ion-label class="col-10 acc_label">Quiz on Spot the Phis</ion-label>
-                  <ion-label class="text-end acc_sub_label">2.00</ion-label>
-                </ion-item>
-                <div class="col-12 ion-padding" slot="content">
-                  <div class="row">
-                    <div class="col-6 text-center">
-                      <p class="row_head m-0">Weight</p>
-                    </div>
-                    <div class="col-6 text-center">
-                      <p class="row_head m-0">Grade</p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-6 text-center">
-                      <p class="row_val">-</p>
-                    </div>
-                    <div class="col-6 text-center">
-                      <p class="row_val">9.00</p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-6 text-center">
-                      <p class="row_head m-0">Range</p>
-                    </div>
-                    <div class="col-6 text-center">
-                      <p class="row_head m-0">Percentage</p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-6 text-center">
-                      <p class="row_val">0-10</p>
-                    </div>
-                    <div class="col-6 text-center">
-                      <p class="row_val">90%</p>
-                    </div>
-                  </div>
-                </div>
-              </ion-accordion>
-            </ion-accordion-group>
-            <ion-accordion-group class="mb-3">
-              <ion-accordion class="acc_main_cyber" value="cyber_first" toggleIcon="">
-                <ion-item lines="none" class="acc_header_cyber" slot="header" (click)="toggleAccordion(4)">
-                  <ion-icon slot="start" color="primary" class="p-0 m-0"
-                    [name]="isExpanded4 ? 'chevron-up' : 'chevron-forward'"
-                    [style.transform]="isExpanded4 ? 'rotate(180deg)' : 'rotate(0deg)'"></ion-icon>
-                  <ion-label class="col-10 acc_label">Quiz on Password Security</ion-label>
-                  <ion-label class="text-end acc_sub_label">9.00</ion-label>
-                </ion-item>
-                <div class="col-12 ion-padding" slot="content">
-                  <div class="row">
-                    <div class="col-6 text-center">
-                      <p class="row_head m-0">Weight</p>
-                    </div>
-                    <div class="col-6 text-center">
-                      <p class="row_head m-0">Grade</p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-6 text-center">
-                      <p class="row_val">-</p>
-                    </div>
-                    <div class="col-6 text-center">
-                      <p class="row_val">9.00</p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-6 text-center">
-                      <p class="row_head m-0">Range</p>
-                    </div>
-                    <div class="col-6 text-center">
-                      <p class="row_head m-0">Percentage</p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-6 text-center">
-                      <p class="row_val">0-10</p>
-                    </div>
-                    <div class="col-6 text-center">
-                      <p class="row_val">90%</p>
-                    </div>
-                  </div>
-                </div>
-              </ion-accordion>
-            </ion-accordion-group>
-            <ion-accordion-group class="mb-3 acc_total">
-              <ion-accordion class="acc_main_cyber" value="cyber_first" toggleIcon="">
-                <ion-item lines="none" class="acc_header_cyber acc_total" slot="header" (click)="toggleAccordion(5)">
-                  <ion-icon slot="start" color="light" class="p-0 m-0"
-                    [name]="isExpanded5 ? 'chevron-up' : 'chevron-forward'"
-                    [style.transform]="isExpanded5 ? 'rotate(180deg)' : 'rotate(0deg)'"></ion-icon>
-                  <ion-label class="col-10 acc_label_total">Course Total</ion-label>
-                  <ion-label class="text-end acc_sub_label_total">-</ion-label>
-                </ion-item>
-                <div class="col-12 ion-padding" slot="content">
-                  <div class="row">
-                    <div class="col-6 text-center">
-                      <p class="row_head m-0">Weight</p>
-                    </div>
-                    <div class="col-6 text-center">
-                      <p class="row_head m-0">Grade</p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-6 text-center">
-                      <p class="row_val">-</p>
-                    </div>
-                    <div class="col-6 text-center">
-                      <p class="row_val">9.00</p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-6 text-center">
-                      <p class="row_head m-0">Range</p>
-                    </div>
-                    <div class="col-6 text-center">
-                      <p class="row_head m-0">Percentage</p>
-                    </div>
-                  </div>
-                  <div class="row">
-                    <div class="col-6 text-center">
-                      <p class="row_val">0-10</p>
-                    </div>
-                    <div class="col-6 text-center">
-                      <p class="row_val">90%</p>
+                      <p class="row_val">{{item.percentageformatted}}</p>
                     </div>
                   </div>
                 </div>

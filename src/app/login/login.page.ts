@@ -23,6 +23,7 @@ export class LoginPage implements OnInit {
   isVisible: boolean = false;
   remainingTime = 30;
   timerColor: any = '#3553A1';
+  userId: any;
   private timerSubscription: Subscription | undefined;
 
   constructor(
@@ -188,13 +189,20 @@ export class LoginPage implements OnInit {
             next: (res) => {
               console.log(res.error);
               this.tokenService.saveToken(res.token);
-              console.log(res);
-
+              console.log(res[0].username);
               if (res.result === "error") {
                 this.presentToast(res.result, 'danger');
               }
               if (res.result === "success") {
-                this.router.navigate(['home']);
+                console.log(this.userId);
+                this.tokenService.saveToken(res[0].token);
+                let navigationExtras: NavigationExtras = {
+                  queryParams: {
+                    data: res[0].username,
+                  },
+                };
+                this.router.navigate(['home'], navigationExtras);
+                
               }
             },
             error: (error) => {

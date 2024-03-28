@@ -11,4 +11,9 @@ export class Utility {
         }
        return null;
     }
+
+    getToken(): any{
+        const token = '418ad191d3346e9490d078712f066ed8'
+        return token;
+    }
 }
