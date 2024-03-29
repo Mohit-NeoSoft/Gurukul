@@ -49,14 +49,27 @@ export class IndexQuizPage implements OnInit {
         console.log(this.quizResult.attempt);
         this.showGrade = true
         this.quizGrade = this.quizResult.grade
-        this.attemptId = this.quizResult.attempt.id
+        
         console.log(this.quizGrade);
         
-        // for(let i=0;i<this.quizResult.length;i++){
-        //   this.attemptId = this.quizResult[i].attempt[i].quiz
-        // }
-        // console.log(this.attemptId);
-        
+        this.authService.startQuizById(this.quizResult.attempt.quiz).subscribe({
+          next: (data) => {
+            console.log(data);
+            this.data = data
+            if (data.attempt) {
+              this.attemptId = data.attempt.id
+              // this.getAttemptSummary();
+              console.log(this.attemptId);
+            } else {
+              this.errorMsg = this.data.message
+              console.log(this.errorMsg);
+
+            }
+          },
+          error: (error) => {
+            console.error('Login failed:', error);
+          },
+        });
       }
     });
   }

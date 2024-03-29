@@ -16,7 +16,7 @@
   </ion-header>
 
   <ion-content [fullscreen]="true">
-    <div class="h-100 position-relative">
+    <div class="h-100 position-relative overflow-auto">
       <div class="main">
         <div class="p-3 d-flex align-items-center">
           <ion-img src="assets/img/quiz.png" alt=""></ion-img>
@@ -95,12 +95,12 @@
                   Submitted Monday, 19 February 2924, 10:23 AM
                 </p> -->
               </div>
-              <div class="col">{{quizGrade}}</div>
+              <div class="col">{{quizGrade | number: '1.0-1'}}</div>
             </div>
           </div>
         </div>
         <div class="col-12 p-3 pt-0" *ngIf="showGrade">
-          <div class="card mb-2 p-2">
+          <div class="card mb-3 p-2">
             <p class="high m-0">Highest Grade <strong>1/10</strong></p>
           </div>
           <div>
