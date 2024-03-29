@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NavigationExtras, Router } from '@angular/router';
 import { TokenService } from '../services/token/token.service';
 import { AuthService } from '../services/auth/auth.service';
-import { ToastController } from '@ionic/angular';
+import { LoadingController, ToastController } from '@ionic/angular';
 import { Subscription, timer } from 'rxjs';
 
 @Component({
@@ -32,7 +32,7 @@ export class LoginPage implements OnInit {
     private authService: AuthService,
     private tokenService: TokenService,
     private toastCtrl: ToastController,
-
+    private loadingController: LoadingController
   ) { }
 
   ngOnInit() {
@@ -71,11 +71,18 @@ export class LoginPage implements OnInit {
     }
   }
 
-  changeForm(value: any) {
+  async changeForm(value: any) {
+    const loading = await this.loadingController.create({
+      message: 'Loading...',
+      duration: 2000
+    });
+    await loading.present();
     if (value === 'otp') {
+      await loading.dismiss();
       this.showOtpForm = true;
       this.showUserForm = false;
     } else {
+      await loading.dismiss();
       this.showUserForm = true;
       this.showOtpForm = false;
     }
