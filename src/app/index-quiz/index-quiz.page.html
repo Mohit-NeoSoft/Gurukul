@@ -79,7 +79,7 @@
           </div>
         </div>
         
-        <!-- <div class="col-12 p-3 pt-0">
+        <div class="col-12 p-3 pt-0" *ngIf="showGrade">
           <div class="card ion-padding">
             <h1 class="card_head mt-0 mb-3">Summary of Previous Attempts</h1>
             <div class="row">
@@ -91,15 +91,15 @@
               <div class="col-1"><p class="table_content">1</p></div>
               <div class="col-8">
                 <p class="col mb-0 table_content">Finished</p>
-                <p class="table_content">
+                <!-- <p class="table_content">
                   Submitted Monday, 19 February 2924, 10:23 AM
-                </p>
+                </p> -->
               </div>
-              <div class="col">8/10</div>
+              <div class="col">{{quizGrade}}</div>
             </div>
           </div>
         </div>
-        <div class="col-12 p-3 pt-0">
+        <div class="col-12 p-3 pt-0" *ngIf="showGrade">
           <div class="card mb-2 p-2">
             <p class="high m-0">Highest Grade <strong>1/10</strong></p>
           </div>
@@ -110,9 +110,9 @@
               ></ion-button
             >
           </div>
-        </div> -->
+        </div>
       </div>
-      <div class="p-3 position-absolute w-100 bottom-0">
+      <div class="p-3 position-absolute w-100 bottom-0" *ngIf="!showGrade">
         <ion-button class="start_btn" expand="block" color="success" (click)="onStart()"
           ><span class="start_span" 
             >Attempt Quiz Now</span

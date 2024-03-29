@@ -49,6 +49,8 @@ export class QuizContentPage implements OnInit {
         this.attemptId = JSON.parse(params.data);
         this.authService.getAttemptSummary(this.attemptId).subscribe({
           next: (data) => {
+            console.log(data);
+            
             // this.quizData = data.questions;
             this.quizData = data.questions.map((question: any) => ({
               ...question,

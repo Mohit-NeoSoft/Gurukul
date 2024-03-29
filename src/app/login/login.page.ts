@@ -95,18 +95,21 @@ export class LoginPage implements OnInit {
             next: (res) => {
               console.log(res.error);
               this.tokenService.saveToken(res.token);
+              localStorage.setItem('username',this.loginForm.get('username')?.value)
               console.log(res);
 
               if (res.error) {
                 this.presentToast(res.error, 'danger');
               }
               if (res.token && res.token !== undefined) {
-                let navigationExtras: NavigationExtras = {
-                  queryParams: {
-                    data: this.loginForm.get('username')?.value,
-                  },
-                };
-                this.router.navigate(['home'], navigationExtras);
+                // let navigationExtras: NavigationExtras = {
+                //   queryParams: {
+                //     data: this.loginForm.get('username')?.value,
+                //   },
+                // };
+                // this.router.navigate(['home'], navigationExtras);
+                this.router.navigate(['home']);
+
               }
             },
             error: (error) => {

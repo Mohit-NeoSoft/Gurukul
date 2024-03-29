@@ -15,13 +15,15 @@ export class IndexQuizPage implements OnInit {
   attemptId: any;
   quizData: any;
   errorMsg: any;
-
+  quizResult: any;
+  quizGrade: any;
+  showGrade: boolean = false;
   constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService, private toastCtrl: ToastController) {
     this.route.queryParams.subscribe((params: any) => {
       console.log(params);
 
       if (params && params.data) {
-        // this.data = JSON.parse(params.data);
+        this.data = JSON.parse(params.data);
         this.authService.startQuizById(params.data).subscribe({
           next: (data) => {
             console.log(data);
@@ -40,6 +42,21 @@ export class IndexQuizPage implements OnInit {
             console.error('Login failed:', error);
           },
         });
+      }
+
+      if(params.quizResult){
+        this.quizResult = JSON.parse(params.quizResult);
+        console.log(this.quizResult.attempt);
+        this.showGrade = true
+        this.quizGrade = this.quizResult.grade
+        this.attemptId = this.quizResult.attempt.id
+        console.log(this.quizGrade);
+        
+        // for(let i=0;i<this.quizResult.length;i++){
+        //   this.attemptId = this.quizResult[i].attempt[i].quiz
+        // }
+        // console.log(this.attemptId);
+        
       }
     });
   }

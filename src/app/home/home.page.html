@@ -13,10 +13,8 @@
         <div class="col-12 p-2">
           <div class="d-flex align-items-start justify-content-start">
             <ion-img src="assets/img/document.png" alt=""></ion-img>
-            <ion-text class="content_p"
-              >Click here for
-              <strong>Password Security</strong> Content</ion-text
-            >
+            <ion-text class="content_p">Click here for
+              <strong>Password Security</strong> Content</ion-text>
           </div>
         </div>
       </div>
@@ -24,9 +22,7 @@
         <div class="col-12 p-2">
           <div class="d-flex align-items-start justify-content-start">
             <ion-img src="assets/img/lock_bg.png" alt=""></ion-img>
-            <ion-text class="content_p"
-              >Click here for <strong>Password Security </strong>Quiz</ion-text
-            >
+            <ion-text class="content_p">Click here for <strong>Password Security </strong>Quiz</ion-text>
           </div>
         </div>
       </div>
@@ -39,22 +35,14 @@
   <ion-header>
     <ion-toolbar>
       <ion-title class="profile_heading">User Account</ion-title>
-      <ion-icon
-        class="p-1"
-        slot="end"
-        size="large"
-        name="close-sharp"
-        (click)="onClose()"
-      ></ion-icon>
+      <ion-icon class="p-1" slot="end" size="large" name="close-sharp" (click)="onClose()"></ion-icon>
     </ion-toolbar>
   </ion-header>
   <ion-content>
     <div class="col-12 text-center ion-padding">
       <h1 class="profle_title">SK GURUKUL</h1>
       <div class="d-flex justify-content-center mb-3">
-        <a (click)="openCapacitorSite()" class="profile_link"
-          >https://uat-gurukul.skfin.in</a
-        >
+        <a (click)="openCapacitorSite()" class="profile_link">https://uat-gurukul.skfin.in</a>
       </div>
     </div>
     <hr class="profile_hr" />
@@ -63,12 +51,12 @@
         <ion-img [src]="item.profileimageurlsmall" class="img-fluid rounded-start" alt=""></ion-img>
         <p class="profile_name m-1">{{item.fullname}}</p>
       </div>
-      <ion-icon
+      <!-- <ion-icon
         slot="end"
         color="primary"
         size="large"
         name="chevron-forward-sharp"
-      ></ion-icon>
+      ></ion-icon> -->
     </div>
     <hr class="profile_hr" />
     <div class="d-flex align-items-center justify-content-between ion-padding">
@@ -76,28 +64,14 @@
         <ion-img src="assets/img/result.png"></ion-img>
         <p class="profile_grades m-2">Grades</p>
       </div>
-      <ion-icon
-        (click)="onGrades()"
-        slot="end"
-        color="primary"
-        size="large"
-        name="chevron-forward-sharp"
-      ></ion-icon>
+      <ion-icon (click)="onGrades()" slot="end" color="primary" size="large" name="chevron-forward-sharp"></ion-icon>
     </div>
-    <div
-      class="d-flex align-items-center justify-content-between ion-padding pt-0"
-    >
+    <div class="d-flex align-items-center justify-content-between ion-padding pt-0">
       <div class="d-flex align-items-center">
         <ion-img class="p-1" src="assets/icon/trophy.svg"></ion-img>
         <p class="profile_grades m-2">Badges</p>
       </div>
-      <ion-icon
-        (click)="onBadges()"
-        slot="end"
-        color="primary"
-        size="large"
-        name="chevron-forward-sharp"
-      ></ion-icon>
+      <ion-icon (click)="onBadges()" slot="end" color="primary" size="large" name="chevron-forward-sharp"></ion-icon>
     </div>
     <hr class="profile_hr" />
     <!-- <div class="d-flex align-items-center justify-content-between ion-padding">
@@ -116,87 +90,65 @@
   </ion-content>
   <ion-footer [translucent]="true" class="ion-padding">
     <ion-toolbar>
-      <ion-button
-        expand="block"
-        color="danger"
-        class="logout_btn"
-        (click)="onLogout()"
-        ><ion-icon name="power-sharp"></ion-icon
-        ><span class="logout_span p-1">Logout</span></ion-button
-      >
+      <ion-button expand="block" color="danger" class="logout_btn" (click)="onLogout()"><ion-icon
+          name="power-sharp"></ion-icon><span class="logout_span p-1">Logout</span></ion-button>
     </ion-toolbar>
   </ion-footer>
 </ion-menu>
 <!-- Profile Menu End -->
 
 <ion-header [translucent]="true" class="mb-2">
-  <ion-toolbar class="p-1">
-    <p class="header p-2">SK GURUKUL</p>
-    <ion-icon
-      class="p-2"
-      size="large"
-      slot="end"
-      name="logo-behance"
-      (click)="onProfile()"
-    ></ion-icon>
+  <ion-toolbar>
+    <ion-item lines="none" class="p-0 m-0">
+      <ion-label slot="start" class="header p-2">SK GURUKUL</ion-label>
+      <ion-img slot="end" class="rounded-circle shadow-4-strong" [src]="userImg ? userImg : 'assets/img/user.png'" (click)="onProfile()"></ion-img>
+    </ion-item>
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true" id="main-content">
   <ion-button class="arrow_btn" slot="fixed" (click)="onArrow()">
-    <ion-img src="assets/img/sideArrow.png" alt=""></ion-img
-  ></ion-button>
+    <ion-img src="assets/img/sideArrow.png" alt=""></ion-img></ion-button>
   <div class="ion-padding">
     <div class="anim_card mb-3">
       <p class="col-12 anim_p"><span class="blinker">Announcement</span></p>
-      <ion-text class="anim_text"
-        >Lorem Ipsum doller site amet Ipsum doller site</ion-text
-      >
+      <ion-text class="anim_text">Lorem Ipsum doller site amet Ipsum doller site</ion-text>
     </div>
     <ion-list lines="none" class="course_list">
-    <div class="main_one" *ngFor="let item of courseData; let i = index">
-     
-      <div class="card mb-2">
-        <div class="col-12 card_main">
-          <div (click)="onCardClick(item)">
-            <ion-img
-              [src]="(utility.getImageUrl(item.overviewfiles) ? utility.getImageUrl(item.overviewfiles) : 'assets/img/images.png')"
-              class="img-fluid rounded-start"
-              alt="Image"
-            ></ion-img>
-          </div>
-          <div class="col-10 card_sub">
-            <div class="card_body p-0">
-              <div class="col-12 card_body_sub">
-                <h5 class="card_title" (click)="onCardClick(item)">
-                  {{ item.displayname }}
-                </h5>
-                <ion-img
-                  src="assets/icon/download.svg"
-                  alt=""
-                  (click)="onDownload()"
-                ></ion-img>
-              </div>
-              <p class="card_text" (click)="onCardClick(item)">
-                Course
-              </p>
-              <div class="col-12 bar_main">
-                <div class="progress_bar_container col-10">
-                  <div
-                    class="progress_bar"
-                    [style.width]="item.progress + '%'"
-                  ></div>
+      <div class="main_one" *ngFor="let item of courseData; let i = index">
+
+        <div class="card mb-2">
+          <div class="col-12 card_main">
+            <div (click)="onCardClick(item)">
+              <ion-img
+                [src]="(utility.getImageUrl(item.overviewfiles) ? utility.getImageUrl(item.overviewfiles) : 'assets/img/images.png')"
+                class="img-fluid rounded-start" alt="Image"></ion-img>
+            </div>
+            <div class="col-10 card_sub">
+              <div class="card_body p-0">
+                <div class="col-12 card_body_sub">
+                  <h5 class="card_title" (click)="onCardClick(item)">
+                    {{ item.displayname }}
+                  </h5>
+                  <ion-img src="assets/icon/download.svg" alt="" (click)="onDownload()"></ion-img>
                 </div>
-                <div class="percentage_display col-2">
-                  {{ item.progress | number:'1.0-2' }}%
+                <p class="card_text" (click)="onCardClick(item)">
+                  Course
+                </p>
+                <div class="col-12 bar_main">
+                  <div class="progress_bar_container col-10">
+                    <div class="progress_bar" [style.width]="item.progress + '%'"></div>
+                  </div>
+                  <div class="percentage_display col-2">
+                    {{ item.progress | number:'1.0-2' }}%
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
       </div>
-   
-    </div>
-  </ion-list>
+    </ion-list>
 
     <div class="mb-1 mt-2">
       <div class="col-12 d-flex justify-content-between sub">
@@ -219,32 +171,28 @@
       </div>
     </div>
     <ion-list lines="none" class="course_list">
-    <div class="main_one" *ngFor="let progressBar of recCourses; let i = index">
-      <div class="card mb-2">
-        <div class="col-12 card_main">
-          <div>
-            <ion-img
-              src="{{ progressBar.src }}"
-              class="img-fluid rounded-start"
-              alt=""
-            ></ion-img>
-          </div>
-          <div class="col-10 card_sub">
-            <div class="card_body p-0">
-              <div class="col-12 card_body_sub">
-                <h5 class="card_title">
-                  {{ progressBar.name }}
-                </h5>
-                <!-- <ion-img
+      <div class="main_one" *ngFor="let progressBar of recCourses; let i = index">
+        <div class="card mb-2">
+          <div class="col-12 card_main">
+            <div>
+              <ion-img src="{{ progressBar.src }}" class="img-fluid rounded-start" alt=""></ion-img>
+            </div>
+            <div class="col-10 card_sub">
+              <div class="card_body p-0">
+                <div class="col-12 card_body_sub">
+                  <h5 class="card_title">
+                    {{ progressBar.name }}
+                  </h5>
+                  <!-- <ion-img
                   *ngIf="i > 2"
                   src="assets/img/lock.png"
                   alt=""
                 ></ion-img> -->
-              </div>
-              <p class="card_text">
-                {{ progressBar.type }}
-              </p>
-              <!-- <div class="col-12 bar_main">
+                </div>
+                <p class="card_text">
+                  {{ progressBar.type }}
+                </p>
+                <!-- <div class="col-12 bar_main">
                   <div class="progress_bar_container col-10">
                     <div
                       class="progress_bar"
@@ -255,12 +203,12 @@
                     {{ progressBar.value * 100 }}%
                   </div>
                 </div> -->
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </ion-list>
+    </ion-list>
   </div>
 </ion-content>
 <app-footer></app-footer>

@@ -29,6 +29,7 @@ export class HomePage {
   userId: any;
   id: any;
   userData: any;
+  userImg: any
   // myCourses = [
   //   {
   //     id: 1,
@@ -82,15 +83,15 @@ export class HomePage {
     private route: ActivatedRoute
   ) {
     this.initializeNetworkListener();
-    this.route.queryParams.subscribe((params: any) => {
-      console.log(params);
+    // this.route.queryParams.subscribe((params: any) => {
+    //   console.log(params);
 
-      if (params && params.data) {
-        this.userId = JSON.parse(params.data);
-        console.log(this.userId);
+    //   if (params && params.data) {
+    //     this.userId = JSON.parse(params.data);
+    //     console.log(this.userId);
 
-      }
-    });
+    //   }
+    // });
   }
 
   async ngOnInit() {
@@ -106,14 +107,16 @@ export class HomePage {
     this.getUser();
   }
 
-  getUser(){
+  getUser() {
+    this.userId = localStorage.getItem('username')
     this.authService.getUserInfo(this.userId).subscribe({
       next: (data) => {
         console.log(data);
         this.userData = data
 
-        for(let i=0;i<data.length;i++){
+        for (let i = 0; i < data.length; i++) {
           this.id = this.userData[i].id
+          this.userImg = this.userData[i].profileimageurlsmall
         }
         console.log(this.id);
         this.getCourses();
@@ -125,9 +128,9 @@ export class HomePage {
     });
   }
 
-  getCourses(){
+  getCourses() {
     console.log(this.id);
-    
+
     this.authService.getCourses(this.id).subscribe({
       next: (data) => {
         console.log(data);
