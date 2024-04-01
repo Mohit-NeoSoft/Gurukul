@@ -101,6 +101,10 @@ const routes: Routes = [
     path: 'attempt-summary',
     loadChildren: () => import('./attempt-summary/attempt-summary.module').then( m => m.AttemptSummaryPageModule)
   },
+  {
+    path: 'header',
+    loadChildren: () => import('./header/header.module').then( m => m.HeaderPageModule)
+  },
 ];
 
 @NgModule({

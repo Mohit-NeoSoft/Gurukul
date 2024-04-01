@@ -9,29 +9,39 @@ import { Router } from '@angular/router';
 export class FooterPage implements OnInit {
   URL: any;
 
-  constructor(private router: Router) { 
+  constructor(private router: Router) {
     this.URL = this.router.url;
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
-  onHome(){
-    this.router.navigate(['home'])
+  onHome() {
+    this.router.navigate(['home']).then(() => {
+      window.location.reload();
+    })
   }
 
-  onCalendar(){
-    this.router.navigate(['calendar'])
+  onCalendar() {
+    this.router.navigate(['calendar']).then(() => {
+      window.location.reload();
+    })
   }
 
-  onBell(){
-    this.router.navigate(['notification'])
+  onBell() {
+    this.router.navigate(['notification']).then(() => {
+      window.location.reload();
+    })
   }
 
-  onChat(){
-    this.router.navigate(['chat'])
+  onChat() {
+    this.router.navigate(['chat']).then(() => {
+      window.location.reload();
+    })
   }
 
-  onMore(){
-    this.router.navigate(['more'])
+  onMore() {
+    this.router.navigate(['more']).then(() => {
+      window.location.reload();
+    })
   }
 }

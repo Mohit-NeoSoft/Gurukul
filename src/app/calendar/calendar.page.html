@@ -34,19 +34,14 @@
   </ion-content>
 </ion-menu>
 
-<ion-header [translucent]="true" class="mb-2">
-  <ion-toolbar class="p-1">
-    <p class="header p-2">SK GURUKUL</p>
-    <ion-icon class="p-2" size="large" slot="end" name="logo-behance"></ion-icon>
-  </ion-toolbar>
-</ion-header>
+<app-header></app-header>
 <ion-content [fullscreen]="true" id="main-content">
   <ion-button class="arrow_btn" slot="fixed" (click)="onArrow()">
     <ion-img src="assets/img/sideArrow.png" alt=""></ion-img
   ></ion-button>
-  <div>
+  <div class="col-12">
     <div
-      class="ion-padding mb-3 col-12 d-flex align-items-center justify-content-center"
+      class="calendar col-12 d-flex align-items-center justify-content-center"
     >
       <ion-datetime
         presentation="date"
@@ -62,6 +57,30 @@
           <div class="icons_sub">
             <ion-img src="assets/img/note.png" alt=""></ion-img>
             <p class="header_sub">TO DO</p>
+            <!-- <ion-badge color="primary" class="col-2 header_sub"
+                >To Do&nbsp;<ion-icon
+                  name="caret-down-sharp"
+                  (click)="presentPopover($event)"
+                ></ion-icon
+              ></ion-badge>
+              <ion-popover
+                #popover
+                [isOpen]="isOpen"
+                (didDismiss)="isOpen = false"
+              >
+                <ng-template>
+                  <ion-content>
+                    <ion-list class="p-0">
+                      <ion-item lines="none">
+                        <div>
+                          <h1 class="pop_head m-0 p-0">You Must</h1>
+                          <p class="pop_body m-0 p-0">Received a Grade</p>
+                        </div>
+                      </ion-item>
+                    </ion-list>
+                  </ion-content>
+                </ng-template>
+              </ion-popover> -->
           </div>
           <p class="header_sub">
             {{ selectedDate }}

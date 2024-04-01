@@ -178,7 +178,8 @@ export class HomePage {
     this.menuCtrl.open('menu');
   }
 
-  async onDownload() {
+  async onDownload(event: Event) {
+    event.stopPropagation();
     this.status = await Network.getStatus();
     console.log('Network status:', this.status);
     if (this.status.connectionType !== 'wifi') {
@@ -209,24 +210,7 @@ export class HomePage {
     };
     this.router.navigate(['cyber-security'], navigationExtras);
   }
-
-  onProfile() {
-    this.menuCtrl.open('menuProfile');
-  }
-
-  async openCapacitorSite() {
-    await Browser.open({ url: 'https://uat-gurukul.skfin.in' });
-  }
-
-  onGrades() {
-    this.router.navigate(['grades']);
-  }
-  onBadges() {
-    this.router.navigate(['badges']);
-  }
-  onPreferences() {
-    this.router.navigate(['preferences']);
-  }
+  
 
   async presentToast(message: any, color: any) {
     let toast = await this.toastCtrl.create({
@@ -238,13 +222,5 @@ export class HomePage {
 
     toast.present();
   }
-  onLogout() {
-    this.tokenService.logOut();
-    this.presentToast('Logged Out successfully', 'success');
-    this.router.navigate(['login']).then(() => {
-      setTimeout(() => {
-        location.reload();
-      }, 1000);
-    });
-  }
+  
 }

@@ -18,7 +18,8 @@ export class IndexQuizPage implements OnInit {
   quizResult: any;
   quizGrade: any;
   showGrade: boolean = false;
-  constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService, private toastCtrl: ToastController) {
+  constructor(private router: Router, private route: ActivatedRoute,
+    private authService: AuthService, private toastCtrl: ToastController) {
     this.route.queryParams.subscribe((params: any) => {
       console.log(params);
 
@@ -44,14 +45,14 @@ export class IndexQuizPage implements OnInit {
         });
       }
 
-      if(params.quizResult){
+      if (params.quizResult) {
         this.quizResult = JSON.parse(params.quizResult);
         console.log(this.quizResult.attempt);
         this.showGrade = true
         this.quizGrade = this.quizResult.grade
-        
+
         console.log(this.quizGrade);
-        
+
         this.authService.startQuizById(this.quizResult.attempt.quiz).subscribe({
           next: (data) => {
             console.log(data);
@@ -96,6 +97,8 @@ export class IndexQuizPage implements OnInit {
   }
 
   onStart() {
+    console.log(this.errorMsg);
+
     if (this.errorMsg) {
       this.presentToast(this.errorMsg, 'danger');
     }

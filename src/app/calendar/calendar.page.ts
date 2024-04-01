@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { DateTime } from 'luxon';
 
@@ -9,6 +9,8 @@ import { DateTime } from 'luxon';
 })
 export class CalendarPage implements OnInit {
   selectedDate!: string;
+  @ViewChild('popover') popover: any;
+  isOpen = false;
 
   constructor(private menuCtrl: MenuController) { 
     this.selectedDate = DateTime.now().toFormat('dd-MMM-yyyy');
@@ -25,5 +27,10 @@ export class CalendarPage implements OnInit {
     this.selectedDate = event.detail.value;
     const luxonDate = DateTime.fromISO(this.selectedDate);    
     this.selectedDate = luxonDate.toFormat('dd-MMM-yyyy');
+  }
+  
+  presentPopover(e: Event) {
+    this.popover.event = e;
+    this.isOpen = true;
   }
 }

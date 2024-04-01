@@ -64,7 +64,7 @@
       <div class="col-12 card_main">
         <div>
           <ion-img
-            [src]="(utility.getImageUrl(data.overviewfiles) ? utility.getImageUrl(data.overviewfiles) : 'assets/img/images.png')"
+            [src]="(utility.getImageUrl(data.overviewfiles) ? utility.getImageUrl(data.overviewfiles) : 'assets/img/cyber.png')"
             class="img-fluid rounded-start" alt=""></ion-img>
         </div>
         <div class="col-10 card_sub">
@@ -110,18 +110,32 @@
             <h1 class="body_title" *ngIf="i==1">{{item.name}}</h1>
             <div class="col-12" *ngIf="i==1">
               <div class="card mb-3" *ngFor="let val of item.modules">
-                <div class="col-12 card_main">
+                <div class="col-12 card_main" (click)="onClick(val)">
                   <div>
                     <ion-img src={{val.modicon}} class="img-fluid rounded-start" alt=""></ion-img>
                   </div>
                   <div class="col-10 card_sub">
                     <div class="card_body p-0">
-                      <div class="col-12 card_body_sub" (click)="onClick(val)">
+                      <div class="col-8 card_body_sub" (click)="onClick(val)">
                         <ion-text class="content_p">{{val.name}}</ion-text>
                       </div>
                       <p class="card_text">
-                        <ion-badge color="primary" class="col-2 card_badge">To do&nbsp;<ion-icon
-                            name="caret-down-sharp"></ion-icon></ion-badge>
+                        <ion-badge color="primary" (click)="presentPopover($event)" class="col-2 card_badge">To
+                          do&nbsp;<ion-icon name="caret-down-sharp"></ion-icon></ion-badge>
+                        <ion-popover #popover [isOpen]="isOpen" (didDismiss)="isOpen = false">
+                          <ng-template>
+                            <ion-content>
+                              <ion-list class="p-0 m-0">
+                                <ion-item lines="none">
+                                  <div>
+                                    <h1 class="pop_head m-0 p-0">You Must</h1>
+                                    <p class="pop_body m-0 p-0">Received a Grade</p>
+                                  </div>
+                                </ion-item>
+                              </ion-list>
+                            </ion-content>
+                          </ng-template>
+                        </ion-popover>
                       </p>
                     </div>
                   </div>
