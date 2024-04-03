@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuController } from '@ionic/angular';
 import { DateTime } from 'luxon';
 import { AuthService } from '../services/auth/auth.service';
+import { TokenService } from '../services/token/token.service';
 
 @Component({
   selector: 'app-calendar',
@@ -16,11 +17,15 @@ export class CalendarPage implements OnInit {
   month: any;
   year: any;
   data: any;
-  constructor(private menuCtrl: MenuController, private authService: AuthService) {
+  userImg: any;
+
+  constructor(private menuCtrl: MenuController, private authService: AuthService,private tokenService: TokenService) {
     this.selectedDate = DateTime.now().toFormat('dd-MMM-yyyy');
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.userImg = this.tokenService.getUser()[0].profileimageurlsmall
+   }
 
   onArrow() {
     this.menuCtrl.open('menu-calendar');
@@ -34,7 +39,6 @@ export class CalendarPage implements OnInit {
     this.year = luxonDate.year;
     this.selectedDate = luxonDate.toFormat('dd-MMM-yyyy');
     console.log(this.month,this.year);
-
     this.fetchData();
   }
 
@@ -43,14 +47,14 @@ export class CalendarPage implements OnInit {
       next: (res) => {
         console.log(res);
         this.data = res;
-        this.calendarData = [];
+        // this.calendarData = [];
         for (let i = 0; i < this.data.weeks.length; i++) {
           this.calendarData.push(this.data.weeks[i].days);
         }
         console.log(this.calendarData);
       },
       error: (error) => {
-        console.error('Login failed:', error);
+        console.error(error);
       },
     });
   }

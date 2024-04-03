@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth/auth.service';
 import { TokenService } from '../services/token/token.service';
 import { MenuController, ToastController } from '@ionic/angular';
@@ -11,6 +11,7 @@ import { Browser } from '@capacitor/browser';
   styleUrls: ['./header.page.scss'],
 })
 export class HeaderPage implements OnInit {
+  @Input() profileImg: any;
   userId: any;
   userImg: any;
   userData: any;
@@ -19,27 +20,7 @@ export class HeaderPage implements OnInit {
     private router: Router, private toastCtrl: ToastController) { }
 
   ngOnInit() {
-    this.getUser();
-  }
-
-  getUser() {
-    this.userId = localStorage.getItem('username')
-    this.authService.getUserInfo(this.userId).subscribe({
-      next: (data) => {
-        console.log(data);
-        this.userData = data
-
-        for (let i = 0; i < data.length; i++) {
-          this.id = this.userData[i].id
-          this.userImg = this.userData[i].profileimageurlsmall
-        }
-        console.log(this.id);
-        this.tokenService.saveUser(this.userData);
-      },
-      error: (error) => {
-        console.error('Login failed:', error);
-      },
-    });
+    this.userData = this.tokenService.getUser();
   }
 
   onProfile() {

@@ -18,6 +18,6 @@ import { DateFormatPipe } from '../pipes/date-format.pipe';
     CalendarPageRoutingModule,
     SharedModule
   ],
-  declarations: [CalendarPage,DateFormatPipe]
+  declarations: [CalendarPage]
 })
 export class CalendarPageModule {}

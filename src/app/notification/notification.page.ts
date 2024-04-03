@@ -10,6 +10,7 @@ import { TokenService } from '../services/token/token.service';
 })
 export class NotificationPage implements OnInit {
   userId: any;
+  userImg: any;
   constructor(private router: Router,private authService: AuthService,private tokenService: TokenService) { }
 
   ngOnInit() {
@@ -18,6 +19,7 @@ export class NotificationPage implements OnInit {
 
   getNotifications(){
     this.userId = this.tokenService.getUser();
+    this.userImg = this.userId[0].profileimageurlsmall
     console.log(this.userId[0].username);
     
     this.authService.getNotificationByUserId(this.userId[0].id).subscribe((res) => {

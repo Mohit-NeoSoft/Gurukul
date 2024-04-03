@@ -30,7 +30,7 @@
   </ion-content>
 </ion-menu>
 
-<app-header></app-header>
+<app-header [profileImg]="userImg"></app-header>
 <ion-content [fullscreen]="true" id="main-content">
   <ion-button class="arrow_btn" slot="fixed" (click)="onArrow()">
     <ion-img src="assets/img/sideArrow.png" alt=""></ion-img></ion-button>
@@ -60,9 +60,11 @@
                       <ion-card-title>{{ day.daytitle }}</ion-card-title>
                     </ion-card-header>
                     <ion-card-content>
-                      <ion-list>
+                      <ion-list lines="none">
                         <ion-item *ngFor="let event of day.events">
                           <ion-label>{{ event.name }}</ion-label>
+                          <!-- <ion-label *ngIf="(event.timestart | date:'dd-MMM-yyyy') === selectedDate">{{ event.name }}</ion-label> -->
+                          <ion-label>{{ event.timestart | date:'dd-MMM-yyyy' }}</ion-label>
                         </ion-item>
                       </ion-list>
                     </ion-card-content>

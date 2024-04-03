@@ -103,7 +103,7 @@ export class LoginPage implements OnInit {
             next: (res) => {
               console.log(res.error);
               this.tokenService.saveToken(res.token);
-              localStorage.setItem('username',this.loginForm.get('username')?.value)
+              localStorage.setItem('username', this.loginForm.get('username')?.value)
               console.log(res);
 
               if (res.error) {
@@ -192,11 +192,11 @@ export class LoginPage implements OnInit {
     if (this.otpLoginForm.valid) {
       console.log(this.otpLoginForm.get('phone')?.value);
       try {
+        setTimeout(() => {
         this.authService
           .loginViaOtp(
             this.otpLoginForm.get('phone')?.value, this.otpLoginForm.get('otp')?.value
-          )
-          .subscribe({
+          ).subscribe({
             next: (res) => {
               console.log(res.error);
               this.tokenService.saveToken(res.token);
@@ -206,13 +206,10 @@ export class LoginPage implements OnInit {
               }
               if (res.result === "success") {
                 this.tokenService.saveToken(res[0].token);
-                let navigationExtras: NavigationExtras = {
-                  queryParams: {
-                    data: res[0].username,
-                  },
-                };
-                this.router.navigate(['home'], navigationExtras);
+                localStorage.setItem('username', res[0].username)
                 
+                this.router.navigate(['home']);
+
               }
             },
             error: (error) => {
@@ -221,6 +218,7 @@ export class LoginPage implements OnInit {
               console.error('Login failed:', error);
             },
           });
+        },2000)
       } catch (error) {
         console.error('Error occurred during login:', error);
       }
@@ -257,6 +255,6 @@ export class LoginPage implements OnInit {
   segmentChanged(ev: any) {
     this.segment = ev.detail.value;
     console.log(this.segment);
-    
+
   }
 }

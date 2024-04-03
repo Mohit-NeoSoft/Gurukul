@@ -84,15 +84,15 @@ export class HomePage {
     private route: ActivatedRoute
   ) {
     this.initializeNetworkListener();
-    this.route.queryParams.subscribe((params: any) => {
-      console.log(params);
+    // this.route.queryParams.subscribe((params: any) => {
+    //   console.log(params);
 
-      if (params && params.data) {
-        this.userId = JSON.parse(params.data);
-        console.log(this.userId);
+    //   if (params && params.data) {
+    //     this.userId = JSON.parse(params.data);
+    //     console.log(this.userId);
 
-      }
-    });
+    //   }
+    // });
   }
 
   async ngOnInit() {
@@ -109,11 +109,7 @@ export class HomePage {
   }
 
   getUser() {
-    if (localStorage.getItem('username')) {
-      this.userId = localStorage.getItem('username')
-      console.log(this.userId);
-
-    }
+    this.userId = localStorage.getItem('username')
     this.authService.getUserInfo(this.userId).subscribe({
       next: (data) => {
         console.log(data);
@@ -148,7 +144,7 @@ export class HomePage {
     });
   }
 
-  getRecentCourses() {
+  getRecentCourses(){
     console.log(this.id);
 
     this.authService.getRecentCourses(this.id).subscribe({
@@ -224,7 +220,7 @@ export class HomePage {
 
   onCardClick(value: any) {
     console.log(value);
-
+    
     let navigationExtras: NavigationExtras = {
       queryParams: {
         data: JSON.stringify(value),
@@ -232,7 +228,7 @@ export class HomePage {
     };
     this.router.navigate(['cyber-security'], navigationExtras);
   }
-
+  
 
   async presentToast(message: any, color: any) {
     let toast = await this.toastCtrl.create({
@@ -244,5 +240,5 @@ export class HomePage {
 
     toast.present();
   }
-
+  
 }
