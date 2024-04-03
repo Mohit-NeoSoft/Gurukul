@@ -13,10 +13,8 @@
         <div class="col-12 p-2">
           <div class="d-flex align-items-start justify-content-start">
             <ion-img src="assets/img/document.png" alt=""></ion-img>
-            <ion-text class="content_p"
-              >Click here for
-              <strong>Password Security</strong> Content</ion-text
-            >
+            <ion-text class="content_p">Click here for
+              <strong>Password Security</strong> Content</ion-text>
           </div>
         </div>
       </div>
@@ -24,9 +22,7 @@
         <div class="col-12 p-2">
           <div class="d-flex align-items-start justify-content-start">
             <ion-img src="assets/img/lock_bg.png" alt=""></ion-img>
-            <ion-text class="content_p"
-              >Click here for <strong>Password Security </strong>Quiz</ion-text
-            >
+            <ion-text class="content_p">Click here for <strong>Password Security </strong>Quiz</ion-text>
           </div>
         </div>
       </div>
@@ -37,55 +33,47 @@
 <app-header></app-header>
 <ion-content [fullscreen]="true" id="main-content">
   <ion-button class="arrow_btn" slot="fixed" (click)="onArrow()">
-    <ion-img src="assets/img/sideArrow.png" alt=""></ion-img
-  ></ion-button>
+    <ion-img src="assets/img/sideArrow.png" alt=""></ion-img></ion-button>
   <div class="col-12">
-    <div
-      class="calendar col-12 d-flex align-items-center justify-content-center"
-    >
-      <ion-datetime
-        presentation="date"
-        display-format="DD-MM-YYYY" (ionChange)="onChange($event)"
-      ></ion-datetime>
+    <div class="calendar col-12 d-flex align-items-center justify-content-center">
+      <ion-datetime presentation="date" display-format="DD-MM-YYYY" (ionChange)="onChange($event)"></ion-datetime>
     </div>
     <hr class="calendar_hr" />
     <div class="ion-padding">
       <div class="mb-3">
-        <div
-          class="col-12 d-flex justify-content-between align-items-center sub mt-2"
-        >
+        <div class="col-12 d-flex justify-content-between align-items-center sub mt-2">
           <div class="icons_sub">
             <ion-img src="assets/img/note.png" alt=""></ion-img>
             <p class="header_sub">TO DO</p>
-            <!-- <ion-badge color="primary" class="col-2 header_sub"
-                >To Do&nbsp;<ion-icon
-                  name="caret-down-sharp"
-                  (click)="presentPopover($event)"
-                ></ion-icon
-              ></ion-badge>
-              <ion-popover
-                #popover
-                [isOpen]="isOpen"
-                (didDismiss)="isOpen = false"
-              >
-                <ng-template>
-                  <ion-content>
-                    <ion-list class="p-0">
-                      <ion-item lines="none">
-                        <div>
-                          <h1 class="pop_head m-0 p-0">You Must</h1>
-                          <p class="pop_body m-0 p-0">Received a Grade</p>
-                        </div>
-                      </ion-item>
-                    </ion-list>
-                  </ion-content>
-                </ng-template>
-              </ion-popover> -->
           </div>
           <p class="header_sub">
             {{ selectedDate }}
           </p>
         </div>
+        <ion-list *ngIf="calendarData && calendarData.length > 0">
+          <ion-item *ngFor="let week of calendarData">
+            <ion-grid>
+              <ion-row>
+                <ion-col *ngFor="let day of week">
+                  <ion-card *ngIf="day.hasevents">
+                    <ion-card-header>
+                      <ion-card-title>{{ day.daytitle }}</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                      <ion-list>
+                        <ion-item *ngFor="let event of day.events">
+                          <ion-label>{{ event.name }}</ion-label>
+                        </ion-item>
+                      </ion-list>
+                    </ion-card-content>
+                  </ion-card>
+                  <ion-note *ngIf="!day.hasevents">No events for this day</ion-note>
+                </ion-col>
+              </ion-row>
+            </ion-grid>
+          </ion-item>
+        </ion-list>
+        <ion-note *ngIf="!calendarData || calendarData.length === 0">No calendar data available</ion-note>
       </div>
     </div>
   </div>

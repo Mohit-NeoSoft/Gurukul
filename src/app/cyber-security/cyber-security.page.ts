@@ -24,6 +24,7 @@ export class CyberSecurityPage implements OnInit {
   token: any
   courseData: any;
   gradesData: any;
+  selectedModuleIndices: { [key: number]: number } = {};
   myCourses = [
     {
       id: 1,
@@ -166,9 +167,19 @@ export class CyberSecurityPage implements OnInit {
     return imageUrl;
   }
 
-  presentPopover(e: Event) {
-    e.stopPropagation();
-    this.popover.event = e;
+  // presentPopover(e: Event) {
+  //   e.stopPropagation();
+  //   this.popover.event = e;
+  //   this.isOpen = true;
+  // }
+
+  presentPopover(event: MouseEvent, courseIndex: number, moduleIndex: number) {
+    event.stopPropagation();
+    this.selectedModuleIndices[courseIndex] = moduleIndex; // Store the selected module index for the corresponding course
     this.isOpen = true;
+  }
+
+  isPopoverOpen(courseIndex: number, moduleIndex: number) {
+    return this.isOpen && this.selectedModuleIndices[courseIndex] === moduleIndex;
   }
 }

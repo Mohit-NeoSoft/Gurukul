@@ -104,7 +104,7 @@ const routes: Routes = [
   {
     path: 'header',
     loadChildren: () => import('./header/header.module').then( m => m.HeaderPageModule)
-  },
+  }
 ];
 
 @NgModule({

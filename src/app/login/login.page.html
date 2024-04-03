@@ -8,11 +8,19 @@
 
         <div class="container p-0">
           <div class="container_sub">
-            <div class="form" *ngIf="showUserForm === true">
-              <p class="heading" (click)="changeForm('otp')">
+            <div class="form">
+              <!-- <p class="heading" (click)="changeForm('otp')">
                 Login Via User ID
-              </p>
-              <div class="form_main">
+              </p> -->
+              <ion-segment value="user" (ionChange)="segmentChanged($event)" id="segment">
+                <ion-segment-button class="heading" value="user">
+                  <ion-label >Login Via User ID</ion-label>
+                </ion-segment-button>
+                <ion-segment-button class="heading" value="otp">
+                  <ion-label >Login Via OTP</ion-label>
+                </ion-segment-button>
+              </ion-segment>
+              <div class="form_main" *ngIf="segment === 'user'">
                 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
                   <div class="form-group">
                     <label for="username" class="form_label">
@@ -47,11 +55,8 @@
                   </div>
                 </form>
               </div>
-            </div>
-
-            <div class="form" *ngIf="showUserForm === false">
-              <p class="heading" (click)="changeForm('user')">Login Via OTP</p>
-              <div class="form_main">
+        
+              <div class="form_main" *ngIf="segment === 'otp'">
                 <form [formGroup]="otpLoginForm" (ngSubmit)="onSubmitOtp()" novalidate>
                   <div class="form-group">
                     <label for="phone" class="form_label">Mobile Number</label>

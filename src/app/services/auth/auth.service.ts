@@ -52,7 +52,7 @@ export class AuthService {
     return this.http.post<any>(AUTH_API + 'webservice/rest/api.php', body, { headers });
   }
 
-  loginViaOtp(phone: string,otp: string) {
+  loginViaOtp(phone: string, otp: string) {
     const headers = new HttpHeaders({
       'Content-Type': 'application/x-www-form-urlencoded'
     });
@@ -94,6 +94,16 @@ export class AuthService {
     );
   }
 
+  getRecentCourses(id: any): Observable<any> {
+    let params = new HttpParams().set('userid', id);
+    console.log(params);
+
+    return this.http.get(AUTH_API +
+      'webservice/rest/server.php?moodlewsrestformat=json&wsfunction=core_course_get_recent_courses&wstoken=418ad191d3346e9490d078712f066ed8',
+      { params }
+    );
+  }
+
   getCourses(id: any): Observable<any> {
     let params = new HttpParams().set('userid', id);
     console.log(params);
@@ -103,7 +113,19 @@ export class AuthService {
       { params }
     );
   }
-  
+
+  getCalendarEvent(year: any, month: any): Observable<any> {
+    let params = new HttpParams()
+      .set('year', year)
+      .set('month', month);
+    console.log(params);
+
+    return this.http.get(AUTH_API +
+      'webservice/rest/server.php?moodlewsrestformat=json&wsfunction=core_calendar_get_calendar_monthly_view&wstoken=418ad191d3346e9490d078712f066ed8',
+      { params }
+    );
+  }
+
   getCourseContent(id: any): Observable<any> {
     let params = new HttpParams().set('courseid', id);
     console.log(params);
@@ -116,9 +138,9 @@ export class AuthService {
 
   getUserGrades(userId: any, courseId: any): Observable<any> {
     let params = new HttpParams()
-    .set('userid', userId)
-    .set('courseid', courseId);
-  console.log(params);
+      .set('userid', userId)
+      .set('courseid', courseId);
+    console.log(params);
 
     return this.http.get(AUTH_API +
       'webservice/rest/server.php?moodlewsrestformat=json&wsfunction=gradereport_user_get_grade_items&wstoken=418ad191d3346e9490d078712f066ed8',

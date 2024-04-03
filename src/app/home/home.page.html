@@ -1,6 +1,6 @@
 <ion-menu side="end" contentId="main-content" menuId="menu">
   <ion-content class="ion-padding">
-    <div class="col-12 text-center">
+    <div class="col-12 text-center" *ngIf="!recentData">
       <h1 class="menu_heading mb-3">Recently Accessed Items</h1>
       <div class="d-flex justify-content-center mb-3">
         <ion-img src="assets/img/recent_access.png"></ion-img>
@@ -9,20 +9,33 @@
     </div>
     <div class="col-12">
       <h1 class="menu_heading mb-3 text-center">Recently Accessed Items</h1>
-      <div class="card mb-3">
-        <div class="col-12 p-2">
-          <div class="d-flex align-items-start justify-content-start">
-            <ion-img src="assets/img/document.png" alt=""></ion-img>
-            <ion-text class="content_p">Click here for
-              <strong>Password Security</strong> Content</ion-text>
+      <div class="card mb-2" *ngFor="let item of recentData">
+        <div class="col-12 card_main" (click)="onCardClick(item)">
+          <div>
+            <ion-img
+              [src]="item.courseimage ? item.courseimage : 'assets/img/images.png'"
+              class="img-fluid rounded-start" alt="Image"></ion-img>
           </div>
-        </div>
-      </div>
-      <div class="card mb-3">
-        <div class="col-12 p-2">
-          <div class="d-flex align-items-start justify-content-start">
-            <ion-img src="assets/img/lock_bg.png" alt=""></ion-img>
-            <ion-text class="content_p">Click here for <strong>Password Security </strong>Quiz</ion-text>
+          <div class="col-10 card_sub">
+            <div class="card_body p-0">
+              <div class="col-12 card_body_sub">
+                <h5 class="card_displayname">
+                  {{ item.fullname }}
+                </h5>
+                <!-- <ion-img src="assets/icon/download.svg" alt="" (click)="onDownload($event)"></ion-img> -->
+              </div>
+              <p class="card_text_badge">
+                Course
+              </p>
+              <div class="col-12 bar_main">
+                <div class="progress_bar_container col-10">
+                  <div class="progress_bar" [style.width]="item.progress + '%'"></div>
+                </div>
+                <div class="percentage_display col-2">
+                  {{ item.progress | number:'1.0-2' }}%
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -53,9 +66,9 @@
               <div class="card_body p-0">
                 <div class="col-12 card_body_sub">
                   <h5 class="card_title">
-                    {{ item.displayname }}
+                    {{ item.fullname }}
                   </h5>
-                  <ion-img src="assets/icon/download.svg" alt="" (click)="onDownload($event)"></ion-img>
+                  <!-- <ion-img src="assets/icon/download.svg" alt="" (click)="onDownload($event)"></ion-img> -->
                 </div>
                 <p class="card_text">
                   Course

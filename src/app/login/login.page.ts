@@ -23,7 +23,8 @@ export class LoginPage implements OnInit {
   isVisible: boolean = false;
   remainingTime = 30;
   timerColor: any = '#3553A1';
-  userId: any;
+  segment: any = 'user';
+
   private timerSubscription: Subscription | undefined;
 
   constructor(
@@ -204,7 +205,6 @@ export class LoginPage implements OnInit {
                 this.presentToast(res.result, 'danger');
               }
               if (res.result === "success") {
-                console.log(this.userId);
                 this.tokenService.saveToken(res[0].token);
                 let navigationExtras: NavigationExtras = {
                   queryParams: {
@@ -252,5 +252,11 @@ export class LoginPage implements OnInit {
     if (this.timerSubscription) {
       this.timerSubscription.unsubscribe();
     }
+  }
+
+  segmentChanged(ev: any) {
+    this.segment = ev.detail.value;
+    console.log(this.segment);
+    
   }
 }

@@ -14,11 +14,11 @@
 }
 
 .header {
-  padding: 4vw;
+  padding: 8vw;
 }
 
 .container {
-  border-radius: 5vw 5vw 0 0; 
+  border-radius: 8vw 8vw 0 0; 
   background-color: #fff;
 }
 
@@ -33,14 +33,15 @@
 }
 
 .heading {
-  background-color: #3553a1;
-  color: white;
-  border-radius: 1vw;
-  padding: 1vw 2vw;
+  // background-color: white;
+  // color: white;
+  // border-radius: 1vw;
+  // padding: 1vw 2vw;
   font-family: "Inter", sans-serif;
   font-weight: 400;
   font-size: 3vw;
   text-align: center;
+  text-transform: capitalize;
 }
 
 .fgt_pwd {
@@ -106,7 +107,7 @@ input:focus {
 
 @media screen and (max-width: 768px) {
   .header {
-    padding: 8vw;
+    padding: 12vw;
   }
 
   .container_sub {
@@ -116,4 +117,17 @@ input:focus {
   .form_main {
     padding: 4vw;
   }
+}
+
+ion-segment {
+  background-color: white;
+}
+
+ion-segment-button.heading.md.in-segment.segment-button-has-label.segment-button-has-label-only.segment-button-checked.segment-button-layout-icon-top.ion-activatable.ion-activatable-instant.ion-focusable.hydrated {
+  background-color: #3553a1;
+  color: white;
+}
+ion-segment-button.heading.ios.in-segment.segment-button-has-label.segment-button-has-label-only.segment-button-checked.segment-button-layout-icon-top.ion-activatable.ion-activatable-instant.ion-focusable.hydrated {
+  background-color: #3553a1;
+  color: white;
 }

@@ -29,7 +29,8 @@ export class HomePage {
   userId: any;
   id: any;
   userData: any;
-  userImg: any
+  userImg: any;
+  recentData: any;
   // myCourses = [
   //   {
   //     id: 1,
@@ -83,15 +84,15 @@ export class HomePage {
     private route: ActivatedRoute
   ) {
     this.initializeNetworkListener();
-    // this.route.queryParams.subscribe((params: any) => {
-    //   console.log(params);
+    this.route.queryParams.subscribe((params: any) => {
+      console.log(params);
 
-    //   if (params && params.data) {
-    //     this.userId = JSON.parse(params.data);
-    //     console.log(this.userId);
+      if (params && params.data) {
+        this.userId = JSON.parse(params.data);
+        console.log(this.userId);
 
-    //   }
-    // });
+      }
+    });
   }
 
   async ngOnInit() {
@@ -108,7 +109,11 @@ export class HomePage {
   }
 
   getUser() {
-    this.userId = localStorage.getItem('username')
+    if (localStorage.getItem('username')) {
+      this.userId = localStorage.getItem('username')
+      console.log(this.userId);
+
+    }
     this.authService.getUserInfo(this.userId).subscribe({
       next: (data) => {
         console.log(data);
@@ -120,6 +125,7 @@ export class HomePage {
         }
         console.log(this.id);
         this.getCourses();
+        this.getRecentCourses();
         this.tokenService.saveUser(this.userData);
       },
       error: (error) => {
@@ -141,6 +147,20 @@ export class HomePage {
       },
     });
   }
+
+  getRecentCourses() {
+    console.log(this.id);
+
+    this.authService.getRecentCourses(this.id).subscribe({
+      next: (data) => {
+        this.recentData = data;
+      },
+      error: (error) => {
+        console.error('Login failed:', error);
+      },
+    });
+  }
+
   async initializeNetworkListener() {
     // Add a listener for network status changes
     Network.addListener('networkStatusChange', (status) => {
@@ -203,6 +223,8 @@ export class HomePage {
   }
 
   onCardClick(value: any) {
+    console.log(value);
+
     let navigationExtras: NavigationExtras = {
       queryParams: {
         data: JSON.stringify(value),
@@ -210,7 +232,7 @@ export class HomePage {
     };
     this.router.navigate(['cyber-security'], navigationExtras);
   }
-  
+
 
   async presentToast(message: any, color: any) {
     let toast = await this.toastCtrl.create({
@@ -222,5 +244,5 @@ export class HomePage {
 
     toast.present();
   }
-  
+
 }

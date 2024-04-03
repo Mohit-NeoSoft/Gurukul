@@ -83,6 +83,15 @@
   color: #000000;
 }
 
+.card_displayname {
+  margin-top: 0;
+  font-family: "Inter", sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #000000;
+}
+
+
 .card_text {
   background-color: #3553a1;
   border-radius: 20px;
@@ -93,6 +102,18 @@
   font-weight: 500;
   color: #fff;
   font-family: "Inter", sans-serif;
+}
+
+.card_text_badge{
+  background-color: #3553a1;
+    border-radius: 20px;
+    text-align: center;
+    width: 60px;
+    padding: 2px;
+    font-size: 12px;
+    font-weight: 500;
+    color: #fff;
+    font-family: "Inter", sans-serif;
 }
 
 .progress_bar_container {
@@ -316,8 +337,16 @@ ion-button[slot="fixed"] {
     font-size: 16px;
   }
 
+  .card_displayname {
+    font-size: 12px;
+  }
+
   .card_text {
     font-size: 10px;
+  }
+
+  .card_text_badge{
+    font-size: 8px;
   }
 
   .percentage_display {
