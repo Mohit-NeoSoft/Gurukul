@@ -120,6 +120,7 @@ ion-button[slot="fixed"] {
 }
 
 .arrow_btn {
+  width: 40px;
   --background: none;
   --box-shadow: none;
   --padding-bottom: none;
@@ -130,40 +131,50 @@ ion-button[slot="fixed"] {
 
 /* Media Queries for responsiveness */
 
+/* For screens up to 767px */
 @media only screen and (max-width: 767px) {
-  .header {
+  .header,
+  .card_title,
+  .container p,
+  .sub,
+  .header_sub,
+  .menu_heading,
+  .menu_body,
+  .content_p {
     font-size: 14px;
-  }
-
-  .card_title {
-    font-size: 16px;
   }
 
   .card_text {
     font-size: 10px;
   }
+}
 
-  .container p {
-    font-size: 14px;
-  }
+/* Additional media queries for smaller screens */
 
-  .sub {
-    font-size: 14px;
-  }
-
-  .header_sub {
-    font-size: 12px;
-  }
-
-  .menu_heading {
-    font-size: 14px;
-  }
-
-  .menu_body {
-    font-size: 13px;
-  }
-
+/* For screens up to 576px */
+@media only screen and (max-width: 576px) {
+  .header,
+  .card_title,
+  .container p,
+  .sub,
+  .header_sub,
+  .menu_heading,
+  .menu_body,
   .content_p {
     font-size: 12px;
+  }
+}
+
+/* For screens up to 420px */
+@media only screen and (max-width: 420px) {
+  .header,
+  .card_title,
+  .container p,
+  .sub,
+  .header_sub,
+  .menu_heading,
+  .menu_body,
+  .content_p {
+    font-size: 10px;
   }
 }

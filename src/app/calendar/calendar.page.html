@@ -50,12 +50,12 @@
             {{ selectedDate }}
           </p>
         </div>
-        <ion-list *ngIf="calendarData && calendarData.length > 0">
+        <ion-list lines="none" *ngIf="calendarData && calendarData.length > 0">
           <ion-item *ngFor="let week of calendarData">
             <ion-grid>
               <ion-row>
                 <ion-col *ngFor="let day of week">
-                  <ion-card *ngIf="day.hasevents">
+                  <ion-card *ngIf="day.hasevents && day.mday === dayOfMonth">
                     <ion-card-header>
                       <ion-card-title>{{ day.daytitle }}</ion-card-title>
                     </ion-card-header>
@@ -69,7 +69,7 @@
                       </ion-list>
                     </ion-card-content>
                   </ion-card>
-                  <ion-note *ngIf="!day.hasevents">No events for this day</ion-note>
+                  <!-- <ion-note *ngIf="!day.hasevents">No events for this day</ion-note> -->
                 </ion-col>
               </ion-row>
             </ion-grid>

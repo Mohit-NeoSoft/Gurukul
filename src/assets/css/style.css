@@ -9,7 +9,7 @@ body {
   font-style: normal;
 }
 
-button.alert-button.ion-focusable.ion-activatable.btn_ok.sc-ion-alert-md {
+/* button.alert-button.ion-focusable.ion-activatable.btn_ok.sc-ion-alert-md {
   color: #319860;
   text-align: center;
   font-family: "Inter", sans-serif;
@@ -63,7 +63,7 @@ div#alert-5-msg {
 .alert-wrapper.ion-overlay-wrapper.sc-ion-alert-md {
   border-radius: 10px;
   padding: 10px;
-}
+} */
 
 ion-button.dwn_btn.md.button.button-solid.ion-activatable.ion-focusable.hydrated {
   width: 100%;

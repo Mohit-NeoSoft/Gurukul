@@ -13,19 +13,21 @@ export class CalendarPage implements OnInit {
   selectedDate!: string;
   @ViewChild('popover') popover: any;
   isOpen = false;
-  calendarData: any[]=[];
+  calendarData: any[] = [];
   month: any;
   year: any;
+  dayOfMonth: any;
   data: any;
   userImg: any;
 
-  constructor(private menuCtrl: MenuController, private authService: AuthService,private tokenService: TokenService) {
+  constructor(private menuCtrl: MenuController, private authService: AuthService, private tokenService: TokenService) {
     this.selectedDate = DateTime.now().toFormat('dd-MMM-yyyy');
   }
 
   ngOnInit() {
-    this.userImg = this.tokenService.getUser()[0].profileimageurlsmall
-   }
+    this.userImg = this.tokenService.getUser()[0].profileimageurlsmall;
+    this.fetchData(); // Fetch initial data on component initialization
+  }
 
   onArrow() {
     this.menuCtrl.open('menu-calendar');
@@ -34,22 +36,26 @@ export class CalendarPage implements OnInit {
   onChange(event: CustomEvent) {
     this.selectedDate = event.detail.value;
     const luxonDate = DateTime.fromISO(this.selectedDate);
-    const dayOfMonth = luxonDate.day;
+    this.dayOfMonth = luxonDate.day;
     this.month = luxonDate.month;
     this.year = luxonDate.year;
     this.selectedDate = luxonDate.toFormat('dd-MMM-yyyy');
-    console.log(this.month,this.year);
-    this.fetchData();
+    this.fetchData(); // Fetch data based on selected date
   }
 
   fetchData() {
+    this.calendarData = [];
+
     this.authService.getCalendarEvent(this.year, this.month).subscribe({
       next: (res) => {
         console.log(res);
         this.data = res;
-        // this.calendarData = [];
+        
         for (let i = 0; i < this.data.weeks.length; i++) {
-          this.calendarData.push(this.data.weeks[i].days);
+          const week = this.data.weeks[i].days.filter((day: any) => day.hasevents && day.mday === this.dayOfMonth);
+          if (week.length > 0) {
+            this.calendarData.push(week);
+          }
         }
         console.log(this.calendarData);
       },
