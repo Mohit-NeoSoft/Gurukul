@@ -198,9 +198,6 @@ export class LoginPage implements OnInit {
             this.otpLoginForm.get('phone')?.value, this.otpLoginForm.get('otp')?.value
           ).subscribe({
             next: (res) => {
-              console.log(res.error);
-              this.tokenService.saveToken(res.token);
-              console.log(res[0].username);
               if (res.result === "error") {
                 this.presentToast(res.result, 'danger');
               }
