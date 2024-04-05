@@ -33,7 +33,8 @@
 <app-header [profileImg]="userImg"></app-header>
 <ion-content [fullscreen]="true" id="main-content">
   <ion-button class="arrow_btn" slot="fixed" (click)="onArrow()">
-    <ion-img src="assets/img/sideArrow.png" alt=""></ion-img></ion-button>
+    <ion-img src="assets/img/sideArrow.png" alt=""></ion-img>
+  </ion-button>
   <div class="col-12">
     <div class="calendar col-12 d-flex align-items-center justify-content-center">
       <ion-datetime presentation="date" display-format="DD-MM-YYYY" (ionChange)="onChange($event)"></ion-datetime>
@@ -55,21 +56,29 @@
             <ion-grid>
               <ion-row>
                 <ion-col *ngFor="let day of week">
-                  <ion-card *ngIf="day.hasevents && day.mday === dayOfMonth">
+                  <ng-container *ngIf="day.hasevents">
                     <ion-card-header>
                       <ion-card-title>{{ day.daytitle }}</ion-card-title>
                     </ion-card-header>
-                    <ion-card-content>
-                      <ion-list lines="none">
-                        <ion-item *ngFor="let event of day.events">
-                          <ion-label>{{ event.name }}</ion-label>
-                          <!-- <ion-label *ngIf="(event.timestart | date:'dd-MMM-yyyy') === selectedDate">{{ event.name }}</ion-label> -->
-                          <ion-label>{{ event.timestart | date:'dd-MMM-yyyy' }}</ion-label>
-                        </ion-item>
-                      </ion-list>
-                    </ion-card-content>
-                  </ion-card>
-                  <!-- <ion-note *ngIf="!day.hasevents">No events for this day</ion-note> -->
+                    <ion-card *ngFor="let event of day.events">
+                      <ion-card-content>
+                        <ion-list lines="none">
+                          <ion-item *ngIf="event.name">
+                            <ion-label><b>{{ event.name }}</b></ion-label>
+                          </ion-item>
+                          <ion-item *ngIf="event.normalisedeventtypetext">
+                            <ion-label>{{ event.normalisedeventtypetext }}</ion-label>
+                          </ion-item>
+                          <ion-item *ngIf="event.description">
+                            <ion-label [innerHTML]="event.description"></ion-label>
+                          </ion-item>
+                          <ion-item *ngIf="event.location">
+                            <ion-label><a (click)="openCapacitorSite(event.location)" class="profile_link">{{ event.location }}</a></ion-label>
+                          </ion-item>
+                        </ion-list>
+                      </ion-card-content>
+                    </ion-card>
+                  </ng-container>
                 </ion-col>
               </ion-row>
             </ion-grid>
@@ -81,3 +90,5 @@
   </div>
 </ion-content>
 <app-footer></app-footer>
+
+<!-- <ion-label *ngIf="(event.timestart | date:'dd-MMM-yyyy') === selectedDate">{{ event.name }}</ion-label> -->

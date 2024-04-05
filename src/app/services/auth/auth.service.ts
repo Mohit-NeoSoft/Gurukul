@@ -148,6 +148,16 @@ export class AuthService {
     );
   }
 
+  getScormsByCourseId(id: any): Observable<any> {
+    let params = new HttpParams().set('courseids[0]', id);
+    console.log(params);
+
+    return this.http.get(AUTH_API +
+      'webservice/rest/server.php?moodlewsrestformat=json&wsfunction=mod_scorm_get_scorms_by_courses&wstoken=418ad191d3346e9490d078712f066ed8',
+      { params }
+    );
+  }
+
   startQuizById(id: any): Observable<any> {
     let params = new HttpParams().set('quizid', id);
     console.log(params);

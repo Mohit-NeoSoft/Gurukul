@@ -3,6 +3,7 @@ import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { AuthService } from '../services/auth/auth.service';
 import { Utility } from '../utility/utility';
 import { TokenService } from '../services/token/token.service';
+import { Browser } from '@capacitor/browser';
 
 @Component({
   selector: 'app-cyber-security',
@@ -23,7 +24,9 @@ export class CyberSecurityPage implements OnInit {
   data: any;
   token: any
   courseData: any;
+  scormData: any;
   gradesData: any;
+  scormId: any;
   selectedModuleIndices: { [key: number]: number } = {};
   myCourses = [
     {
@@ -41,8 +44,11 @@ export class CyberSecurityPage implements OnInit {
   constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService,
     public utility: Utility, private tokenService: TokenService) {
     this.route.queryParams.subscribe((params: any) => {
+
       if (params && params.data) {
         this.data = JSON.parse(params.data);
+        console.log(this.data);
+
         // this.courseName = params.data.displayname;
         this.authService.getCourseContent(this.data.id).subscribe({
           next: (data) => {
@@ -58,6 +64,20 @@ export class CyberSecurityPage implements OnInit {
 
   ngOnInit() {
     this.token = this.tokenService.getToken();
+    this.getScorms();
+  }
+
+  getScorms() {
+    this.authService.getScormsByCourseId(this.data.id).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.scormData = data.scorms;
+
+      },
+      error: (error) => {
+        console.error('Login failed:', error);
+      },
+    });
   }
 
   segmentChanged(ev: any) {
@@ -139,6 +159,7 @@ export class CyberSecurityPage implements OnInit {
     if (value.modname === 'quiz') {
       let navigationExtras: NavigationExtras = {
         queryParams: {
+          name: JSON.stringify(value.name),
           data: JSON.stringify(value.instance),
         },
       };
@@ -151,6 +172,19 @@ export class CyberSecurityPage implements OnInit {
         },
       };
       this.router.navigate(['index-activity'], navigationExtras)
+    }
+    if (value.modname === 'scorm') {
+      console.log(this.scormData);
+      this.scormData.forEach((scorm: any) => {
+        this.courseData.find((module: any) => module.modules.some((item: any) => {
+          console.log((item.instance === scorm.id) === true);
+          
+          if((item.instance === scorm.id) === true){
+            Browser.open({ url: `https://uat-gurukul.skfin.in/mod/scorm/player.php?a=${item.instance}&currentorg=Phishing_ORG&scoid=${scorm.launch}&sesskey=o8KLPxGq2C&display=popup&mode=browse` });
+          }
+        }
+        ));
+      });
     }
   }
 

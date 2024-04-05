@@ -3,6 +3,7 @@ import { MenuController } from '@ionic/angular';
 import { DateTime } from 'luxon';
 import { AuthService } from '../services/auth/auth.service';
 import { TokenService } from '../services/token/token.service';
+import { Browser } from '@capacitor/browser';
 
 @Component({
   selector: 'app-calendar',
@@ -68,5 +69,9 @@ export class CalendarPage implements OnInit {
   presentPopover(e: Event) {
     this.popover.event = e;
     this.isOpen = true;
+  }
+
+  async openCapacitorSite(value: any) {
+    await Browser.open({ url: value });
   }
 }

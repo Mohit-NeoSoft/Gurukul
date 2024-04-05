@@ -17,6 +17,7 @@ export class IndexQuizPage implements OnInit {
   errorMsg: any;
   quizResult: any;
   quizGrade: any;
+  quizName: any;
   showGrade: boolean = false;
   constructor(private router: Router, private route: ActivatedRoute,
     private authService: AuthService, private toastCtrl: ToastController) {
@@ -25,6 +26,7 @@ export class IndexQuizPage implements OnInit {
 
       if (params && params.data) {
         this.data = JSON.parse(params.data);
+        this.quizName = JSON.parse(params.name);
         this.authService.startQuizById(params.data).subscribe({
           next: (data) => {
             console.log(data);

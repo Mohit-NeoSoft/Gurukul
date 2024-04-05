@@ -45,6 +45,10 @@
 
 <app-header [profileImg]="userImg"></app-header>
 <ion-content [fullscreen]="true" id="main-content">
+  <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
   <ion-button class="arrow_btn" slot="fixed" (click)="onArrow()">
     <ion-img src="assets/img/sideArrow.png" alt=""></ion-img></ion-button>
   <div class="ion-padding">

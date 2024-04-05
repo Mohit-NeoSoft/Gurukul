@@ -1,16 +1,19 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Optional } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { Browser } from '@capacitor/browser';
 import { Network } from '@capacitor/network';
 import {
   AlertController,
+  IonRouterOutlet,
   MenuController,
+  Platform,
   ToastController,
 } from '@ionic/angular';
 import { AuthService } from '../services/auth/auth.service';
 import { TokenService } from '../services/token/token.service';
 import { PushNotifications } from '@capacitor/push-notifications';
 import { Utility } from '../utility/utility';
+import { App } from '@capacitor/app';
 
 @Component({
   selector: 'app-home',
@@ -25,12 +28,12 @@ export class HomePage {
   showFourth: boolean = false;
   selectedDate!: string;
   status: any;
-  courseData: any;
+  courseData: any[] = [];
   userId: any;
   id: any;
-  userData: any;
+  userData: any[] = [];
   userImg: any;
-  recentData: any;
+  recentData: any[] = [];
   // myCourses = [
   //   {
   //     id: 1,
@@ -81,8 +84,15 @@ export class HomePage {
     private toastCtrl: ToastController,
     private tokenService: TokenService,
     public utility: Utility,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private platform: Platform,
+    @Optional() private routerOutlet: IonRouterOutlet
   ) {
+    this.platform.backButton.subscribeWithPriority(-1, () => {
+      if (!this.routerOutlet.canGoBack()) {
+        App.exitApp();
+      }
+    });
     this.initializeNetworkListener();
     // this.route.queryParams.subscribe((params: any) => {
     //   console.log(params);
@@ -239,6 +249,14 @@ export class HomePage {
     });
 
     toast.present();
+  }
+
+  handleRefresh(event: any) {
+    setTimeout(() => {
+      // Any calls to load data go here
+      event.target.complete();
+      location.reload();
+    }, 2000);
   }
   
 }

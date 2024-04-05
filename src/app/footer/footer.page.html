@@ -7,8 +7,10 @@
             <ion-img *ngIf="URL === '/home'" src="assets/icon/mortarboard_blue.svg"></ion-img>
           </ion-tab-button>
           <ion-tab-button (click)="onCalendar()">
-            <ion-img *ngIf="URL !== '/calendar'" src="assets/icon/course.svg"></ion-img>
-            <ion-img *ngIf="URL === '/calendar'" src="assets/icon/course_blue.svg"></ion-img>
+            <ion-icon *ngIf="URL !== '/calendar'" size="large" color="dark" name="calendar-sharp"></ion-icon>
+            <ion-icon *ngIf="URL === '/calendar'" size="large" color="primary" name="calendar-sharp"></ion-icon>
+            <!-- <ion-img *ngIf="URL !== '/calendar'" src="assets/icon/course.svg"></ion-img>
+            <ion-img *ngIf="URL === '/calendar'" src="assets/icon/course_blue.svg"></ion-img> -->
           </ion-tab-button>
           <!-- <ion-tab-button (click)="onChat()">
             <ion-img *ngIf="URL !== '/chat'" src="assets/icon/chat.svg"></ion-img>

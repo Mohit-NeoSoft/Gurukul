@@ -14,13 +14,38 @@ export class HeaderPage implements OnInit {
   @Input() profileImg: any;
   userId: any;
   userImg: any;
-  userData: any;
+  userData: any[] = [];
   id: any;
   constructor(private authService: AuthService, private tokenService: TokenService,private menuCtrl: MenuController,
     private router: Router, private toastCtrl: ToastController) { }
 
   ngOnInit() {
-    this.userData = this.tokenService.getUser();
+    this.userId = localStorage.getItem('username')
+    this.authService.getUserInfo(this.userId).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.userData = data
+
+        for (let i = 0; i < data.length; i++) {
+          this.id = this.userData[i].id
+          this.userImg = this.userData[i].profileimageurlsmall
+        }
+        console.log(this.id);
+        
+        // this.tokenService.saveUser(this.userData);
+      },
+      error: (error) => {
+        console.error('Login failed:', error);
+      },
+    });
+  }
+
+  async loadUserData() {
+    try {
+      this.userData = await this.tokenService.getUser();
+    } catch (error) {
+      console.error('Error fetching user data:', error);
+    }
   }
 
   onProfile() {

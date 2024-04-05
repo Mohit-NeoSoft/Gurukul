@@ -129,6 +129,18 @@ ion-button[slot="fixed"] {
   --padding-top: none;
 }
 
+.profile_link {
+  color: #3553a1;
+  font-family: "Inter", sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+}
+ion-label{
+  padding: 0;
+  margin: 0;
+  font-size: 14px;
+  font-family: "Inter", sans-serif;
+}
 /* Media Queries for responsiveness */
 
 /* For screens up to 767px */

@@ -17,8 +17,6 @@ export class LoginPage implements OnInit {
   isLoggedIn: boolean = false;
   showPassword: boolean = false;
   passwordToggleIcon = 'eye-outline';
-  showOtpForm: boolean = false;
-  showUserForm: boolean = true;
   toastMsg: any;
   isVisible: boolean = false;
   remainingTime = 30;
@@ -55,6 +53,7 @@ export class LoginPage implements OnInit {
     });
   }
 
+  // Getter methods for form controls
   get f() {
     return this.loginForm.controls;
   }
@@ -63,15 +62,13 @@ export class LoginPage implements OnInit {
     return this.otpLoginForm.controls;
   }
 
+  // Method to toggle password visibility
   toggle() {
     this.showPassword = !this.showPassword;
-    if (this.passwordToggleIcon === 'eye-outline') {
-      this.passwordToggleIcon = 'eye-off-outline';
-    } else {
-      this.passwordToggleIcon = 'eye-outline';
-    }
+    this.passwordToggleIcon = this.showPassword ? 'eye-off-outline' : 'eye-outline';
   }
 
+  // Method to switch between user login and OTP login forms
   async changeForm(value: any) {
     const loading = await this.loadingController.create({
       message: 'Loading...',
@@ -80,66 +77,76 @@ export class LoginPage implements OnInit {
     await loading.present();
     if (value === 'otp') {
       await loading.dismiss();
-      this.showOtpForm = true;
-      this.showUserForm = false;
     } else {
       await loading.dismiss();
-      this.showUserForm = true;
-      this.showOtpForm = false;
     }
   }
 
+  // Method to handle submission of user login form
   onSubmit() {
     this.isLoggedIn = true;
     if (this.loginForm.valid) {
-      console.log(this.loginForm.get('username')?.value);
-      try {
-        this.authService
-          .login(
-            this.loginForm.get('username')?.value,
-            this.loginForm.get('password')?.value
-          )
-          .subscribe({
-            next: (res) => {
-              console.log(res.error);
-              this.tokenService.saveToken(res.token);
-              localStorage.setItem('username', this.loginForm.get('username')?.value)
-              console.log(res);
-
-              if (res.error) {
-                this.presentToast(res.error, 'danger');
-              }
-              if (res.token && res.token !== undefined) {
-                // let navigationExtras: NavigationExtras = {
-                //   queryParams: {
-                //     data: this.loginForm.get('username')?.value,
-                //   },
-                // };
-                // this.router.navigate(['home'], navigationExtras);
-                this.router.navigate(['home']);
-
-              }
-            },
-            error: (error) => {
-              // this.toastMsg = error;
-              this.presentToast(error, 'danger');
-              console.error('Login failed:', error);
-            },
-          });
-      } catch (error) {
-        console.error('Error occurred during login:', error);
-      }
-    } else {
-      return;
+      const username = this.loginForm.get('username')?.value;
+      const password = this.loginForm.get('password')?.value;
+      this.authService.login(username, password).subscribe({
+        next: (res) => {
+          if (res.error) {
+            this.presentToast(res.error, 'danger');
+          }
+          if (res.token && res.token !== undefined) {
+            this.tokenService.saveToken(res.token);
+            localStorage.setItem('username', username);
+            this.router.navigate(['home']).then(() => {
+              location.reload();
+            });
+          }
+        },
+        error: (error) => {
+          this.presentToast(error, 'danger');
+          console.error('Login failed:', error);
+        },
+        complete: () => {
+          // Optionally handle completion if needed
+        }
+      });
     }
   }
 
+  // Method to handle submission of OTP form
+  onSubmitOtp() {
+    this.isLoggedIn = true;
+    if (this.otpLoginForm.valid) {
+      const phone = this.otpLoginForm.get('phone')?.value;
+      const otp = this.otpLoginForm.get('otp')?.value;
+      this.authService.loginViaOtp(phone, otp).subscribe({
+        next: (res) => {
+          if (res.result === "error") {
+            this.presentToast(res.result, 'danger');
+          }
+          if (res.result === "success") {
+            this.tokenService.saveToken(res[0].token);
+            localStorage.setItem('username', res[0].username);
+            this.router.navigate(['home']).then(() => {
+              location.reload();
+            });
+          }
+        },
+        error: (error) => {
+          this.presentToast(error, 'danger');
+          console.error('Login failed:', error);
+        },
+        complete: () => {
+          // Optionally handle completion if needed
+        }
+      });
+    }
+  }
+
+  // Method to handle max phone number length for OTP form
   onMaxPhone() {
     if (this.otpLoginForm.get('phone')?.value.length === 10) {
-      console.log(this.otpLoginForm.get('phone')?.value);
       this.authService.sendOtp(this.otpLoginForm.get('phone')?.value).subscribe(
         (data) => {
-          console.log('logindata:', JSON.stringify(data));
           if (data.result === "success") {
             this.presentToast("OTP Sent Successfully", 'success');
             const source = timer(0, 1000);
@@ -148,29 +155,23 @@ export class LoginPage implements OnInit {
               if (this.remainingTime > 0) {
                 this.remainingTime--;
                 if (this.remainingTime <= 10) {
-                  this.timerColor = '#B80000'
+                  this.timerColor = '#B80000';
                 }
                 if (this.remainingTime <= 0) {
-                  this.authService
-                    .expireOtp(
-                      this.otpLoginForm.get('phone')?.value
-                    )
-                    .subscribe({
-                      next: (res) => {
-                        console.log(res.error);
-                        if (res.result === "error") {
-                          this.presentToast(res.result, 'danger');
-                        }
-                        if (res.result === "success") {
-                          this.presentToast("Otp Expired, Please Try Again", 'Danger');
-                        }
-                      },
-                      error: (error) => {
-                        // this.toastMsg = error;
-                        this.presentToast(error, 'danger');
-                        console.error('Login failed:', error);
-                      },
-                    });
+                  this.authService.expireOtp(this.otpLoginForm.get('phone')?.value).subscribe({
+                    next: (res) => {
+                      if (res.result === "error") {
+                        this.presentToast(res.result, 'danger');
+                      }
+                      if (res.result === "success") {
+                        this.presentToast("Otp Expired, Please Try Again", 'Danger');
+                      }
+                    },
+                    error: (error) => {
+                      this.presentToast(error, 'danger');
+                      console.error('Login failed:', error);
+                    },
+                  });
                 }
               } else {
                 this.isVisible = false;
@@ -187,51 +188,15 @@ export class LoginPage implements OnInit {
       );
     }
   }
-  onSubmitOtp() {
-    this.isLoggedIn = true;
-    if (this.otpLoginForm.valid) {
-      console.log(this.otpLoginForm.get('phone')?.value);
-      try {
-        setTimeout(() => {
-        this.authService
-          .loginViaOtp(
-            this.otpLoginForm.get('phone')?.value, this.otpLoginForm.get('otp')?.value
-          ).subscribe({
-            next: (res) => {
-              if (res.result === "error") {
-                this.presentToast(res.result, 'danger');
-              }
-              if (res.result === "success") {
-                this.tokenService.saveToken(res[0].token);
-                localStorage.setItem('username', res[0].username)
-                
-                this.router.navigate(['home']);
 
-              }
-            },
-            error: (error) => {
-              // this.toastMsg = error;
-              this.presentToast(error, 'danger');
-              console.error('Login failed:', error);
-            },
-          });
-        },2000)
-      } catch (error) {
-        console.error('Error occurred during login:', error);
-      }
-    } else {
-      return;
-    }
-  }
-
+  // Method to resend OTP
   resendOtp() {
     if (this.otpLoginForm.get('phone')?.value.length === 10) {
       this.onMaxPhone();
-    } else {
-      return;
     }
   }
 
+  // Method to present toast messages
   async presentToast(message: any, color: any) {
     let toast = await this.toastCtrl.create({
       message: message,
@@ -243,15 +208,15 @@ export class LoginPage implements OnInit {
     toast.present();
   }
 
+  // Method to unsubscribe timer subscription on component destruction
   ngOnDestroy(): void {
     if (this.timerSubscription) {
       this.timerSubscription.unsubscribe();
     }
   }
 
+  // Method to handle segment change
   segmentChanged(ev: any) {
     this.segment = ev.detail.value;
-    console.log(this.segment);
-
   }
 }

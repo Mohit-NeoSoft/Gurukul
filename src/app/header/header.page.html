@@ -14,18 +14,14 @@
       </div>
     </div>
     <hr class="profile_hr" />
-    <div class="d-flex align-items-center justify-content-between ion-padding">
-      <div class="d-flex align-items-center" *ngFor="let item of userData; let i = index">
-        <ion-img [src]="item.profileimageurlsmall" class="img-fluid rounded-start profile_img" alt=""></ion-img>
-        <p class="profile_name m-1">{{item.fullname}}</p>
+    <ng-container *ngIf="userData">
+      <div class="d-flex align-items-center justify-content-between ion-padding" *ngFor="let item of userData; let i = index">
+        <div class="d-flex align-items-center">
+          <ion-img [src]="item.profileimageurlsmall" class="img-fluid rounded-start profile_img" alt=""></ion-img>
+          <p class="profile_name m-1">{{item.fullname}}</p>
+        </div>
       </div>
-      <!-- <ion-icon
-        slot="end"
-        color="primary"
-        size="large"
-        name="chevron-forward-sharp"
-      ></ion-icon> -->
-    </div>
+    </ng-container>
     <hr class="profile_hr" />
     <div class="d-flex align-items-center justify-content-between ion-padding">
       <div class="d-flex align-items-center">
