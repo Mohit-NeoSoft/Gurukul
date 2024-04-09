@@ -5,9 +5,11 @@
   font-size: 25px;
   font-weight: 500;
 }
+
 .content_head {
   padding: 15px;
 }
+
 .card_badge {
   border-radius: 20px;
   color: #fff;
@@ -19,9 +21,11 @@
   align-items: center;
   justify-content: center;
 }
+
 .box {
   border: 1px solid #000;
 }
+
 .body {
   color: #000;
   text-align: center;
@@ -30,6 +34,7 @@
   font-style: normal;
   font-weight: 500;
 }
+
 .act_btn {
   --border: none;
   --border-radius: none;
@@ -41,23 +46,27 @@
   --font-style: normal;
   --font-weight: 500;
 }
+
 .box_next {
   border-radius: 9px;
   border: 0.3px solid #dadada;
   background: #f8f8f8;
 }
+
 .body_next {
   color: #000;
   font-family: "Inter", sans-serif;
   font-size: 18px;
   font-weight: 500;
 }
+
 .attempt {
   color: #000;
   font-family: "Inter", sans-serif;
   font-size: 15px;
   font-weight: 300;
 }
+
 .pop_head {
   color: #000;
   font-family: "Inter", sans-serif;
@@ -65,6 +74,7 @@
   font-style: normal;
   font-weight: 500;
 }
+
 .pop_body {
   color: #319860;
   font-family: "Inter", sans-serif;
@@ -88,34 +98,40 @@
   font-size: 18px;
   font-weight: 700;
 }
+
 .table_head {
   color: #565656;
   font-family: "Inter", sans-serif;
   font-size: 16px;
   font-weight: 700;
 }
+
 .table_content {
   color: #565656;
   font-family: "Inter", sans-serif;
   font-size: 16px;
   font-weight: 400;
 }
+
 .high {
   color: #565656;
-  font-family: "Inter",sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 16px;
   font-weight: 400;
 }
+
 // side menu
 .menu_header {
   box-shadow: none;
 }
+
 .main_span {
   color: #565656;
   font-family: "Inter", sans-serif;
   font-size: 10px;
   font-weight: 300;
 }
+
 .menu_content {
   color: #000;
   font-family: "Inter", sans-serif;
@@ -123,10 +139,12 @@
   font-style: normal;
   font-weight: 300;
 }
+
 .menu_hr {
   border: 0.5px solid #7b7b7b;
   background-color: #7b7b7b;
 }
+
 .course_span {
   color: #000;
   font-family: "Inter", sans-serif;
@@ -134,10 +152,12 @@
   font-style: normal;
   font-weight: 300;
 }
+
 .menu_footer {
   box-shadow: none;
   padding: 8px;
 }
+
 .ref_btn {
   color: #fff;
   font-family: "Inter", sans-serif;
@@ -145,22 +165,26 @@
   font-style: normal;
   font-weight: 700;
 }
+
 .left_label {
   color: #464646;
   font-family: "Inter", sans-serif;
   font-size: 25px;
   font-weight: 500;
 }
+
 .ryt_label {
   color: #565656;
   font-family: "Inter", sans-serif;
   font-size: 18px;
   font-weight: 500;
 }
+
 .start_btn {
   --border-radius: 4px;
   --background: #319860;
 }
+
 .start_span {
   color: #fff;
   font-family: "Inter", sans-serif;
@@ -168,6 +192,8 @@
   font-weight: 400;
   text-transform: capitalize;
 }
+
+
 @media only screen and (max-width: 600px) {
   .content_p {
     font-size: 20px;

@@ -239,7 +239,6 @@ export class HomePage {
     this.router.navigate(['cyber-security'], navigationExtras);
   }
   
-
   async presentToast(message: any, color: any) {
     let toast = await this.toastCtrl.create({
       message: message,

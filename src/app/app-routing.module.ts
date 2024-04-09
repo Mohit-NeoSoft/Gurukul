@@ -104,6 +104,10 @@ const routes: Routes = [
   {
     path: 'header',
     loadChildren: () => import('./header/header.module').then( m => m.HeaderPageModule)
+  },
+  {
+    path: 'recent-items',
+    loadChildren: () => import('./recent-items/recent-items.module').then( m => m.RecentItemsPageModule)
   }
 ];
 

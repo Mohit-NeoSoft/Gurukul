@@ -27,7 +27,7 @@ export class IndexQuizPage implements OnInit {
       if (params && params.data) {
         this.data = JSON.parse(params.data);
         this.quizName = JSON.parse(params.name);
-        this.authService.startQuizById(params.data).subscribe({
+        this.authService.startQuizById(this.data).subscribe({
           next: (data) => {
             console.log(data);
             this.data = data

@@ -15,11 +15,16 @@
 
 <ion-content [fullscreen]="true">
   <div class="position-relative h-100 overflow-auto">
-    <div class="col-12 body_sub" *ngIf="segment === 'course'">
+    <ion-fab slot="fixed" vertical="bottom" horizontal="end" *ngIf="segment === 'course'">
+      <ion-fab-button>
+         <ion-img style="z-index: 1;" src="assets/icon/menu_btn.svg" (click)="onIndex()" alt=""></ion-img>
+      </ion-fab-button>
+    </ion-fab>
+    <!-- <div class="col-12 body_sub" *ngIf="segment === 'course'">
       <div class="d-flex justify-content-end mb-3">
         <ion-img style="z-index: 1;" src="assets/icon/menu_btn.svg" (click)="onIndex()" alt=""></ion-img>
       </div>
-    </div>
+    </div> -->
     <div class="main">
       <div class="col-12 card_main">
         <div>
@@ -256,19 +261,25 @@
                     <div class="col-6 text-center">
                       <p class="row_head m-0">Weight</p>
                     </div>
-                    <div class="col-6 text-center">
+                    <!-- <div class="col-6 text-center">
                       <p class="row_head m-0">Grade</p>
+                    </div> -->
+                    <div class="col-6 text-center">
+                      <p class="row_head m-0">Percentage</p>
                     </div>
                   </div>
                   <div class="row">
                     <div class="col-6 text-center">
                       <p class="row_val">{{item.weightformatted}}</p>
                     </div>
-                    <div class="col-6 text-center">
+                    <!-- <div class="col-6 text-center">
                       <p class="row_val">{{item.gradeformatted}}</p>
+                    </div> -->
+                    <div class="col-6 text-center">
+                      <p class="row_val">{{item.percentageformatted}}</p>
                     </div>
                   </div>
-                  <div class="row">
+                  <!-- <div class="row">
                     <div class="col-6 text-center">
                       <p class="row_head m-0">Range</p>
                     </div>
@@ -283,7 +294,7 @@
                     <div class="col-6 text-center">
                       <p class="row_val">{{item.percentageformatted}}</p>
                     </div>
-                  </div>
+                  </div> -->
                 </div>
               </ion-accordion>
             </ion-accordion-group>
@@ -363,10 +374,10 @@
 </ion-content>
 <ion-footer [translucent]="true">
   <ion-toolbar class="p-1">
-    <div class="col-12 position-absolute body_sub" *ngIf="segment === 'course'">
-      <div class="d-flex justify-content-end mb-3">
+    <div class="col-12 body_sub" *ngIf="segment === 'course'">
+      <!-- <div class="d-flex justify-content-end mb-3">
         <ion-img src="assets/icon/menu_btn.svg" (click)="onIndex()" alt=""></ion-img>
-      </div>
+      </div> -->
       <div>
         <div class="row" *ngIf="showMain">
           <ion-button expand="block" class="btn_pwd" color="primary" (click)="onPwdSec()">Next&nbsp;<ion-img src="assets/icon/ryt_arrow.svg" alt=""></ion-img></ion-button>

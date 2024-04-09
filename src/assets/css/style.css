@@ -9,6 +9,11 @@ body {
   font-style: normal;
 }
 
+ion-fab-button.md.ion-activatable.ion-focusable.hydrated {
+  --box-shadow: none;
+  --background: none;
+}
+
 /* button.alert-button.ion-focusable.ion-activatable.btn_ok.sc-ion-alert-md {
   color: #319860;
   text-align: center;

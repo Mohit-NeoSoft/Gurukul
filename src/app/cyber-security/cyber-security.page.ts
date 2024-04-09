@@ -25,7 +25,7 @@ export class CyberSecurityPage implements OnInit {
   token: any
   courseData: any;
   scormData: any;
-  gradesData: any;
+  gradesData: any[] = [];
   scormId: any;
   selectedModuleIndices: { [key: number]: number } = {};
   myCourses = [
@@ -177,7 +177,7 @@ export class CyberSecurityPage implements OnInit {
       console.log(this.scormData);
       this.scormData.forEach((scorm: any) => {
         this.courseData.find((module: any) => module.modules.some((item: any) => {
-          console.log((item.instance === scorm.id) === true);
+          // console.log((item.instance === scorm.id) === true);
           
           if((item.instance === scorm.id) === true){
             Browser.open({ url: `https://uat-gurukul.skfin.in/mod/scorm/player.php?a=${item.instance}&currentorg=Phishing_ORG&scoid=${scorm.launch}&sesskey=o8KLPxGq2C&display=popup&mode=browse` });

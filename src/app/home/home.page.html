@@ -12,8 +12,7 @@
       <div class="card mb-2" *ngFor="let item of recentData">
         <div class="col-12 card_main" (click)="onCardClick(item)">
           <div>
-            <ion-img
-              [src]="item.courseimage ? item.courseimage : 'assets/img/images.png'"
+            <ion-img [src]="item.courseimage ? item.courseimage : 'assets/img/images.png'"
               class="img-fluid rounded-start" alt="Image"></ion-img>
           </div>
           <div class="col-10 card_sub">
@@ -48,7 +47,9 @@
   <ion-refresher slot="fixed" (ionRefresh)="handleRefresh($event)">
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>
-
+  <!-- <div>
+    <app-recent-items></app-recent-items>
+  </div> -->
   <ion-button class="arrow_btn" slot="fixed" (click)="onArrow()">
     <ion-img src="assets/img/sideArrow.png" alt=""></ion-img></ion-button>
   <div class="ion-padding">
