@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { AuthService } from '../services/auth/auth.service';
+import { Browser } from '@capacitor/browser';
 
 @Component({
   selector: 'app-course-index',
@@ -11,6 +12,7 @@ export class CourseIndexPage implements OnInit {
   isExpanded: boolean[] = [];
   data: any;
   courseData: any;
+  scormData: any;
   constructor(private router: Router,private route: ActivatedRoute,private authService: AuthService) { }
 
   ngOnInit() {
@@ -27,6 +29,20 @@ export class CourseIndexPage implements OnInit {
         });
       }
     });
+    this.getScorms();
+  }
+
+  getScorms() {
+    this.authService.getScormsByCourseId(this.data.id).subscribe({
+      next: (data) => {
+        console.log(data);
+        this.scormData = data.scorms;
+
+      },
+      error: (error) => {
+        console.error('Login failed:', error);
+      },
+    });
   }
 
   onClose(){
@@ -41,6 +57,7 @@ export class CourseIndexPage implements OnInit {
   onClick(value: any){
     console.log(value);
     if(value.modname === 'quiz'){
+      localStorage.setItem('quizName',value.name)
       let navigationExtras: NavigationExtras = {
         queryParams: {
           data: JSON.stringify(value.instance),
@@ -55,6 +72,19 @@ export class CourseIndexPage implements OnInit {
         },
       };
       this.router.navigate(['index-activity'],navigationExtras)
+    }
+    if (value.modname === 'scorm') {
+      console.log(this.scormData);
+      this.scormData.forEach((scorm: any) => {
+        this.courseData.find((module: any) => module.modules.some((item: any) => {
+          // console.log((item.instance === scorm.id) === true);
+          
+          if((item.instance === scorm.id) === true){
+            Browser.open({ url: `https://uat-gurukul.skfin.in/mod/scorm/player.php?a=${item.instance}&currentorg=Phishing_ORG&scoid=${scorm.launch}&sesskey=o8KLPxGq2C&display=popup&mode=browse` });
+          }
+        }
+        ));
+      });
     }
   }
 

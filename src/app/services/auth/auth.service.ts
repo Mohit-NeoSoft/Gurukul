@@ -17,7 +17,12 @@ const httpOptions = {
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) { }
+  token: any;
+  constructor(private http: HttpClient,private tokenService: TokenService) { 
+    this.token = this.tokenService.getToken()
+  }
+
+
 
   login(username: string, password: string): Observable<any> {
     let params = new HttpParams()
@@ -99,7 +104,7 @@ export class AuthService {
     console.log(params);
 
     return this.http.get(AUTH_API +
-      'webservice/rest/server.php?moodlewsrestformat=json&wsfunction=core_course_get_recent_courses&wstoken=418ad191d3346e9490d078712f066ed8',
+      `webservice/rest/server.php?moodlewsrestformat=json&wsfunction=core_course_get_recent_courses&wstoken=${this.token}`,
       { params }
     );
   }
@@ -109,7 +114,7 @@ export class AuthService {
     console.log(params);
 
     return this.http.get(AUTH_API +
-      'webservice/rest/server.php?moodlewsrestformat=json&wsfunction=core_enrol_get_users_courses&wstoken=418ad191d3346e9490d078712f066ed8',
+      `webservice/rest/server.php?moodlewsrestformat=json&wsfunction=core_enrol_get_users_courses&wstoken=${this.token}`,
       { params }
     );
   }
@@ -121,7 +126,7 @@ export class AuthService {
     console.log(params);
 
     return this.http.get(AUTH_API +
-      'webservice/rest/server.php?moodlewsrestformat=json&wsfunction=core_calendar_get_calendar_monthly_view&wstoken=418ad191d3346e9490d078712f066ed8',
+      `webservice/rest/server.php?moodlewsrestformat=json&wsfunction=core_calendar_get_calendar_monthly_view&wstoken=${this.token}`,
       { params }
     );
   }
@@ -131,7 +136,7 @@ export class AuthService {
     console.log(params);
 
     return this.http.get(AUTH_API +
-      'webservice/rest/server.php?moodlewsrestformat=json&wsfunction=core_course_get_contents&wstoken=418ad191d3346e9490d078712f066ed8',
+      `webservice/rest/server.php?moodlewsrestformat=json&wsfunction=core_course_get_contents&wstoken=${this.token}`,
       { params }
     );
   }
@@ -143,7 +148,7 @@ export class AuthService {
     console.log(params);
 
     return this.http.get(AUTH_API +
-      'webservice/rest/server.php?moodlewsrestformat=json&wsfunction=gradereport_user_get_grade_items&wstoken=418ad191d3346e9490d078712f066ed8',
+      `webservice/rest/server.php?moodlewsrestformat=json&wsfunction=gradereport_user_get_grade_items&wstoken=${this.token}`,
       { params }
     );
   }
@@ -153,9 +158,34 @@ export class AuthService {
     console.log(params);
 
     return this.http.get(AUTH_API +
-      'webservice/rest/server.php?moodlewsrestformat=json&wsfunction=mod_scorm_get_scorms_by_courses&wstoken=418ad191d3346e9490d078712f066ed8',
+      `webservice/rest/server.php?moodlewsrestformat=json&wsfunction=mod_scorm_get_scorms_by_courses&wstoken=${this.token}`,
       { params }
     );
+  }
+
+
+  isAttemptFinish(userid: any,quizid: any) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    const body = new URLSearchParams({
+      task: 'isAttemptFinished',
+      userid: userid,
+      quiz: quizid
+    }).toString();
+    return this.http.post<any>(AUTH_API + 'webservice/rest/api.php', body, { headers });
+  }
+
+
+  getUserToken(userid: any) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    const body = new URLSearchParams({
+      task: 'getUserToken',
+      userid: userid,
+    }).toString();
+    return this.http.post<any>(AUTH_API + 'webservice/rest/api.php', body, { headers });
   }
 
   startQuizById(id: any): Observable<any> {
@@ -163,7 +193,7 @@ export class AuthService {
     console.log(params);
 
     return this.http.get(AUTH_API +
-      'webservice/rest/server.php?moodlewsrestformat=json&wsfunction=mod_quiz_start_attempt&wstoken=418ad191d3346e9490d078712f066ed8',
+      `webservice/rest/server.php?moodlewsrestformat=json&wsfunction=mod_quiz_start_attempt&wstoken=${this.token}`,
       { params }
     );
   }
@@ -173,7 +203,7 @@ export class AuthService {
     console.log(params);
 
     return this.http.get(AUTH_API +
-      'webservice/rest/server.php?moodlewsrestformat=json&wsfunction=mod_quiz_get_attempt_summary&wstoken=418ad191d3346e9490d078712f066ed8',
+      `webservice/rest/server.php?moodlewsrestformat=json&wsfunction=mod_quiz_get_attempt_summary&wstoken=${this.token}`,
       { params }
     );
   }
@@ -183,7 +213,7 @@ export class AuthService {
     console.log(params);
 
     return this.http.get(AUTH_API +
-      'webservice/rest/server.php?moodlewsrestformat=json&wsfunction=message_popup_get_popup_notifications&wstoken=418ad191d3346e9490d078712f066ed8',
+      `webservice/rest/server.php?moodlewsrestformat=json&wsfunction=message_popup_get_popup_notifications&wstoken=${this.token}`,
       { params }
     );
   }
@@ -193,7 +223,7 @@ export class AuthService {
     console.log(params);
 
     return this.http.get(AUTH_API +
-      'webservice/rest/server.php?moodlewsrestformat=json&wsfunction=gradereport_overview_get_course_grades&wstoken=418ad191d3346e9490d078712f066ed8',
+      `webservice/rest/server.php?moodlewsrestformat=json&wsfunction=gradereport_overview_get_course_grades&wstoken=${this.token}`,
       { params }
     );
   }
@@ -203,7 +233,7 @@ export class AuthService {
     console.log(params);
 
     return this.http.get(AUTH_API +
-      'webservice/rest/server.php?moodlewsrestformat=json&wsfunction=core_badges_get_user_badges&wstoken=418ad191d3346e9490d078712f066ed8',
+      `webservice/rest/server.php?moodlewsrestformat=json&wsfunction=core_badges_get_user_badges&wstoken=${this.token}`,
       { params }
     );
   }

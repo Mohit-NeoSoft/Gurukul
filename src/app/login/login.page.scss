@@ -34,7 +34,7 @@
 
 .heading {
   // background-color: white;
-  // color: white;
+  color: #000;
   // border-radius: 1vw;
   // padding: 1vw 2vw;
   font-family: "Inter", sans-serif;
@@ -48,6 +48,13 @@
   font-family: "Inter", sans-serif;
   color: #3553a1;
   font-weight: 900;
+  margin-top: 2vw;
+  font-size: 3vw;
+}
+
+.remember {
+  font-family: "Inter", sans-serif;
+  font-weight: 400;
   margin-top: 2vw;
   font-size: 3vw;
 }
@@ -103,6 +110,20 @@ input:focus {
   height: auto;
 }
 
+
+ion-segment {
+  background-color: white;
+}
+
+ion-segment-button.heading.md.in-segment.segment-button-has-label.segment-button-has-label-only.segment-button-checked.segment-button-layout-icon-top.ion-activatable.ion-activatable-instant.ion-focusable.hydrated {
+  background-color: #3553a1;
+  color: #fff;
+}
+ion-segment-button.heading.ios.in-segment.segment-button-has-label.segment-button-has-label-only.segment-button-checked.segment-button-layout-icon-top.ion-activatable.ion-activatable-instant.ion-focusable.hydrated {
+  background-color: #3553a1;
+  color: #fff;
+}
+
 /* Media queries for responsiveness */
 
 @media screen and (max-width: 768px) {
@@ -117,17 +138,4 @@ input:focus {
   .form_main {
     padding: 4vw;
   }
-}
-
-ion-segment {
-  background-color: white;
-}
-
-ion-segment-button.heading.md.in-segment.segment-button-has-label.segment-button-has-label-only.segment-button-checked.segment-button-layout-icon-top.ion-activatable.ion-activatable-instant.ion-focusable.hydrated {
-  background-color: #3553a1;
-  color: white;
-}
-ion-segment-button.heading.ios.in-segment.segment-button-has-label.segment-button-has-label-only.segment-button-checked.segment-button-layout-icon-top.ion-activatable.ion-activatable-instant.ion-focusable.hydrated {
-  background-color: #3553a1;
-  color: white;
 }

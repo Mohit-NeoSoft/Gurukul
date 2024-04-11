@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import { AuthService } from '../services/auth/auth.service';
 import { ToastController } from '@ionic/angular';
+import { TokenService } from '../services/token/token.service';
 
 @Component({
   selector: 'app-index-quiz',
@@ -15,36 +16,92 @@ export class IndexQuizPage implements OnInit {
   attemptId: any;
   quizData: any;
   errorMsg: any;
+  warningMsg: any;
+
   quizResult: any;
   quizGrade: any;
   quizName: any;
   showGrade: boolean = false;
   constructor(private router: Router, private route: ActivatedRoute,
-    private authService: AuthService, private toastCtrl: ToastController) {
+    private authService: AuthService, private toastCtrl: ToastController, private tokenService: TokenService) {
     this.route.queryParams.subscribe((params: any) => {
       console.log(params);
 
       if (params && params.data) {
+        this.attemptId = ''
         this.data = JSON.parse(params.data);
-        this.quizName = JSON.parse(params.name);
-        this.authService.startQuizById(this.data).subscribe({
+        this.quizName = localStorage.getItem('quizName')
+
+        this.authService.isAttemptFinish(this.tokenService.getUser()[0].id, this.data).subscribe({
           next: (data) => {
             console.log(data);
-            this.data = data
-            if (data.attempt) {
-              this.attemptId = data.attempt.id
-              // this.getAttemptSummary();
-              console.log(this.attemptId);
-            } else {
-              this.errorMsg = this.data.message
-              console.log(this.errorMsg);
+            if (data[0].state === '') {
+              console.log('empty');
 
+              this.authService.startQuizById(this.data).subscribe({
+                next: (data) => {
+                  console.log(data);
+                  this.data = data
+                  if (data.attempt) {
+                    this.attemptId = data.attempt.id
+
+                    this.linkUserAttempt();
+                    if (data.warnings[0].message) {
+                      this.warningMsg = this.data.warnings[0].message
+                      console.log(this.data.warnings[0].message);
+                    }
+                    // this.getAttemptSummary();
+                    console.log(this.attemptId);
+                  } else {
+                    this.errorMsg = this.data.message
+
+
+                  }
+                },
+                error: (error) => {
+                  console.error('Login failed:', error);
+                },
+              });
+            }
+            if (data[0].state === "finished") {
+              console.log('finished');
+
+              this.authService.startQuizById(this.data).subscribe({
+                next: (data) => {
+                  console.log(data);
+                  this.data = data
+                  if (data.attempt) {
+                    this.attemptId = data.attempt.id
+                    this.linkUserAttempt();
+                    if (data.warnings[0].message) {
+                      this.warningMsg = this.data.warnings[0].message
+                      console.log(this.data.warnings[0].message);
+                    }
+                    // this.getAttemptSummary();
+                    console.log(this.attemptId);
+                  } else {
+                    this.errorMsg = this.data.message
+                    console.log(this.errorMsg);
+
+                  }
+                },
+                error: (error) => {
+                  console.error('Login failed:', error);
+                },
+              });
+            }
+            if (data[0].state === "inprogress") {
+              console.log('inprogress');
+
+              this.attemptId = data[0].id
+              this.linkUserAttempt();
             }
           },
           error: (error) => {
-            console.error('Login failed:', error);
+            console.error(error);
           },
         });
+
       }
 
       if (params.quizResult) {
@@ -61,6 +118,7 @@ export class IndexQuizPage implements OnInit {
             this.data = data
             if (data.attempt) {
               this.attemptId = data.attempt.id
+              this.linkUserAttempt();
               // this.getAttemptSummary();
               console.log(this.attemptId);
             } else {
@@ -79,6 +137,34 @@ export class IndexQuizPage implements OnInit {
 
   ngOnInit() {
 
+  }
+
+
+  linkUserAttempt() {
+    // console.log(this.data);
+
+    // this.authService.linkUserByItsAttempt(this.tokenService.getUser()[0].id, this.data,this.attemptId).subscribe({
+    //   next: (data) => {
+    //     console.log(data);
+    //   },
+    //   error: (error) => {
+    //     console.error('Login failed:', error);
+    //   },
+    // });
+  }
+
+  checkAttempt() {
+    console.log(this.tokenService.getUser()[0].id);
+
+    // this.userId = this.tokenService.getUser()[0].
+    this.authService.isAttemptFinish(this.tokenService.getUser()[0].id, this.data).subscribe({
+      next: (data) => {
+        console.log(data);
+      },
+      error: (error) => {
+        console.error('Login failed:', error);
+      },
+    });
   }
 
   getAttemptSummary() {
@@ -103,6 +189,9 @@ export class IndexQuizPage implements OnInit {
 
     if (this.errorMsg) {
       this.presentToast(this.errorMsg, 'danger');
+    }
+    if (this.warningMsg) {
+      this.presentToast(this.warningMsg, 'danger');
     }
     if (this.attemptId !== '' && this.attemptId !== undefined) {
       let navigationExtras: NavigationExtras = {

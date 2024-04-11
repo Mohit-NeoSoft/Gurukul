@@ -15,6 +15,7 @@ import { SharedModule } from '../shared/shared.module';
     FormsModule,
     IonicModule,
     CyberSecurityPageRoutingModule,
+    SharedModule
   ],
   declarations: [CyberSecurityPage]
 })

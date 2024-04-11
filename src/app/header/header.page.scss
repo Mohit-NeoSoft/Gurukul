@@ -10,6 +10,9 @@
 .profile_img {
     border-radius: 50% !important;
     overflow: hidden;
+    object-fit: cover;
+    height: auto;
+    width: 40px;
 }
 
 /* Profile menu css start */
@@ -49,7 +52,7 @@
 }
 
 .profile_gardes {
-    color: #000;
+    // color: #000;
     font-family: "Inter", sans-serif;
     font-size: 18px;
     font-weight: 500;

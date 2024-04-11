@@ -84,7 +84,8 @@ export class AttemptSummaryPage implements OnInit {
         console.log('check');
 
         setTimeout(() => {
-          this.http.get(`https://uat-gurukul.skfin.in/webservice/rest/server.php?attemptid=${this.attemptId}&data[0][name]=slot&data[0][value]=${this.attemptData[i].slot}&data[1][name]=q${(this.attemptData[i].questionId.split("-"))[1]}:${this.attemptData[i].slot}_answer&data[1][value]=${this.attemptData[i].answer}&data[2][name]=q${(this.attemptData[i].questionId.split("-"))[1]}:${this.attemptData[i].slot}_:sequencecheck&data[2][value]=1&finishattempt=${i === k ? 1 : 0}&wsfunction=mod_quiz_process_attempt&wstoken=418ad191d3346e9490d078712f066ed8`)
+          const token = localStorage.getItem('auth-token')
+          this.http.get(`https://uat-gurukul.skfin.in/webservice/rest/server.php?attemptid=${this.attemptId}&data[0][name]=slot&data[0][value]=${this.attemptData[i].slot}&data[1][name]=q${(this.attemptData[i].questionId.split("-"))[1]}:${this.attemptData[i].slot}_answer&data[1][value]=${this.attemptData[i].answer}&data[2][name]=q${(this.attemptData[i].questionId.split("-"))[1]}:${this.attemptData[i].slot}_:sequencecheck&data[2][value]=1&finishattempt=${i === k ? 1 : 0}&wsfunction=mod_quiz_process_attempt&wstoken=${token}`)
             .subscribe((res: any) => {
               console.log(res);
             }, (error) => {
@@ -94,6 +95,7 @@ export class AttemptSummaryPage implements OnInit {
       }
     }
     setTimeout(() => {
+      const token = localStorage.getItem('auth-token')
       this.http.get(`https://uat-gurukul.skfin.in/webservice/rest/server.php?moodlewsrestformat=json&wsfunction=mod_quiz_get_attempt_review&wstoken=418ad191d3346e9490d078712f066ed8&attemptid=${this.attemptId}&page=1`).subscribe((res: any) => {
         this.attempResult = res
         console.log(this.attempResult);
@@ -111,6 +113,6 @@ export class AttemptSummaryPage implements OnInit {
         },
       };
       this.router.navigate(['index-quiz'],navigationExtras)
-    },this.attemptData.length * 2000)
+    },this.attemptData.length * 2010)
   }
 }

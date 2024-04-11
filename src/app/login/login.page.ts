@@ -22,6 +22,7 @@ export class LoginPage implements OnInit {
   remainingTime = 30;
   timerColor: any = '#3553A1';
   segment: any = 'user';
+  inputValue: any;
 
   private timerSubscription: Subscription | undefined;
 
@@ -143,8 +144,16 @@ export class LoginPage implements OnInit {
   }
 
   // Method to handle max phone number length for OTP form
-  onMaxPhone() {
-    if (this.otpLoginForm.get('phone')?.value.length === 10) {
+  onMaxPhone(event: Event) {
+    this.inputValue = (event.target as HTMLInputElement).value;
+    const maxLength = 10;
+    if (this.inputValue.length > maxLength) {
+      (event.target as HTMLInputElement).value = this.inputValue.slice(0, maxLength);
+      this.otpLoginForm.patchValue({ phone: this.inputValue.slice(0, maxLength) });
+    }
+    console.log(this.inputValue.length);
+
+    if (this.inputValue.length === 10) {
       this.authService.sendOtp(this.otpLoginForm.get('phone')?.value).subscribe(
         (data) => {
           if (data.result === "success") {
@@ -164,7 +173,7 @@ export class LoginPage implements OnInit {
                         this.presentToast(res.result, 'danger');
                       }
                       if (res.result === "success") {
-                        this.presentToast("Otp Expired, Please Try Again", 'Danger');
+                        this.presentToast("Otp Expired, Please Try Again", 'danger');
                       }
                     },
                     error: (error) => {
@@ -189,10 +198,56 @@ export class LoginPage implements OnInit {
     }
   }
 
+  isPhoneValid() {
+    return this.otpLoginForm.get('phone')?.value.toString().length === 10;
+  }
+
   // Method to resend OTP
   resendOtp() {
-    if (this.otpLoginForm.get('phone')?.value.length === 10) {
-      this.onMaxPhone();
+    console.log(this.inputValue);
+    
+    if (this.inputValue.length === 10) {
+      this.authService.sendOtp(this.otpLoginForm.get('phone')?.value).subscribe(
+        (data) => {
+          if (data.result === "success") {
+            this.presentToast("OTP Sent Successfully", 'success');
+            const source = timer(0, 1000);
+            this.timerSubscription = source.subscribe(() => {
+              this.isVisible = true;
+              if (this.remainingTime > 0) {
+                this.remainingTime--;
+                if (this.remainingTime <= 10) {
+                  this.timerColor = '#B80000';
+                }
+                if (this.remainingTime <= 0) {
+                  this.authService.expireOtp(this.otpLoginForm.get('phone')?.value).subscribe({
+                    next: (res) => {
+                      if (res.result === "error") {
+                        this.presentToast(res.result, 'danger');
+                      }
+                      if (res.result === "success") {
+                        this.presentToast("Otp Expired, Please Try Again", 'danger');
+                      }
+                    },
+                    error: (error) => {
+                      this.presentToast(error, 'danger');
+                      console.error('Login failed:', error);
+                    },
+                  });
+                }
+              } else {
+                this.isVisible = false;
+                this.timerSubscription!.unsubscribe();
+              }
+            });
+          } else {
+            this.presentToast("OTP Sending Failed", 'danger');
+          }
+        },
+        (error) => {
+          console.error('Error occurred:', error);
+        }
+      );
     }
   }
 

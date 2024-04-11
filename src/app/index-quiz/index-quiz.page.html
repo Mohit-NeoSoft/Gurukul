@@ -1,17 +1,8 @@
 <div class="ion-page">
   <ion-header [translucent]="true">
     <ion-toolbar>
-      <ion-back-button
-        color="primary"
-        slot="start"
-        defaultHref=""
-      ></ion-back-button>
-      <ion-img
-        class="p-2"
-        slot="end"
-        src="assets/icon/download.svg"
-        alt=""
-      ></ion-img>
+      <ion-back-button color="primary" slot="start" defaultHref=""></ion-back-button>
+      <ion-img class="p-2" slot="end" src="assets/icon/download.svg" alt=""></ion-img>
     </ion-toolbar>
   </ion-header>
 
@@ -25,17 +16,9 @@
         <div class="content_main">
           <div class="col-12">
             <div class="content_head pt-0">
-              <ion-badge color="primary" class="col-2 card_badge"
-                >To Do&nbsp;<ion-icon
-                  name="caret-down-sharp"
-                  (click)="presentPopover($event)"
-                ></ion-icon
-              ></ion-badge>
-              <ion-popover
-                #popover
-                [isOpen]="isOpen"
-                (didDismiss)="isOpen = false"
-              >
+              <ion-badge color="primary" class="col-2 card_badge">To Do&nbsp;<ion-icon name="caret-down-sharp"
+                  (click)="presentPopover($event)"></ion-icon></ion-badge>
+              <ion-popover #popover [isOpen]="isOpen" (didDismiss)="isOpen = false">
                 <ng-template>
                   <ion-content>
                     <ion-list class="p-0">
@@ -78,17 +61,25 @@
             </div>
           </div>
         </div>
-        
+
         <div class="col-12 p-3 pt-0" *ngIf="showGrade">
           <div class="card ion-padding">
             <h1 class="card_head mt-0 mb-3">Summary of Previous Attempts</h1>
             <div class="row">
-              <div class="col-1"><p class="table_head">#</p></div>
-              <div class="col-8"><p class="table_head">State</p></div>
-              <div class="col"><p class="table_head">Grade</p></div>
+              <div class="col-1">
+                <p class="table_head">#</p>
+              </div>
+              <div class="col-8">
+                <p class="table_head">State</p>
+              </div>
+              <div class="col">
+                <p class="table_head">Grade</p>
+              </div>
             </div>
             <div class="row">
-              <div class="col-1"><p class="table_content">1</p></div>
+              <div class="col-1">
+                <p class="table_content">1</p>
+              </div>
               <div class="col-8">
                 <p class="col mb-0 table_content">Finished</p>
                 <!-- <p class="table_content">
@@ -103,49 +94,36 @@
           <div class="card mb-3 p-2">
             <p class="high m-0">Highest Grade <strong>1/10</strong></p>
           </div>
-          <!-- <div>
-            <ion-button class="start_btn" expand="block" color="success" (click)="onStart()"
+          <div>
+            <!-- <ion-button class="start_btn" expand="block" color="success" (click)="onStart()"
               ><span class="start_span"
                 >Re-attempt Quiz</span
               ></ion-button
-            >
-          </div> -->
+            > -->
+          </div>
         </div>
       </div>
-      <div class="p-3 position-absolute w-100 bottom-0" *ngIf="!showGrade">
+      <!-- <div class="p-3 position-absolute w-100 bottom-0" *ngIf="!showGrade">
         <ion-button class="start_btn" expand="block" color="success" (click)="onStart()"
           ><span class="start_span" 
             >Attempt Quiz Now</span
           ></ion-button
         >
-      </div>
+      </div> -->
     </div>
   </ion-content>
-  <!-- <ion-footer [translucent]="true">
+  <ion-footer [translucent]="true">
     <ion-toolbar>
       <div class="col-12 d-flex align-items-center justify-content-between">
-        <div>
-          <ion-button class="act_btn"
-            ><ion-icon
-              color="primary"
-              slot="start"
-              size="small"
-              name="chevron-back-sharp"
-            ></ion-icon
-            >Previous Activity</ion-button
-          >
+        <div class="col-12 p-3 pt-0" *ngIf="showGrade">
+          <ion-button class="start_btn" expand="block" color="success" (click)="onStart()"><span
+              class="start_span">Re-attempt Quiz</span></ion-button>
         </div>
-        <div>
-          <ion-button class="act_btn"
-            >Next Activity<ion-icon
-              size="small"
-              slot="end"
-              color="primary"
-              name="chevron-forward-sharp"
-            ></ion-icon
-          ></ion-button>
+        <div class="p-3 w-100" *ngIf="!showGrade">
+          <ion-button class="start_btn" expand="block" color="success" (click)="onStart()"><span
+              class="start_span">Attempt Quiz Now</span></ion-button>
         </div>
       </div>
     </ion-toolbar>
-  </ion-footer> -->
+  </ion-footer>
 </div>

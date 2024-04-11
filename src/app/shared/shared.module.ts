@@ -3,15 +3,15 @@ import { CommonModule } from '@angular/common';
 import { IonicModule } from '@ionic/angular';
 import { FooterPage } from '../footer/footer.page';
 import { HeaderPage } from '../header/header.page';
-import { DateFormatPipe } from '../pipes/date-format.pipe';
 import { RecentItemsPage } from '../recent-items/recent-items.page';
+import { ReplaceAmpPipe } from '../pipes/replace-amp/replace-amp.pipe';
 
 @NgModule({
-  declarations: [FooterPage,HeaderPage,DateFormatPipe,RecentItemsPage],
+  declarations: [FooterPage,HeaderPage,RecentItemsPage,ReplaceAmpPipe],
   imports: [
     CommonModule,
     IonicModule
   ],
-  exports: [FooterPage,HeaderPage,DateFormatPipe,RecentItemsPage]
+  exports: [FooterPage,HeaderPage,RecentItemsPage,ReplaceAmpPipe]
 })
 export class SharedModule { }

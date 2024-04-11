@@ -8,7 +8,6 @@ import { CalendarPageRoutingModule } from './calendar-routing.module';
 
 import { CalendarPage } from './calendar.page';
 import { SharedModule } from '../shared/shared.module';
-import { DateFormatPipe } from '../pipes/date-format.pipe';
 
 @NgModule({
   imports: [

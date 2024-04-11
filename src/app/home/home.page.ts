@@ -116,6 +116,7 @@ export class HomePage {
       console.log('Network status changed', status);
     });
     this.getUser();
+
   }
 
   getUser() {
@@ -127,12 +128,14 @@ export class HomePage {
 
         for (let i = 0; i < data.length; i++) {
           this.id = this.userData[i].id
-          this.userImg = this.userData[i].profileimageurlsmall
+          this.userImg = this.userData[i].profileimageurl
         }
         console.log(this.id);
-        this.getCourses();
-        this.getRecentCourses();
+
         this.tokenService.saveUser(this.userData);
+        this.getUserToken(this.id)
+        this.getCourses(this.id);
+        this.getRecentCourses(this.id);
       },
       error: (error) => {
         console.error('Login failed:', error);
@@ -140,10 +143,32 @@ export class HomePage {
     });
   }
 
-  getCourses() {
-    console.log(this.id);
+  getUserToken(id: any) {
+    console.log(id);
 
-    this.authService.getCourses(this.id).subscribe({
+    this.authService.getUserToken(id).subscribe({
+      next: (data) => {
+        console.log(data[0].token);
+        // this.tokenService.saveToken(data[0].token)
+       this.tokenService.saveToken(data[0].token)
+        const isFirstTimeRefresh = localStorage.getItem('first_time_refresh');
+
+        if (!isFirstTimeRefresh) {
+          localStorage.setItem('first_time_refresh', 'true');
+          window.location.reload();
+        }
+
+      },
+      error: (error) => {
+        console.error(error);
+      },
+    });
+  }
+
+  getCourses(id: any) {
+    console.log(id);
+
+    this.authService.getCourses(id).subscribe({
       next: (data) => {
         console.log(data);
         this.courseData = data;
@@ -154,10 +179,10 @@ export class HomePage {
     });
   }
 
-  getRecentCourses(){
-    console.log(this.id);
+  getRecentCourses(id: any) {
+    console.log(id);
 
-    this.authService.getRecentCourses(this.id).subscribe({
+    this.authService.getRecentCourses(id).subscribe({
       next: (data) => {
         this.recentData = data;
       },
@@ -230,7 +255,7 @@ export class HomePage {
 
   onCardClick(value: any) {
     console.log(value);
-    
+
     let navigationExtras: NavigationExtras = {
       queryParams: {
         data: JSON.stringify(value),
@@ -238,7 +263,7 @@ export class HomePage {
     };
     this.router.navigate(['cyber-security'], navigationExtras);
   }
-  
+
   async presentToast(message: any, color: any) {
     let toast = await this.toastCtrl.create({
       message: message,
@@ -257,5 +282,5 @@ export class HomePage {
       location.reload();
     }, 2000);
   }
-  
+
 }

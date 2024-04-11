@@ -157,9 +157,10 @@ export class CyberSecurityPage implements OnInit {
   onClick(value: any) {
     console.log(value);
     if (value.modname === 'quiz') {
+      localStorage.setItem('quizName',value.name)
       let navigationExtras: NavigationExtras = {
         queryParams: {
-          name: JSON.stringify(value.name),
+          // name: JSON.stringify(value.name),
           data: JSON.stringify(value.instance),
         },
       };

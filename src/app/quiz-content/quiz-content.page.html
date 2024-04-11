@@ -27,7 +27,7 @@
   <div class="main ion-padding">
 
     <div class="col-12 mb-3 time_slot d-flex align-items-end justify-content-between">
-      <h1 [ngStyle]="{ color: timer <= 60 ? '#B80000' : '#000' }" class="time_h">
+      <h1 [ngStyle]="{ color: timer <= 60 ? '#B80000' : '' }" class="time_h">
         Time Left <strong>{{ formatTime(timer) }}</strong>
       </h1>
       <p class="time_p">Hide</p>
