@@ -25,19 +25,19 @@
       </div>
     </ng-container>
     <hr class="profile_hr" />
-    <div class="d-flex align-items-center justify-content-between ion-padding">
+    <div class="d-flex align-items-center justify-content-between ion-padding" (click)="onGrades()">
       <div class="d-flex align-items-center">
         <ion-img src="assets/img/result.png"></ion-img>
         <p class="profile_grades m-2">Grades</p>
       </div>
-      <ion-icon (click)="onGrades()" slot="end" color="primary" size="large" name="chevron-forward-sharp"></ion-icon>
+      <ion-icon slot="end" color="primary" size="large" name="chevron-forward-sharp"></ion-icon>
     </div>
-    <div class="d-flex align-items-center justify-content-between ion-padding pt-0">
+    <div (click)="onBadges()" class="d-flex align-items-center justify-content-between ion-padding pt-0">
       <div class="d-flex align-items-center">
         <ion-img class="p-1" src="assets/icon/trophy.svg"></ion-img>
         <p class="profile_grades m-2">Badges</p>
       </div>
-      <ion-icon (click)="onBadges()" slot="end" color="primary" size="large" name="chevron-forward-sharp"></ion-icon>
+      <ion-icon slot="end" color="primary" size="large" name="chevron-forward-sharp"></ion-icon>
     </div>
     <hr class="profile_hr" />
     <!-- <div class="d-flex align-items-center justify-content-between ion-padding">

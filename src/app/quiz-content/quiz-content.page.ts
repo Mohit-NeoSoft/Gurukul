@@ -86,7 +86,7 @@ export class QuizContentPage implements OnInit {
       console.log(question);
       console.log(index);
       
-      const questionNumber = index;
+      const questionNumber = index + 1;
       const selectedRadio = question.querySelector<HTMLInputElement>('input[type="radio"]:checked');
       const selectedCheckbox = question.querySelector<HTMLInputElement>('input[type="checkbox"]:checked');
   

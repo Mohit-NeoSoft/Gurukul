@@ -66,6 +66,12 @@
   padding: 8px;
 }
 
+.img-fluid{
+  overflow: hidden;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
 .card_main:hover {
   background: #efefef;
   border-radius: 10px;
@@ -104,16 +110,16 @@
   font-family: "Inter", sans-serif;
 }
 
-.card_text_badge{
+.card_text_badge {
   background-color: #3553a1;
-    border-radius: 20px;
-    text-align: center;
-    width: 60px;
-    padding: 2px;
-    font-size: 12px;
-    font-weight: 500;
-    color: #fff;
-    font-family: "Inter", sans-serif;
+  border-radius: 20px;
+  text-align: center;
+  width: 60px;
+  padding: 2px;
+  font-size: 12px;
+  font-weight: 500;
+  color: #fff;
+  font-family: "Inter", sans-serif;
 }
 
 .progress_bar_container {
@@ -200,6 +206,10 @@
   font-weight: 500;
   font-family: "Inter", sans-serif;
   margin-left: 10px;
+}
+
+.hr {
+  border: 1px solid #a8a8a8;
 }
 
 .icons_sub {
@@ -346,7 +356,7 @@ ion-button[slot="fixed"] {
     font-size: 10px;
   }
 
-  .card_text_badge{
+  .card_text_badge {
     font-size: 8px;
   }
 

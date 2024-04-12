@@ -32,7 +32,7 @@ export class CalendarPage implements OnInit {
   }
 
   ngOnInit() {
-    this.userImg = this.tokenService.getUser()[0].profileimageurlsmall;
+    this.userImg = this.tokenService.getUser()[0].profileimageurl;
     this.fetchData();
     this.getUser();
   }

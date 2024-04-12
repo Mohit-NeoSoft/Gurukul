@@ -13,7 +13,7 @@
         <div class="col-12 card_main" (click)="onCardClick(item)">
           <div>
             <ion-img [src]="item.courseimage ? item.courseimage : 'assets/img/images.png'"
-              class="img-fluid rounded-start" alt="Image"></ion-img>
+              class="img-fluid" alt="Image"></ion-img>
           </div>
           <div class="col-10 card_sub">
             <div class="card_body p-0">
@@ -65,7 +65,7 @@
             <div>
               <ion-img
                 [src]="(utility.getImageUrl(item.overviewfiles) ? utility.getImageUrl(item.overviewfiles) : 'assets/img/images.png')"
-                class="img-fluid rounded-start" alt="Image"></ion-img>
+                class="img-fluid" alt="Image"></ion-img>
             </div>
             <div class="col-10 card_sub">
               <div class="card_body p-0">
@@ -93,7 +93,7 @@
 
       </div>
     </ion-list>
-
+    <hr class="hr"/>
     <div class="mb-1 mt-2">
       <div class="col-12 d-flex justify-content-between sub">
         <div class="icons_sub">

@@ -249,10 +249,6 @@ export class HomePage {
     this.showAlert = false;
   }
 
-  onClose() {
-    this.menuCtrl.close('menuProfile');
-  }
-
   onCardClick(value: any) {
     console.log(value);
 

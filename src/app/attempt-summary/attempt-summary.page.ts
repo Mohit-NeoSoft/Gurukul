@@ -113,6 +113,6 @@ export class AttemptSummaryPage implements OnInit {
         },
       };
       this.router.navigate(['index-quiz'],navigationExtras)
-    },this.attemptData.length * 2010)
+    },this.attemptData.length * 2100)
   }
 }

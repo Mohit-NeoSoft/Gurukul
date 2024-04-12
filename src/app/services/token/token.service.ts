@@ -35,6 +35,9 @@ export class TokenService {
   }
 
   public logOut(): void {
-    localStorage.clear();
+    localStorage.removeItem('username');
+    localStorage.removeItem('auth-user');
+    localStorage.removeItem('auth-token');
+    localStorage.removeItem('first_time_refresh');
   }
 }

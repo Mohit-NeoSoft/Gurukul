@@ -118,6 +118,10 @@ export class IndexQuizPage implements OnInit {
             this.data = data
             if (data.attempt) {
               this.attemptId = data.attempt.id
+              if (data.warnings[0].message) {
+                this.warningMsg = this.data.warnings[0].message
+                console.log(this.data.warnings[0].message);
+              }
               this.linkUserAttempt();
               // this.getAttemptSummary();
               console.log(this.attemptId);
@@ -186,6 +190,8 @@ export class IndexQuizPage implements OnInit {
 
   onStart() {
     console.log(this.errorMsg);
+    console.log(this.warningMsg);
+
 
     if (this.errorMsg) {
       this.presentToast(this.errorMsg, 'danger');

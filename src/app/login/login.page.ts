@@ -16,7 +16,7 @@ export class LoginPage implements OnInit {
   otpLoginForm!: FormGroup;
   isLoggedIn: boolean = false;
   showPassword: boolean = false;
-  passwordToggleIcon = 'eye-outline';
+  passwordToggleIcon = 'eye-off-outline';
   toastMsg: any;
   isVisible: boolean = false;
   remainingTime = 30;
@@ -36,6 +36,8 @@ export class LoginPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log('rememberMeData',localStorage.getItem('rememberMeData'));
+    
     this.createUserForm();
     this.createOtpForm();
   }
@@ -44,7 +46,14 @@ export class LoginPage implements OnInit {
     this.loginForm = this.fb.group({
       username: ['', [Validators.required]],
       password: ['', [Validators.required]],
+      rememberMe: [false],
     });
+
+    const rememberMeDataString = localStorage.getItem('rememberMeData');
+    if (rememberMeDataString !== null) {
+      const rememberMeData = JSON.parse(rememberMeDataString);
+      this.loginForm.patchValue(rememberMeData);
+    }
   }
 
   createOtpForm() {
@@ -66,7 +75,7 @@ export class LoginPage implements OnInit {
   // Method to toggle password visibility
   toggle() {
     this.showPassword = !this.showPassword;
-    this.passwordToggleIcon = this.showPassword ? 'eye-off-outline' : 'eye-outline';
+    this.passwordToggleIcon = this.showPassword ? 'eye-outline' : 'eye-off-outline';
   }
 
   // Method to switch between user login and OTP login forms
@@ -96,6 +105,12 @@ export class LoginPage implements OnInit {
           }
           if (res.token && res.token !== undefined) {
             this.tokenService.saveToken(res.token);
+            if (this.loginForm.value.rememberMe) {
+              localStorage.setItem('rememberMeData', JSON.stringify(this.loginForm.value));
+            } else {
+              // If "Remember Me" is not checked, clear stored data
+              localStorage.removeItem('rememberMeData');
+            }
             localStorage.setItem('username', username);
             this.router.navigate(['home']).then(() => {
               location.reload();

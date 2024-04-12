@@ -14,12 +14,13 @@ export class NotificationPage implements OnInit {
   constructor(private router: Router,private authService: AuthService,private tokenService: TokenService) { }
 
   ngOnInit() {
+    this.userImg = this.tokenService.getUser()[0].profileimageurl;
     this.getNotifications();
   }
 
   getNotifications(){
     this.userId = this.tokenService.getUser();
-    this.userImg = this.userId[0].profileimageurlsmall
+   
     console.log(this.userId[0].username);
     
     this.authService.getNotificationByUserId(this.userId[0].id).subscribe((res) => {
