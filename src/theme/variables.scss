@@ -372,3 +372,9 @@ html {
   --ion-dynamic-font: var(--ion-default-dynamic-font);
   --ion-font-family: "Inter", sans-serif;
 }
+html.md {
+  --ion-default-font: "Inter", sans-serif !important;
+}
+html.ios {
+  --ion-default-font: "Inter", sans-serif !important;
+}

@@ -210,12 +210,12 @@ ion-item.acc_header_cyber.item.ios.item-fill-none.ion-focusable.hydrated.item-la
   margin: 0;
 }
 
-ion-footer.ion-padding.footer.md.footer-md.footer-toolbar-padding.hydrated {
+/* ion-footer.ion-padding.footer.md.footer-md.footer-toolbar-padding.hydrated {
   background: #F3F3F3;
 }
 ion-footer.ion-padding.footer.ios.footer-ios.footer-toolbar-padding.hydrated {
   background: #F3F3F3;
-}
+} */
 ion-toolbar.chat_ft.md.in-toolbar.hydrated{
   --background: #F3F3F3;
 }
