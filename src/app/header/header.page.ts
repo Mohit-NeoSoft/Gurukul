@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth/auth.service';
 import { TokenService } from '../services/token/token.service';
-import { MenuController, ToastController } from '@ionic/angular';
+import { LoadingController, MenuController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Browser } from '@capacitor/browser';
 
@@ -17,7 +17,7 @@ export class HeaderPage implements OnInit {
   userData: any[] = [];
   id: any;
   constructor(private authService: AuthService, private tokenService: TokenService,private menuCtrl: MenuController,
-    private router: Router, private toastCtrl: ToastController) { }
+    private router: Router, private toastCtrl: ToastController,private loadingController: LoadingController) { }
 
   ngOnInit() {
     this.userId = localStorage.getItem('username')
@@ -70,7 +70,12 @@ export class HeaderPage implements OnInit {
     this.menuCtrl.close('menuProfile');
   }
 
-  onLogout() {
+  async onLogout() {
+    const loading = await this.loadingController.create({
+      // message: 'Loading...',
+      duration: 2000
+    });
+    await loading.present();
     this.tokenService.logOut();
     this.presentToast('Logged Out successfully', 'success');
     this.router.navigate(['login']).then(() => {
@@ -78,6 +83,7 @@ export class HeaderPage implements OnInit {
         location.reload();
       }, 1000);
     });
+    await loading.dismiss();
   }
 
   async presentToast(message: any, color: any) {

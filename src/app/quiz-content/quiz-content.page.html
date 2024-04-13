@@ -32,7 +32,7 @@
       </h1>
       <p class="time_p">Hide</p>
     </div>
-    <div class="card p-3 mb-3" *ngFor="let item of quizData">
+    <ion-card class="card p-3 mb-3" *ngFor="let item of quizData">
       <ion-label>
         <div [innerHTML]="item.sanitizedHtml"></div>
       </ion-label>
@@ -51,7 +51,7 @@
       </ion-list>
       <ion-button class="clear" fill="outline" color="primary" (click)="clearSelection(item)"><span
           class="span_clear">Clear Choice</span></ion-button> -->
-    </div>
+    </ion-card>
     <div>
       <ion-button class="btn_nxt" color="success" expand="block" (click)="onNext()"><span
           class="span_nxt">Next</span></ion-button>

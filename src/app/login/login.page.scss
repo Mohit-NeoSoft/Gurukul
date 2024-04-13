@@ -1,10 +1,11 @@
 .top {
   background-color: #fff;
-  background-image: url(../../assets/img/footer_img.png);
-  background-position: center bottom;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
+  // background-image: url(../../assets/img/footer_img.png);
+  // background-position: center bottom;
+  // background-attachment: fixed;
+  // background-repeat: no-repeat;
 }
+
 .main {
   background-color: #3553a1;
 }
@@ -14,16 +15,16 @@
 }
 
 .header {
-  padding: 8vw;
+  padding: 8vw 8vw;
 }
 
 .container {
-  border-radius: 8vw 8vw 0 0; 
+  border-radius: 8vw 8vw 0 0;
   background-color: #fff;
 }
 
 .container_sub {
-  padding: 3vw;
+  padding: 8vw;
 }
 
 .form {
@@ -80,14 +81,19 @@
 }
 
 .hr {
-  border: 0.2vw solid #d9d9d9; /* Adjust border using vw units */
-  margin: 0; /* Adjust margin */
-  height: 0; /* Adjust height */
+  border: 0.2vw solid #d9d9d9;
+  /* Adjust border using vw units */
+  margin: 0;
+  /* Adjust margin */
+  height: 0;
+  /* Adjust height */
 }
 
 .icon {
-  height: 3vw; /* Adjust height using vw units */
-  width: 3vw; /* Adjust width using vw units */
+  height: 3vw;
+  /* Adjust height using vw units */
+  width: 3vw;
+  /* Adjust width using vw units */
 }
 
 input:focus {
@@ -107,8 +113,8 @@ input:focus {
 }
 
 .footer_img {
-  width: 100%;
-  height: auto;
+  width: 60%;
+  margin: auto;
 }
 
 
@@ -120,6 +126,7 @@ ion-segment-button.heading.md.in-segment.segment-button-has-label.segment-button
   background-color: #3553a1;
   color: #fff;
 }
+
 ion-segment-button.heading.ios.in-segment.segment-button-has-label.segment-button-has-label-only.segment-button-checked.segment-button-layout-icon-top.ion-activatable.ion-activatable-instant.ion-focusable.hydrated {
   background-color: #3553a1;
   color: #fff;
@@ -129,14 +136,16 @@ ion-segment-button.heading.ios.in-segment.segment-button-has-label.segment-butto
 
 @media screen and (max-width: 768px) {
   .header {
-    padding: 12vw;
+    padding: 10vw 10vw;
+    width: 80%;
+    margin: auto;
   }
 
   .container_sub {
-    padding: 6vw;
+    padding: 8vw;
   }
 
   .form_main {
-    padding: 4vw;
+    padding: 2vw 4vw;
   }
 }

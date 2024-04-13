@@ -73,7 +73,7 @@
                       <ion-card-title>{{ day.daytitle }}</ion-card-title>
                     </ion-card-header>
                     <ion-card class="card mb-2" *ngFor="let event of day.events">
-                      <ion-card-content>
+                      <ion-card-content class="m-0 p-0">
                         <ion-list lines="none">
                           <ion-item *ngIf="event.name">
                             <ion-label><b>{{ event.name }}</b></ion-label>

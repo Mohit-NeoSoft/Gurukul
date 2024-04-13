@@ -92,7 +92,7 @@
 .card_displayname {
   margin-top: 0;
   font-family: "Inter", sans-serif;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: 500;
   // color: #000000;
 }
@@ -135,7 +135,7 @@
 }
 
 .percentage_display {
-  color: #464646;
+  // color: #464646;
   font-family: "Inter", sans-serif;
   font-size: 10px;
   font-style: normal;
@@ -349,7 +349,7 @@ ion-button[slot="fixed"] {
   }
 
   .card_displayname {
-    font-size: 12px;
+    font-size: 10px;
   }
 
   .card_text {

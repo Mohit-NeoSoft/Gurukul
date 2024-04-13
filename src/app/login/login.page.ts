@@ -93,13 +93,18 @@ export class LoginPage implements OnInit {
   }
 
   // Method to handle submission of user login form
-  onSubmit() {
+  async onSubmit() {
     this.isLoggedIn = true;
+    const loading = await this.loadingController.create({
+      // message: 'Loading...',
+      duration: 2000
+    });
     if (this.loginForm.valid) {
+      await loading.present();
       const username = this.loginForm.get('username')?.value;
       const password = this.loginForm.get('password')?.value;
       this.authService.login(username, password).subscribe({
-        next: (res) => {
+        next: async (res) => {
           if (res.error) {
             this.presentToast(res.error, 'danger');
           }
@@ -112,12 +117,15 @@ export class LoginPage implements OnInit {
               localStorage.removeItem('rememberMeData');
             }
             localStorage.setItem('username', username);
+            
             this.router.navigate(['home']).then(() => {
               location.reload();
             });
+            await loading.dismiss();
           }
         },
-        error: (error) => {
+        error: async (error) => {
+          await loading.dismiss();
           this.presentToast(error, 'danger');
           console.error('Login failed:', error);
         },
@@ -129,13 +137,18 @@ export class LoginPage implements OnInit {
   }
 
   // Method to handle submission of OTP form
-  onSubmitOtp() {
+  async onSubmitOtp() {
     this.isLoggedIn = true;
+    const loading = await this.loadingController.create({
+      // message: 'Loading...',
+      duration: 2000
+    });
     if (this.otpLoginForm.valid) {
+      await loading.present();
       const phone = this.otpLoginForm.get('phone')?.value;
       const otp = this.otpLoginForm.get('otp')?.value;
       this.authService.loginViaOtp(phone, otp).subscribe({
-        next: (res) => {
+        next: async (res) => {
           if (res.result === "error") {
             this.presentToast(res.result, 'danger');
           }
@@ -145,9 +158,11 @@ export class LoginPage implements OnInit {
             this.router.navigate(['home']).then(() => {
               location.reload();
             });
+            await loading.dismiss();
           }
         },
-        error: (error) => {
+        error: async (error) => {
+          await loading.dismiss();
           this.presentToast(error, 'danger');
           console.error('Login failed:', error);
         },

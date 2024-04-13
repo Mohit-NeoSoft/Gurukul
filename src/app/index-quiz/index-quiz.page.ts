@@ -24,13 +24,14 @@ export class IndexQuizPage implements OnInit {
   showGrade: boolean = false;
   constructor(private router: Router, private route: ActivatedRoute,
     private authService: AuthService, private toastCtrl: ToastController, private tokenService: TokenService) {
+      this.quizName = localStorage.getItem('quizName')
     this.route.queryParams.subscribe((params: any) => {
       console.log(params);
 
       if (params && params.data) {
         this.attemptId = ''
         this.data = JSON.parse(params.data);
-        this.quizName = localStorage.getItem('quizName')
+        
 
         this.authService.isAttemptFinish(this.tokenService.getUser()[0].id, this.data).subscribe({
           next: (data) => {
