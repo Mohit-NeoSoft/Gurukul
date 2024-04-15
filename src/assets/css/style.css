@@ -4,12 +4,17 @@ body {
 
 @font-face {
   font-family: "Inter";
-  src: url("../fonts/Inter/Inter-VariableFont_slnt\,wght.ttf") format("truetype");
+  src: url("../fonts/Inter/static/Inter-Regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 ion-fab-button.md.ion-activatable.ion-focusable.hydrated {
+  --box-shadow: none;
+  --background: none;
+}
+
+ion-fab-button.ios.ion-activatable.ion-focusable.hydrated {
   --box-shadow: none;
   --background: none;
 }
