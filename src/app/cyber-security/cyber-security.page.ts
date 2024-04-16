@@ -4,7 +4,10 @@ import { AuthService } from '../services/auth/auth.service';
 import { Utility } from '../utility/utility';
 import { TokenService } from '../services/token/token.service';
 import { Browser } from '@capacitor/browser';
+import * as JSZip from 'jszip';
+import { HttpClient } from '@angular/common/http';
 
+const zip = new JSZip();
 @Component({
   selector: 'app-cyber-security',
   templateUrl: './cyber-security.page.html',
@@ -40,11 +43,13 @@ export class CyberSecurityPage implements OnInit {
     },
   ];
   isExpanded: string = '';
+  storyHtmlData: any;
 
   constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService,
-    public utility: Utility, private tokenService: TokenService) {
+    public utility: Utility, private tokenService: TokenService, private http: HttpClient) {
     this.route.queryParams.subscribe((params: any) => {
-
+      console.log(params);
+      
       if (params && params.data) {
         this.data = JSON.parse(params.data);
         console.log(this.data);
@@ -52,6 +57,8 @@ export class CyberSecurityPage implements OnInit {
         // this.courseName = params.data.displayname;
         this.authService.getCourseContent(this.data.id).subscribe({
           next: (data) => {
+            console.log(data);
+
             this.courseData = data;
           },
           error: (error) => {
@@ -157,7 +164,7 @@ export class CyberSecurityPage implements OnInit {
   onClick(value: any) {
     console.log(value);
     if (value.modname === 'quiz') {
-      localStorage.setItem('quizName',value.name)
+      localStorage.setItem('quizName', value.name)
       let navigationExtras: NavigationExtras = {
         queryParams: {
           // name: JSON.stringify(value.name),
@@ -176,10 +183,24 @@ export class CyberSecurityPage implements OnInit {
     }
     if (value.modname === 'scorm') {
       console.log(this.scormData);
+      // this.http.get('assets/zip/Phishing.zip', { responseType: 'arraybuffer' }).subscribe((zipData: ArrayBuffer) => {
+      //   JSZip.loadAsync(zipData).then((zip) => {
+      //     const storyHtmlFile = zip.files['story.html'];
+      //     console.log(storyHtmlFile);
+
+      //     if (storyHtmlFile) {
+      //       storyHtmlFile.async('string').then((fileData) => {
+      //         this.storyHtmlData = fileData;
+      //         console.log(this.storyHtmlData);
+      //       });
+      //     }
+      //   });
+      // });
+
       this.scormData.forEach((scorm: any) => {
         this.courseData.find((module: any) => module.modules.some((item: any) => {
           // console.log((item.instance === scorm.id) === true);
-          
+
           if((item.instance === scorm.id) === true){
             Browser.open({ url: `https://uat-gurukul.skfin.in/mod/scorm/player.php?a=${item.instance}&currentorg=Phishing_ORG&scoid=${scorm.launch}&sesskey=o8KLPxGq2C&display=popup&mode=browse` });
           }
@@ -210,7 +231,7 @@ export class CyberSecurityPage implements OnInit {
 
   presentPopover(event: MouseEvent, courseIndex: number, moduleIndex: number) {
     event.stopPropagation();
-    this.selectedModuleIndices[courseIndex] = moduleIndex; // Store the selected module index for the corresponding course
+    this.selectedModuleIndices[courseIndex] = moduleIndex;
     this.isOpen = true;
   }
 

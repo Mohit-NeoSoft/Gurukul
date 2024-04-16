@@ -54,7 +54,7 @@ export class QuizContentPage implements OnInit {
             // this.quizData = data.questions;
             this.quizData = data.questions.map((question: any) => ({
               ...question,
-              sanitizedHtml: this.sanitizer.bypassSecurityTrustHtml(question.html)
+              sanitizedHtml: this.sanitizer.bypassSecurityTrustHtml(question.html.replace(/href=\"#\"/g, 'style="color: #212529;text-decoration: none"'))
             }));
             this.executeScripts();
           },

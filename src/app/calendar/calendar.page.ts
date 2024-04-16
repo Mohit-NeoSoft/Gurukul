@@ -12,27 +12,26 @@ import { NavigationExtras, Router } from '@angular/router';
   styleUrls: ['./calendar.page.scss'],
 })
 export class CalendarPage implements OnInit {
-  selectedDate!: string;
+  selectedDate: string = DateTime.now().toFormat('dd-MMM-yyyy');
   @ViewChild('popover') popover: any;
-  isOpen = false;
+  isOpen: boolean = false;
   calendarData: any[] = [];
-  month: any;
-  year: any;
-  dayOfMonth: any;
+  month!: number;
+  year!: number;
+  dayOfMonth!: number;
   data: any = [];
-  userImg: any;
+  userImg!: string;
   recentData: any[] = [];
-  userId: any;
-  id: any;
+  userId!: string;
+  id!: string;
   userData: any[] = [];
+  courseData: any[] = [];
 
-  constructor(private menuCtrl: MenuController, private authService: AuthService, 
-    private tokenService: TokenService,private router: Router) {
-    this.selectedDate = DateTime.now().toFormat('dd-MMM-yyyy');
-  }
+  constructor(private menuCtrl: MenuController, private authService: AuthService,
+    private tokenService: TokenService, private router: Router) { }
 
   ngOnInit() {
-    this.userImg = this.tokenService.getUser()[0].profileimageurl;
+    this.userImg = this.tokenService.getUser()[0]?.profileimageurl; // Safe navigation operator
     this.fetchData();
     this.getUser();
   }
@@ -42,13 +41,13 @@ export class CalendarPage implements OnInit {
   }
 
   onChange(event: CustomEvent) {
-    this.selectedDate = event.detail.value;
+    this.selectedDate = event.detail.value || this.selectedDate; // Handle undefined event value
     const luxonDate = DateTime.fromISO(this.selectedDate);
     this.dayOfMonth = luxonDate.day;
     this.month = luxonDate.month;
     this.year = luxonDate.year;
     this.selectedDate = luxonDate.toFormat('dd-MMM-yyyy');
-    this.fetchData(); // Fetch data based on selected date
+    this.fetchData();
   }
 
   fetchData() {
@@ -56,19 +55,17 @@ export class CalendarPage implements OnInit {
 
     this.authService.getCalendarEvent(this.year, this.month).subscribe({
       next: (res) => {
-        console.log(res);
         this.data = res;
-        
-        for (let i = 0; i < this.data.weeks.length; i++) {
-          const week = this.data.weeks[i].days.filter((day: any) => day.hasevents && day.mday === this.dayOfMonth);
-          if (week.length > 0) {
-            this.calendarData.push(week);
+
+        for (const week of this.data.weeks) {
+          const filteredDays = week.days.filter((day: any) => day.hasevents && day.mday === this.dayOfMonth);
+          if (filteredDays.length > 0) {
+            this.calendarData.push(filteredDays);
           }
         }
-        console.log(this.calendarData);
       },
       error: (error) => {
-        console.error(error);
+        console.error('Error fetching calendar data:', error);
       },
     });
   }
@@ -79,47 +76,50 @@ export class CalendarPage implements OnInit {
   }
 
   async openCapacitorSite(value: any) {
-    await Browser.open({ url: value });
+    try {
+      await Browser.open({ url: value });
+    } catch (error) {
+      console.error('Error opening browser:', error);
+    }
   }
 
   getUser() {
-    this.userId = localStorage.getItem('username')
+    this.userId = localStorage.getItem('username') || '';
     this.authService.getUserInfo(this.userId).subscribe({
       next: (data) => {
-        console.log(data);
-        this.userData = data
+        this.userData = data;
 
-        for (let i = 0; i < data.length; i++) {
-          this.id = this.userData[i].id
-          // this.userImg = this.userData[i].profileimageurlsmall
+        for (const userInfo of this.userData) {
+          this.id = userInfo.id;
         }
-        console.log(this.id);
+
         this.getRecentCourses();
         this.tokenService.saveUser(this.userData);
       },
       error: (error) => {
-        console.error('Login failed:', error);
+        console.error('Error fetching user info:', error);
       },
     });
   }
 
-  getRecentCourses(){
-    console.log(this.id);
+  getRecentCourses() {
+    if (!this.id) {
+      console.error('User ID not found.');
+      return;
+    }
 
     this.authService.getRecentCourses(this.id).subscribe({
       next: (data) => {
         this.recentData = data;
       },
       error: (error) => {
-        console.error('Login failed:', error);
+        console.error('Error fetching recent courses:', error);
       },
     });
   }
 
   onCardClick(value: any) {
-    console.log(value);
-    
-    let navigationExtras: NavigationExtras = {
+    const navigationExtras: NavigationExtras = {
       queryParams: {
         data: JSON.stringify(value),
       },
@@ -127,4 +127,22 @@ export class CalendarPage implements OnInit {
     this.router.navigate(['cyber-security'], navigationExtras);
   }
 
+  onLink(value: any) {
+    const parts = value.split('=');
+    const id = parts[parts.length - 1];
+
+    this.authService.getCoursesById(id).subscribe((res: any) => {
+      this.courseData = res.courses[0]; // Assuming only one course is returned
+
+      const navigationExtras: NavigationExtras = {
+        queryParams: {
+          data: JSON.stringify(this.courseData),
+        },
+      };
+
+      this.router.navigate(['cyber-security'], navigationExtras);
+    }, (error) => {
+      console.error('Error fetching course by ID:', error);
+    });
+  }
 }

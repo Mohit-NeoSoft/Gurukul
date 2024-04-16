@@ -119,6 +119,16 @@ export class AuthService {
     );
   }
 
+  getCoursesById(id: any): Observable<any> {
+    let params = new HttpParams().set('value', id);
+    console.log(params);
+
+    return this.http.get(AUTH_API +
+      `webservice/rest/server.php?moodlewsrestformat=json&wsfunction=core_course_get_courses_by_field&wstoken=${this.token}&field=id`,
+      { params }
+    );
+  }
+
   getCalendarEvent(year: any, month: any): Observable<any> {
     let params = new HttpParams()
       .set('year', year)

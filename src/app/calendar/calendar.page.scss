@@ -7,6 +7,17 @@
   font-weight: 600;
 }
 
+.has-event .datetime-text {
+  color: white;
+  background-color: green;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+.highlighted-date {
+  background-color: yellow;
+}
+
 .card {
   border-radius: 10px;
   border: 1px solid #dcdcdc;

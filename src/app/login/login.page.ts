@@ -23,7 +23,7 @@ export class LoginPage implements OnInit {
   timerColor: any = '#3553A1';
   segment: any = 'user';
   inputValue: any;
-
+  userData: any[] = [];
   private timerSubscription: Subscription | undefined;
 
   constructor(
@@ -36,8 +36,8 @@ export class LoginPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    console.log('rememberMeData',localStorage.getItem('rememberMeData'));
-    
+    console.log('rememberMeData', localStorage.getItem('rememberMeData'));
+
     this.createUserForm();
     this.createOtpForm();
   }
@@ -92,49 +92,69 @@ export class LoginPage implements OnInit {
     }
   }
 
-  // Method to handle submission of user login form
   async onSubmit() {
     this.isLoggedIn = true;
     const loading = await this.loadingController.create({
       // message: 'Loading...',
       duration: 2000
     });
+
     if (this.loginForm.valid) {
-      await loading.present();
-      const username = this.loginForm.get('username')?.value;
-      const password = this.loginForm.get('password')?.value;
-      this.authService.login(username, password).subscribe({
-        next: async (res) => {
-          if (res.error) {
-            this.presentToast(res.error, 'danger');
-          }
-          if (res.token && res.token !== undefined) {
-            this.tokenService.saveToken(res.token);
-            if (this.loginForm.value.rememberMe) {
-              localStorage.setItem('rememberMeData', JSON.stringify(this.loginForm.value));
-            } else {
-              // If "Remember Me" is not checked, clear stored data
-              localStorage.removeItem('rememberMeData');
-            }
-            localStorage.setItem('username', username);
-            
-            this.router.navigate(['home']).then(() => {
-              location.reload();
+      // Fetch user info and perform login
+      this.authService.getUserInfo(this.loginForm.get('username')?.value).subscribe({
+        next: async (userData) => {
+          if (userData) {
+            await loading.present();
+            const username = this.loginForm.get('username')?.value;
+            const password = this.loginForm.get('password')?.value;
+            this.authService.login(username, password).subscribe({
+              next: async (res) => {
+                if (res.error) {
+                  await loading.dismiss();
+                  console.log(userData);
+                                    
+                  if (userData.length !== 0) {
+                    if (parseInt(userData[0].username) === parseInt(username)) {
+                      this.presentToast('Incorrect Password, Please try again', 'danger');
+                    }
+                  } else {
+                    this.presentToast(res.error, 'danger');
+                  }
+                }
+                if (res.token && res.token !== undefined) {
+                  this.tokenService.saveToken(res.token);
+                  if (this.loginForm.value.rememberMe) {
+                    localStorage.setItem('rememberMeData', JSON.stringify(this.loginForm.value));
+                  } else {
+                    // If "Remember Me" is not checked, clear stored data
+                    localStorage.removeItem('rememberMeData');
+                  }
+                  localStorage.setItem('username', username);
+
+                  this.router.navigate(['home']).then(() => {
+                    location.reload();
+                  });
+                  await loading.dismiss();
+                }
+              },
+              error: async (error) => {
+                await loading.dismiss();
+                this.presentToast(error, 'danger');
+                console.error('Login failed:', error);
+              },
+              complete: () => {
+                // Optionally handle completion if needed
+              }
             });
-            await loading.dismiss();
           }
         },
-        error: async (error) => {
-          await loading.dismiss();
-          this.presentToast(error, 'danger');
-          console.error('Login failed:', error);
-        },
-        complete: () => {
-          // Optionally handle completion if needed
+        error: (error) => {
+          console.error('Error occurred:', error);
         }
       });
     }
   }
+
 
   // Method to handle submission of OTP form
   async onSubmitOtp() {
@@ -235,7 +255,7 @@ export class LoginPage implements OnInit {
   // Method to resend OTP
   resendOtp() {
     console.log(this.inputValue);
-    
+
     if (this.inputValue.length === 10) {
       this.authService.sendOtp(this.otpLoginForm.get('phone')?.value).subscribe(
         (data) => {
