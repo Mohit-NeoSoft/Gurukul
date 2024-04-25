@@ -16,6 +16,7 @@ export class HeaderPage implements OnInit {
   userImg: any;
   userData: any[] = [];
   id: any;
+  
   constructor(private authService: AuthService, private tokenService: TokenService,private menuCtrl: MenuController,
     private router: Router, private toastCtrl: ToastController,private loadingController: LoadingController) { }
 
@@ -28,7 +29,7 @@ export class HeaderPage implements OnInit {
 
         for (let i = 0; i < data.length; i++) {
           this.id = this.userData[i].id
-          this.userImg = this.userData[i].profileimageurlsmall
+          this.userImg = this.userData[i].profileimageurl
         }
         console.log(this.id);
         
