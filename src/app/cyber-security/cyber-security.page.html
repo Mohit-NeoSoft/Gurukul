@@ -2,7 +2,7 @@
   <ion-toolbar>
     <ion-back-button color="primary" slot="start" defaultHref=""></ion-back-button>
     <div class="d-flex align-items-center justify-content-end">
-      <ion-img class="p-2" slot="end" src="assets/icon/download.svg"></ion-img>
+      <!-- <ion-img class="p-2" slot="end" src="assets/icon/download.svg"></ion-img> -->
       <!-- <ion-img
         class="p-2"
         slot="end"
@@ -66,7 +66,7 @@
         <div *ngIf="showMain">
           <div *ngFor="let item of courseData;let i=index">
             <h1 class="body_title" *ngIf="i<1">
-              {{item.name}}
+              {{item.name | replaceAmp}}
             </h1>
             <ion-img *ngIf="i<1" [src]="extractImageUrl(item.summary) + '?token=' + utility.getToken()"></ion-img>
             <!-- <ion-img src="assets/img/cyber_img.png"></ion-img> -->
@@ -74,7 +74,7 @@
         </div>
         <div *ngIf="showPwdSec">
           <div *ngFor="let item of courseData; let i = index">
-            <h1 class="body_title" *ngIf="i==1">{{item.name}}</h1>
+            <h1 class="body_title" *ngIf="i==1">{{item.name | replaceAmp}}</h1>
             <div class="col-12" *ngIf="i==1">
               <!-- <div class="card mb-3" *ngFor="let val of item.modules; let j = index">
                 <div class="col-12 card_main" (click)="onClick(val)">
@@ -112,8 +112,8 @@
                 <ion-card-content class="m-0 p-0" (click)="onClick(val)">
                   <ion-list lines="none" class="m-0 p-0">
                     <ion-item class="m-0 p-0">
-                      <ion-thumbnail slot="start">
-                        <ion-img src={{val.modicon}} class="img-fluid" alt=""></ion-img>
+                      <ion-thumbnail slot="start" class="img-fluid rounded-start">
+                        <img src={{val.modicon}} alt=""/>
                       </ion-thumbnail>
                       <ion-list class="col-12">
                         <ion-label class="content_p">{{val.name | replaceAmp}}</ion-label>
@@ -145,14 +145,14 @@
         </div>
         <div *ngIf="showDesktop">
           <div *ngFor="let item of courseData; let i = index">
-            <h1 class="body_title" *ngIf="i==2">{{item.name}}</h1>
+            <h1 class="body_title" *ngIf="i==2">{{item.name | replaceAmp}}</h1>
             <div class="col-12" *ngIf="i==2">
               <ion-card class="card mb-3" *ngFor="let val of item.modules; let j = index" >
                 <ion-card-content class="m-0 p-0" (click)="onClick(val)">
                   <ion-list lines="none" class="m-0 p-0">
                     <ion-item class="m-0 p-0">
-                      <ion-thumbnail slot="start">
-                        <ion-img src={{val.modicon}} class="img-fluid" alt=""></ion-img>
+                      <ion-thumbnail slot="start" class="img-fluid rounded-start">
+                        <img src={{val.modicon}}  alt=""/>
                       </ion-thumbnail>
                       <ion-list class="col-12">
                         <ion-label class="content_p">{{val.name | replaceAmp}}</ion-label>
@@ -185,14 +185,14 @@
         </div>
         <div *ngIf="showLite">
           <div *ngFor="let item of courseData; let i = index">
-            <h1 class="body_title" *ngIf="i==3">{{item.name}}</h1>
+            <h1 class="body_title" *ngIf="i==3">{{item.name | replaceAmp}}</h1>
             <div class="col-12" *ngIf="i==3">
               <ion-card class="card mb-3" *ngFor="let val of item.modules; let j = index" >
                 <ion-card-content class="m-0 p-0" (click)="onClick(val)">
                   <ion-list lines="none" class="m-0 p-0">
                     <ion-item class="m-0 p-0">
-                      <ion-thumbnail slot="start">
-                        <ion-img src={{val.modicon}} class="img-fluid" alt=""></ion-img>
+                      <ion-thumbnail slot="start" class="img-fluid rounded-start" >
+                        <img src={{val.modicon}} alt=""/>
                       </ion-thumbnail>
                       <ion-list class="col-12">
                         <ion-label class="content_p">{{val.name | replaceAmp}}</ion-label>
@@ -224,14 +224,14 @@
         </div>
         <div *ngIf="showInfo">
           <div *ngFor="let item of courseData; let i = index">
-            <h1 class="body_title" *ngIf="i==4">{{item.name}}</h1>
+            <h1 class="body_title" *ngIf="i==4">{{item.name | replaceAmp}}</h1>
             <div class="col-12" *ngIf="i==4">
               <ion-card class="card mb-3" *ngFor="let val of item.modules; let j = index" >
                 <ion-card-content class="m-0 p-0" (click)="onClick(val)">
                   <ion-list lines="none" class="m-0 p-0">
                     <ion-item class="m-0 p-0">
-                      <ion-thumbnail slot="start">
-                        <ion-img src={{val.modicon}} class="img-fluid" alt=""></ion-img>
+                      <ion-thumbnail slot="start" class="img-fluid rounded-start">
+                        <img src={{val.modicon}}  alt=""/>
                       </ion-thumbnail>
                       <ion-list class="col-12">
                         <ion-label class="content_p">{{val.name | replaceAmp}}</ion-label>

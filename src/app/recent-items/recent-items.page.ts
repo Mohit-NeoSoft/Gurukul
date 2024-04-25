@@ -45,7 +45,7 @@ export class RecentItemsPage implements OnInit {
   getRecentCourses(){
     console.log(this.id);
 
-    this.authService.getRecentCourses(this.id).subscribe({
+    this.authService.getRecentCourses().subscribe({
       next: (data) => {
         this.recentData = data;
       },

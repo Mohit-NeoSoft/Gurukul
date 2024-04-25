@@ -6,6 +6,10 @@ import { TokenService } from '../services/token/token.service';
 import { Browser } from '@capacitor/browser';
 import * as JSZip from 'jszip';
 import { HttpClient } from '@angular/common/http';
+import { ModalController } from '@ionic/angular';
+import { IframeModalPage } from '../modal-controller/iframe-modal/iframe-modal.page';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { ZipService } from '../services/zip-service/zip.service';
 
 const zip = new JSZip();
 @Component({
@@ -46,10 +50,11 @@ export class CyberSecurityPage implements OnInit {
   storyHtmlData: any;
 
   constructor(private router: Router, private route: ActivatedRoute, private authService: AuthService,
-    public utility: Utility, private tokenService: TokenService, private http: HttpClient) {
+    public utility: Utility, private tokenService: TokenService, private http: HttpClient,
+    private modalController: ModalController, private zipService: ZipService) {
     this.route.queryParams.subscribe((params: any) => {
       console.log(params);
-      
+
       if (params && params.data) {
         this.data = JSON.parse(params.data);
         console.log(this.data);
@@ -183,31 +188,34 @@ export class CyberSecurityPage implements OnInit {
     }
     if (value.modname === 'scorm') {
       console.log(this.scormData);
-      // this.http.get('assets/zip/Phishing.zip', { responseType: 'arraybuffer' }).subscribe((zipData: ArrayBuffer) => {
-      //   JSZip.loadAsync(zipData).then((zip) => {
-      //     const storyHtmlFile = zip.files['story.html'];
-      //     console.log(storyHtmlFile);
 
-      //     if (storyHtmlFile) {
-      //       storyHtmlFile.async('string').then((fileData) => {
-      //         this.storyHtmlData = fileData;
-      //         console.log(this.storyHtmlData);
-      //       });
-      //     }
-      //   });
-      // });
-
-      this.scormData.forEach((scorm: any) => {
-        this.courseData.find((module: any) => module.modules.some((item: any) => {
-          // console.log((item.instance === scorm.id) === true);
-
-          if((item.instance === scorm.id) === true){
-            Browser.open({ url: `https://uat-gurukul.skfin.in/mod/scorm/player.php?a=${item.instance}&currentorg=Phishing_ORG&scoid=${scorm.launch}&sesskey=o8KLPxGq2C&display=popup&mode=browse` });
+      // const htmlFilePath = 'assets/zip/Phishing/story.html';
+      // this.openIframeModal(htmlFilePath);
+      
+      console.log(value.instance);
+      
+      this.scormData.forEach(async (scorm: any) => {
+          console.log((value.instance === scorm.id) === true);
+          
+          if((value.instance === scorm.id) === true){
+              console.log(scorm.packageurl);
+              this.token = this.tokenService.getToken()
+              // console.log(scorm.packageurl + `?token=${this.token}`);
+              await this.zipService.downloadAndUnzip(scorm.packageurl + `?token=${this.token}`);
+            // Browser.open({ url: `https://uat-gurukul.skfin.in/mod/scorm/player.php?a=${value.instance}&currentorg=Phishing_ORG&scoid=${scorm.launch}&sesskey=o8KLPxGq2C&display=popup&mode=browse` });
           }
-        }
-        ));
       });
     }
+  }
+
+  async openIframeModal(iframeSrc: string) {
+    const modal = await this.modalController.create({
+      component: IframeModalPage,
+      componentProps: {
+        iframeSrc: iframeSrc,
+      }
+    });
+    return await modal.present();
   }
 
   toggleAccordion(i: number, j: number) {

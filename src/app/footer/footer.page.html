@@ -14,10 +14,13 @@
             <!-- <ion-img *ngIf="URL !== '/calendar'" src="assets/icon/course.svg"></ion-img>
             <ion-img *ngIf="URL === '/calendar'" src="assets/icon/course_blue.svg"></ion-img> -->
           </ion-tab-button>
-          <!-- <ion-tab-button (click)="onChat()">
-            <ion-img *ngIf="URL !== '/chat'" src="assets/icon/chat.svg"></ion-img>
-            <ion-img *ngIf="URL === '/chat'" src="assets/icon/chat_blue.svg"></ion-img>
-          </ion-tab-button> -->
+          <ion-tab-button (click)="onChat()">
+            <!-- <ion-img *ngIf="URL !== '/chat'" src="assets/icon/chat.svg"></ion-img>
+            <ion-img *ngIf="URL === '/chat'" src="assets/icon/chat_blue.svg"></ion-img> -->
+
+            <ion-icon *ngIf="URL !== '/chat'" size="large" name="chatbubbles-sharp"></ion-icon>
+            <ion-icon *ngIf="URL === '/chat'" size="large" color="primary" name="chatbubbles-sharp"></ion-icon>
+          </ion-tab-button>
           <ion-tab-button (click)="onBell()">
             <!-- <ion-img *ngIf="URL !== '/notification'" src="assets/icon/bell.svg"></ion-img>
             <ion-img *ngIf="URL === '/notification'" src="assets/icon/bell_blue.svg"></ion-img> -->

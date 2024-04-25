@@ -53,7 +53,7 @@
           class="span_clear">Clear Choice</span></ion-button> -->
     </ion-card>
     <div>
-      <ion-button class="btn_nxt" color="success" expand="block" (click)="onNext()"><span
+      <ion-button class="btn_nxt" [disabled]="nextDisabled" color="success" expand="block" (click)="onNext()"><span
           class="span_nxt">Next</span></ion-button>
     </div>
   </div>

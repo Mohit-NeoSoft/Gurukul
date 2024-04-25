@@ -110,6 +110,10 @@ const routes: Routes = [
   {
     path: 'recent-items',
     loadChildren: () => import('./recent-items/recent-items.module').then( m => m.RecentItemsPageModule)
+  },
+  {
+    path: 'iframe-modal',
+    loadChildren: () => import('./modal-controller/iframe-modal/iframe-modal.module').then( m => m.IframeModalPageModule)
   }
 ];
 

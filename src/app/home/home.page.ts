@@ -14,6 +14,7 @@ import { TokenService } from '../services/token/token.service';
 import { PushNotifications } from '@capacitor/push-notifications';
 import { Utility } from '../utility/utility';
 import { App } from '@capacitor/app';
+import { ZipService } from '../services/zip-service/zip.service';
 
 @Component({
   selector: 'app-home',
@@ -75,6 +76,9 @@ export class HomePage {
       value: 0,
     },
   ];
+  scormData: any;
+  token: any;
+  instanceId: any;
 
   constructor(
     private alertController: AlertController,
@@ -85,6 +89,7 @@ export class HomePage {
     private tokenService: TokenService,
     public utility: Utility,
     private route: ActivatedRoute,
+    private zipService: ZipService,
     private platform: Platform,
     @Optional() private routerOutlet: IonRouterOutlet
   ) {
@@ -133,7 +138,7 @@ export class HomePage {
         console.log(this.id);
 
         this.tokenService.saveUser(this.userData);
-        this.getUserToken(this.id)
+        // this.getUserToken(this.id)
         this.getCourses(this.id);
         this.getRecentCourses(this.id);
       },
@@ -143,27 +148,27 @@ export class HomePage {
     });
   }
 
-  getUserToken(id: any) {
-    console.log(id);
+  // getUserToken(id: any) {
+  //   console.log(id);
 
-    this.authService.getUserToken(id).subscribe({
-      next: (data) => {
-        console.log(data[0].token);
-        // this.tokenService.saveToken(data[0].token)
-       this.tokenService.saveToken(data[0].token)
-        const isFirstTimeRefresh = localStorage.getItem('first_time_refresh');
+  //   this.authService.getUserToken(id).subscribe({
+  //     next: (data) => {
+  //       console.log(data[0].token);
+  //       // this.tokenService.saveToken(data[0].token)
+  //      this.tokenService.saveToken(data[0].token)
+  //       const isFirstTimeRefresh = localStorage.getItem('first_time_refresh');
 
-        if (!isFirstTimeRefresh) {
-          localStorage.setItem('first_time_refresh', 'true');
-          window.location.reload();
-        }
+  //       if (!isFirstTimeRefresh) {
+  //         localStorage.setItem('first_time_refresh', 'true');
+  //         window.location.reload();
+  //       }
 
-      },
-      error: (error) => {
-        console.error(error);
-      },
-    });
-  }
+  //     },
+  //     error: (error) => {
+  //       console.error(error);
+  //     },
+  //   });
+  // }
 
   getCourses(id: any) {
     console.log(id);
@@ -182,8 +187,10 @@ export class HomePage {
   getRecentCourses(id: any) {
     console.log(id);
 
-    this.authService.getRecentCourses(id).subscribe({
+    this.authService.getRecentCourses().subscribe({
       next: (data) => {
+        console.log(data);
+
         this.recentData = data;
       },
       error: (error) => {
@@ -279,4 +286,95 @@ export class HomePage {
     }, 2000);
   }
 
+  onRecentCardClick(value: any) {
+    this.authService.getRecentCoursesByID(value.cmid).subscribe({
+      next: (data) => {
+        this.instanceId = data[0].instance;
+        this.handleNavigation(value);
+      },
+      error: (error) => {
+        console.error('Login failed:', error);
+      },
+    });
+    this.authService.getCourseContent(value.courseid).subscribe({
+      next: (data) => {
+        console.log(data);
+        data.forEach((item: any) => {
+          if (item.modules && item.modules.length > 0) {
+            item.modules.forEach((module: any) => {
+
+              if (module.modname === 'page' && value.modname === 'page') {
+                if (module.id === value.cmid) {
+                  this.handleNavigation(module);
+                }
+                console.log(module);
+              }
+              if (module.modname === 'scorm' && value.modname === 'scorm') {
+                console.log(module.id === value.cmid);
+
+                if (module.id === value.cmid) {
+                  console.log(value);
+
+                  this.authService.getScormsByCourseId(value.courseid).subscribe({
+                    next: (data) => {
+                      this.scormData = data.scorms;
+                      if (this.scormData !== undefined) {
+                        this.handleNavigation(module);
+                      }
+                    },
+                    error: (error) => {
+                      console.error('Login failed:', error);
+                    },
+                  });
+                }
+              }
+            });
+          }
+        });
+      },
+      error: (error) => {
+        console.error('Login failed:', error);
+      },
+    });
+  }
+
+  async handleNavigation(value: any) {
+    if (this.instanceId) {
+      if (value.modname === 'quiz') {
+        localStorage.setItem('quizName', value.name);
+        let navigationExtras: NavigationExtras = {
+          queryParams: {
+            data: JSON.stringify(this.instanceId),
+          },
+        };
+        await this.router.navigate(['index-quiz'], navigationExtras);
+      }
+      if (value.modname === 'page') {
+        console.log(value);
+
+        let navigationExtras: NavigationExtras = {
+          queryParams: {
+            data: JSON.stringify(value),
+          },
+        };
+        await this.router.navigate(['index-activity'], navigationExtras);
+      }
+      if (value.modname === 'scorm') {
+        if (this.scormData !== undefined) {
+          console.log(this.scormData);
+
+          this.scormData.forEach(async (scorm: any) => {
+
+            if ((parseInt(this.instanceId) === parseInt(scorm.id)) === true) {
+              console.log(scorm.packageurl);
+              this.token = this.tokenService.getToken()
+              // console.log(scorm.packageurl + `?token=${this.token}`);
+              await this.zipService.downloadAndUnzip(scorm.packageurl + `?token=${this.token}`);
+              // Browser.open({ url: `https://uat-gurukul.skfin.in/mod/scorm/player.php?a=${value.instance}&currentorg=Phishing_ORG&scoid=${scorm.launch}&sesskey=o8KLPxGq2C&display=popup&mode=browse` });
+            }
+          });
+        }
+      }
+    }
+  }
 }

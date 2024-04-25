@@ -9,56 +9,27 @@
     </div>
     <div class="col-12">
       <h1 class="menu_heading mb-3 text-center">Recently Accessed Items</h1>
-      <!-- <div class="card mb-2" *ngFor="let item of recentData">
-        <div class="col-12 card_main" (click)="onCardClick(item)">
-          <div>
-            <ion-img [src]="item.courseimage ? item.courseimage : 'assets/img/images.png'" class="img-fluid"
-              alt="Image"></ion-img>
-          </div>
-          <div class="col-10 card_sub">
-            <div class="card_body p-0">
-              <div class="col-12 card_body_sub">
-                <h5 class="card_displayname">
-                  {{ item.fullname }}
-                </h5>
-                <ion-img src="assets/icon/download.svg" alt="" (click)="onDownload($event)"></ion-img>
-              </div>
-              <p class="card_text_badge">
-                Course
-              </p>
-              <div class="col-12 bar_main">
-                <div class="progress_bar_container col-10">
-                  <div class="progress_bar" [style.width]="item.progress + '%'"></div>
-                </div>
-                <div class="percentage_display col-2">
-                  {{ item.progress | number:'1.0-2' }}%
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
-      <ion-card class="card" *ngFor="let item of recentData; let i = index;" (click)="onCardClick(item)">
+      <ion-card class="card" *ngFor="let item of recentData; let i = index;" (click)="onRecentCardClick(item)">
         <ion-card-content class="m-0 p-0">
           <ion-list lines="none" class="m-0 p-0">
             <ion-item class="m-0 p-0">
-              <ion-thumbnail slot="start">
-                <ion-img [src]="item.courseimage ? item.courseimage : 'assets/img/images.png'" class="img-fluid"
-              alt="Image"></ion-img>
+              <ion-thumbnail slot="start" class="img-fluid rounded-start">
+                <img [src]="(item.icon | srcExtractor) ? (item.icon | srcExtractor) : 'assets/img/images.png'"
+                  alt="Image" />
               </ion-thumbnail>
               <ion-list class="col-12">
-                <ion-label class="mb-2 card_displayname"> {{ item.fullname }}</ion-label>
+                <ion-label class="mb-2 card_displayname"> {{ item.coursename | replaceAmp }}</ion-label>
                 <ion-label class="card_text_badge mb-2">
                   Course
                 </ion-label>
-                <div class="col-12 mb-1 bar_main">
+                <!-- <div class="col-12 mb-1 bar_main">
                   <div class="progress_bar_container col-10">
                     <div class="progress_bar" [style.width]="item.progress + '%'"></div>
                   </div>
                   <div class="percentage_display col-2">
                     {{ item.progress | number:'1.0-2' }}%
                   </div>
-                </div>
+                </div> -->
               </ion-list>
             </ion-item>
           </ion-list>
@@ -122,13 +93,13 @@
         <ion-card-content class="m-0 p-0">
           <ion-list lines="none" class="m-0 p-0">
             <ion-item class="m-0 p-0">
-              <ion-thumbnail slot="start">
-                <ion-img
+              <ion-thumbnail slot="start" class="img-fluid rounded-start">
+                <img
                   [src]="(utility.getImageUrl(item.overviewfiles) ? utility.getImageUrl(item.overviewfiles) : 'assets/img/images.png')"
-                  class="img-fluid" alt="Image"></ion-img>
+                  alt="Image" />
               </ion-thumbnail>
               <ion-list class="col-12">
-                <ion-label class="mb-2 card_title"> {{ item.fullname }}</ion-label>
+                <ion-label class="mb-2 card_title"> {{ item.fullname | replaceAmp }}</ion-label>
                 <ion-label class="card_text mb-2">
                   Course
                 </ion-label>
@@ -146,27 +117,15 @@
         </ion-card-content>
       </ion-card>
     </div>
-    <hr class="hr" />
-    <div class="mb-1 mt-2">
+    <!-- <hr class="hr" /> -->
+    <!-- <div class="mb-1 mt-2">
       <div class="col-12 d-flex justify-content-between sub">
         <div class="icons_sub">
           <ion-icon class="cap_icon" name="school-sharp"></ion-icon>
           <p class="header_sub">Recommended Courses</p>
         </div>
-        <!-- <button class="popup_btn" (click)="presentPopover($event)"><ion-icon class="ellipsis" name="ellipsis-horizontal-sharp"></ion-icon></button>
-          <ion-popover #popover [isOpen]="isOpen" (didDismiss)="isOpen = false">
-            <ng-template>
-              <ion-content>
-                <ion-list class="p-0">
-                  <ion-item class="toggle" lines="none" *ngFor="let item of toggleValues">
-                    <ion-toggle [(ngModel)]="item.checked" (ionChange)="changeToggle(item)">{{item.name}}</ion-toggle>
-                  </ion-item>
-                </ion-list>
-              </ion-content>
-            </ng-template>
-          </ion-popover> -->
       </div>
-    </div>
+    </div> -->
     <!-- <ion-list lines="none" class="course_list">
       <div class="main_one" *ngFor="let progressBar of recCourses; let i = index">
         <div class="card mb-2">
@@ -206,7 +165,7 @@
         </div>
       </div>
     </ion-list> -->
-    <div class="course_list">
+    <!-- <div class="course_list">
       <ion-card class="card" *ngFor="let progressBar of recCourses; let i = index">
         <ion-card-content class="m-0 p-0">
           <ion-list lines="none" class="m-0 p-0">
@@ -221,7 +180,7 @@
                 </p>
               </ion-list>
             </ion-item>
-            <!-- <ion-item>
+            <ion-item>
             <div class="col-12 bar_main">
               <div class="progress_bar_container col-10">
                 <div class="progress_bar" [style.width]="progressBar.value * 100 + '%'"></div>
@@ -230,11 +189,11 @@
                 {{ progressBar.value * 100 }}%
               </div>
             </div>
-          </ion-item> -->
+          </ion-item>
           </ion-list>
         </ion-card-content>
       </ion-card>
-    </div>
+    </div> -->
   </div>
 </ion-content>
 <app-footer></app-footer>

@@ -99,14 +99,25 @@ export class AuthService {
     );
   }
 
-  getRecentCourses(id: any): Observable<any> {
-    let params = new HttpParams().set('userid', id);
-    console.log(params);
+  getRecentCourses(): Observable<any> {
+    // let params = new HttpParams().set('userid', id);
+    // console.log(params);
 
     return this.http.get(AUTH_API +
-      `webservice/rest/server.php?moodlewsrestformat=json&wsfunction=core_course_get_recent_courses&wstoken=${this.token}`,
-      { params }
+      `webservice/rest/server.php?moodlewsrestformat=json&wsfunction=block_recentlyaccesseditems_get_recent_items&wstoken=${this.token}`,
+      // { params }
     );
+  }
+
+  getRecentCoursesByID(id: any) {
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/x-www-form-urlencoded'
+    });
+    const body = new URLSearchParams({
+      task: 'getModuleInstance',
+      cmid: id
+    }).toString();
+    return this.http.post<any>(AUTH_API + 'webservice/rest/api.php', body, { headers });
   }
 
   getCourses(id: any): Observable<any> {

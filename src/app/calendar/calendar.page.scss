@@ -119,7 +119,7 @@
 .calendar {
   margin-top: 10px;
   transform: scale(1.1);
-  color: #000;
+  // color: #000;
 }
 
 .calendar_hr {
@@ -617,3 +617,9 @@ ion-button[slot="fixed"] {
 }
 
 /* Home css copied end */
+
+@media (prefers-color-scheme: dark) {
+  ion-datetime {
+    background-color: #000; /* Adjust this color as needed */
+  }
+}

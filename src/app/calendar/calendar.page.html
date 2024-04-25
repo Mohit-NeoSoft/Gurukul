@@ -9,35 +9,32 @@
     </div>
     <div class="col-12">
       <h1 class="menu_heading mb-3 text-center">Recently Accessed Items</h1>
-      <div class="card mb-2" *ngFor="let item of recentData">
-        <div class="col-12 card_main" (click)="onCardClick(item)">
-          <div>
-            <ion-img [src]="item.courseimage ? item.courseimage : 'assets/img/images.png'"
-              class="img-fluid rounded-start" alt="Image"></ion-img>
-          </div>
-          <div class="col-10 card_sub">
-            <div class="card_body p-0">
-              <div class="col-12 card_body_sub">
-                <h5 class="card_displayname">
-                  {{ item.fullname }}
-                </h5>
-                <!-- <ion-img src="assets/icon/download.svg" alt="" (click)="onDownload($event)"></ion-img> -->
-              </div>
-              <p class="card_text_badge">
-                Course
-              </p>
-              <div class="col-12 bar_main">
-                <div class="progress_bar_container col-10">
-                  <div class="progress_bar" [style.width]="item.progress + '%'"></div>
-                </div>
-                <div class="percentage_display col-2">
-                  {{ item.progress | number:'1.0-2' }}%
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <ion-card class="card" *ngFor="let item of recentData; let i = index;" (click)="onRecentCardClick(item)">
+        <ion-card-content class="m-0 p-0">
+          <ion-list lines="none" class="m-0 p-0">
+            <ion-item class="m-0 p-0">
+              <ion-thumbnail slot="start" class="img-fluid rounded-start">
+                <img [src]="(item.icon | srcExtractor) ? (item.icon | srcExtractor) : 'assets/img/images.png'"
+                 alt="Image"/>
+              </ion-thumbnail>
+              <ion-list class="col-12">
+                <ion-label class="mb-2 card_displayname"> {{ item.coursename | replaceAmp }}</ion-label>
+                <ion-label class="card_text_badge mb-2">
+                  Course
+                </ion-label>
+                <!-- <div class="col-12 mb-1 bar_main">
+                  <div class="progress_bar_container col-10">
+                    <div class="progress_bar" [style.width]="item.progress + '%'"></div>
+                  </div>
+                  <div class="percentage_display col-2">
+                    {{ item.progress | number:'1.0-2' }}%
+                  </div>
+                </div> -->
+              </ion-list>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
     </div>
   </ion-content>
 </ion-menu>
@@ -49,7 +46,8 @@
   </ion-button>
   <div class="col-12">
     <div class="calendar col-12 d-flex align-items-center justify-content-center">
-      <ion-datetime presentation="date" display-format="DD-MM-YYYY" (ionChange)="onChange($event)"></ion-datetime>
+      <!-- <ion-datetime presentation="date" [highlightedDates]="highlightedDates" display-format="DD-MM-YYYY" (ionChange)="onChange($event)"></ion-datetime> -->
+      <ion-datetime presentation="date" [value]="selectedDate" [highlightedDates]="highlightedDates" (ionChange)="onChange($event)"></ion-datetime>
     </div>
     <hr class="calendar_hr" />
     <div class="ion-padding">
@@ -60,7 +58,7 @@
             <p class="header_sub">TO DO</p>
           </div>
           <p class="header_sub">
-            {{ selectedDate }}
+            {{ cardDate }}
           </p>
         </div>
         <ion-list lines="none" *ngIf="calendarData && calendarData.length > 0">
@@ -75,8 +73,10 @@
                     <ion-card class="card mb-2" *ngFor="let event of day.events">
                       <ion-card-content class="m-0 p-0">
                         <ion-list lines="none">
-                          <ion-item *ngIf="event.name">
-                            <ion-label><b>{{ event.name }}</b></ion-label>
+                          <ion-item>
+                            <ion-label *ngIf="event.name"><b>{{ event.name }}</b></ion-label>
+                            <ion-icon *ngIf="event.location" color="primary" slot="end" name="chevron-forward-sharp" (click)="onLink(event.location)"></ion-icon>
+                            <!-- <ion-label><a (click)="onLink(event.location)" class="profile_link"></a></ion-label> -->
                           </ion-item>
                           <ion-item *ngIf="event.normalisedeventtypetext">
                             <ion-label>{{ event.normalisedeventtypetext }}</ion-label>
@@ -84,9 +84,10 @@
                           <ion-item *ngIf="event.description">
                             <ion-label [innerHTML]="event.description"></ion-label>
                           </ion-item>
-                          <ion-item *ngIf="event.location">
-                            <ion-label><a (click)="onLink(event.location)" class="profile_link">{{ event.location }}</a></ion-label>
-                          </ion-item>
+                          <!-- <ion-item *ngIf="event.location">
+                            <ion-label><a (click)="onLink(event.location)" class="profile_link">{{ event.location
+                                }}</a></ion-label>
+                          </ion-item> -->
                         </ion-list>
                       </ion-card-content>
                     </ion-card>

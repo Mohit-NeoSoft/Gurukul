@@ -169,6 +169,8 @@ export class LoginPage implements OnInit {
       const otp = this.otpLoginForm.get('otp')?.value;
       this.authService.loginViaOtp(phone, otp).subscribe({
         next: async (res) => {
+          console.log(res);
+          
           if (res.result === "error") {
             this.presentToast(res.result, 'danger');
           }
